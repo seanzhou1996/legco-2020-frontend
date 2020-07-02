@@ -1,0 +1,174 @@
+{
+  "constituencies": [
+    {
+      "id": "hki",
+      "type": "gc",
+      "name": "香港島"
+    },
+    {
+      "id": "klnw",
+      "type": "gc",
+      "name": "九龍西"
+    },
+    {
+      "id": "klne",
+      "type": "gc",
+      "name": "九龍東"
+    },
+    {
+      "id": "ntw",
+      "type": "gc",
+      "name": "新界西"
+    },
+    {
+      "id": "nte",
+      "type": "gc",
+      "name": "新界東"
+    },
+    {
+      "id": "hyk",
+      "type": "fc",
+      "name": "鄉議局"
+    },
+    {
+      "id": "af",
+      "type": "fc",
+      "name": "漁農界"
+    },
+    {
+      "id": "insu",
+      "type": "fc",
+      "name": "保險界"
+    },
+    {
+      "id": "tran",
+      "type": "fc",
+      "name": "航運交通界"
+    },
+    {
+      "id": "edu",
+      "type": "fc",
+      "name": "教育界"
+    },
+    {
+      "id": "leg",
+      "type": "fc",
+      "name": "法律界"
+    },
+    {
+      "id": "acc",
+      "type": "fc",
+      "name": "會計界"
+    },
+    {
+      "id": "med",
+      "type": "fc",
+      "name": "醫學界"
+    },
+    {
+      "id": "hs",
+      "type": "fc",
+      "name": "衞生服務界"
+    },
+    {
+      "id": "eng",
+      "type": "fc",
+      "name": "工程界"
+    },
+    {
+      "id": "aspl",
+      "type": "fc",
+      "name": "建築、測量、都市規劃及園境界"
+    },
+    {
+      "id": "labr",
+      "type": "fc",
+      "name": "勞工界"
+    },
+    {
+      "id": "sw",
+      "type": "fc",
+      "name": "社會福利界"
+    },
+    {
+      "id": "rec",
+      "type": "fc",
+      "name": "地產及建造界"
+    },
+    {
+      "id": "tour",
+      "type": "fc",
+      "name": "旅遊界"
+    },
+    {
+      "id": "com1",
+      "type": "fc",
+      "name": "商界（第一）"
+    },
+    {
+      "id": "com2",
+      "type": "fc",
+      "name": "商界（第二）"
+    },
+    {
+      "id": "ind1",
+      "type": "fc",
+      "name": "工業界（第一）"
+    },
+    {
+      "id": "ind2",
+      "type": "fc",
+      "name": "工業界（第二）"
+    },
+    {
+      "id": "fin",
+      "type": "fc",
+      "name": "金融界"
+    },
+    {
+      "id": "fs",
+      "type": "fc",
+      "name": "金融服務界"
+    },
+    {
+      "id": "spcp",
+      "type": "fc",
+      "name": "體育、演藝、文化及出版界"
+    },
+    {
+      "id": "ie",
+      "type": "fc",
+      "name": "進出口界"
+    },
+    {
+      "id": "tg",
+      "type": "fc",
+      "name": "紡織及製衣界"
+    },
+    {
+      "id": "wr",
+      "type": "fc",
+      "name": "批發及零售界"
+    },
+    {
+      "id": "it",
+      "type": "fc",
+      "name": "資訊科技界"
+    },
+    {
+      "id": "cat",
+      "type": "fc",
+      "name": "飲食界"
+    },
+    {
+      "id": "dc",
+      "type": "fc",
+      "name": "區議會（第一）"
+    },
+    {
+      "id": "ds",
+      "type": "fc",
+      "name": "區議會（第二）"
+    }
+  ]
+}
