@@ -1,0 +1,26 @@
+%legco-link {
+  $font-family: $legco-font-family;
+  @include legco-media-query($media-type: print) {
+    $font-family: $legco-font-family-print;
+  }
+  @include legco-link-style-default;
+
+  &:focus {
+    @include legco-focused-text;
+  }
+}
+
+.legco-link {
+  @extend %legco-link;
+}
+
+// Variant classes should be used in conjunction with the `.legco-link`
+// class.
+
+.legco-link--muted {
+  @include legco-link-style-muted;
+}
+
+.legco-link--text-color {
+  @include legco-link-style-text;
+}

@@ -1,0 +1,17 @@
+.legco-grid-row {
+  @include legco-clearfix;
+  margin-right: - $legco-gutter / 2;
+  margin-left: - $legco-gutter / 2;
+}
+
+@each $width in map-keys($legco-grid-widths) {
+  .legco-grid-column-#{$width} {
+    @include legco-grid-column($width);
+  }
+}
+
+@each $width in map-keys($legco-grid-widths) {
+  .legco-grid-column-#{$width}-desktop {
+    @include legco-grid-column($width, $at: desktop);
+  }
+}

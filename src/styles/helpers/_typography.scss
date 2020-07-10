@@ -1,0 +1,22 @@
+////
+/// @group helpers/typography
+////
+
+/// Line height conversion
+///
+/// Converts line heights specified in pixels into a relative value, unless
+/// they are already unit-less (and thus treated as relative values) or
+/// the units do not match the units used for the font size.
+///
+/// @param {Number} $line-height - Line height
+/// @param {Number} $font-size - Font size
+///
+/// @access private
+
+@function _legco-convert-line-height($line-height, $font-size) {
+  @if not unitless($line-height) and unit($line-height) == unit($font-size) {
+    @return $line-height / $font-size;
+  } @else {
+    @return $line-height;
+  }
+}

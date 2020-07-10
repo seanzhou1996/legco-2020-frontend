@@ -13,28 +13,28 @@
 /// @type Color
 /// @access public
 
-$legco-brand-color: legco-color("blue") !default;
+$legco-brand-color: legco-get-color("blue") !default;
 
 /// Text color
 ///
 /// @type Color
 /// @access public
 
-$legco-text-color: legco-color("black") !default;
+$legco-text-color: legco-get-color("black") !default;
 
 /// Secondary text color
 ///
 /// @type Color
 /// @access public
 
-$legco-secondary-text-color: legco-color("dark-grey") !default;
+$legco-secondary-text-color: legco-get-color("dark-grey") !default;
 
 /// Body background color
 ///
 /// @type Color
 /// @access public
 
-$legco-body-background-color: legco-color("white") !default;
+$legco-body-background-color: legco-get-color("white") !default;
 
 /// Canvas background color
 ///
@@ -44,7 +44,7 @@ $legco-body-background-color: legco-color("white") !default;
 /// @type Color
 /// @access public
 
-$legco-canvas-background-color: legco-color("light-grey") !default;
+$legco-canvas-background-color: legco-get-color("light-grey") !default;
 
 /// Text color for print media
 ///
@@ -63,7 +63,7 @@ $legco-print-text-color: #000000 !default;
 /// @type Color
 /// @access public
 
-$legco-focus-color: legco-color("yellow") !default;
+$legco-focus-color: legco-get-color("yellow") !default;
 
 /// Focused text color
 ///
@@ -72,7 +72,7 @@ $legco-focus-color: legco-color("yellow") !default;
 /// @type Color
 /// @access public
 
-$legco-focus-text-color: legco-color("black") !default;
+$legco-focus-text-color: legco-get-color("black") !default;
 
 /// Error color
 ///
@@ -81,7 +81,7 @@ $legco-focus-text-color: legco-color("black") !default;
 /// @type Color
 /// @access public
 
-$legco-error-color: legco-color("red") !default;
+$legco-error-color: legco-get-color("red") !default;
 
 /// Border color
 ///
@@ -90,7 +90,7 @@ $legco-error-color: legco-color("red") !default;
 /// @type Color
 /// @access public
 
-$legco-border-color: legco-color("mid-grey");
+$legco-border-color: legco-get-color("mid-grey");
 
 /// Input border color
 ///
@@ -99,7 +99,7 @@ $legco-border-color: legco-color("mid-grey");
 /// @type Color
 /// @access public
 
-$legco-input-border-color: legco-color("black") !default;
+$legco-input-border-color: legco-get-color("black") !default;
 
 /// Input hover color
 ///
@@ -108,7 +108,7 @@ $legco-input-border-color: legco-color("black") !default;
 /// @type Color
 /// @access public
 
-$legco-hover-color: legco-color("mid-grey") !default;
+$legco-hover-color: legco-get-color("mid-grey") !default;
 
 // =================================================================
 // Links colors
@@ -119,25 +119,25 @@ $legco-hover-color: legco-color("mid-grey") !default;
 /// @type Color
 /// @access public
 
-$legco-link-color: legco-color("blue") !default;
+$legco-link-color: legco-get-color("blue") !default;
 
 /// Visited link color
 ///
 /// @type Color
 /// @access public
 
-$legco-link-visited-color: legco-color("purple") !default;
+$legco-link-visited-color: legco-get-color("purple") !default;
 
 /// Link hover color
 ///
 /// @type Color
 /// @access public
 
-$legco-link-hover-color: legco-color("dark-blue") !default;
+$legco-link-hover-color: legco-get-color("dark-blue") !default;
 
 /// Active link color
 ///
 /// @type Color
 /// @access public
 
-$legco-link-active-color: legco-color("black") !default;
+$legco-link-active-color: legco-get-color("black") !default;

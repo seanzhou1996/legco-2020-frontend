@@ -1,0 +1,56 @@
+%legco-list {
+  color: $legco-text-color;
+  @include legco-media-query($media-type: print) {
+    color: $legco-print-text-color;
+  }
+  @include legco-responsive-typography($size: 19);
+
+  margin-top: 0;
+  @include legco-responsive-margin(4, "bottom");
+  padding-left: 0;
+  
+  list-style-type: none;
+
+  // Add a top margin for nested lists
+  %legco-list {
+    margin-top: legco-get-space(2);
+  }
+}
+
+%legco-list > li {
+  // Lists without numeric or bullet markers should have extra space between
+  // list items.
+  margin-bottom: legco-get-space(1);
+}
+
+.legco-list {
+  @extend %legco-list;
+}
+
+%legco-list--bullet {
+  padding-left: legco-get-space(4);
+  list-style-type: disc;
+}
+
+%legco-list--number {
+  padding-left: legco-get-space(4);
+  list-style-type: decimal;
+}
+
+%legco-list--bullet > li,
+%legco-list--number > li {
+  // numbered and bullet list items have extra vertical margin on tablets and
+  // desktops, but not on mobile devices
+  margin-bottom: 0;
+  @include legco-media-query($from: tablet) {
+    margin-bottom: legco-get-space(1);
+  }
+}
+
+.legco-list--bullet {
+  @extend %legco-list--bullet;
+}
+
+.legco-list--number {
+  @extend %legco-list--number;
+}
