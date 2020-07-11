@@ -1,0 +1,33 @@
+/// Width container mixin
+///
+/// Used to create page width and custom width container classes
+///
+/// @param {String} $width [$legco-page-width] - Width in pixels
+///
+/// @example scss - Creating a 1200px wide container class
+///   .app-width-container--wide {
+///     @include legco-width-container(1200px);
+///   }
+///
+/// @access public
+
+@mixin legco-width-container($width: $legco-page-width) {
+  max-width: $width;
+
+  // On mobile, add half width gutters
+  margin-left: $legco-gutter / 2;
+  margin-right: $legco-gutter / 2;
+
+  // On tablet, add full width gutters
+  @include legco-media-query($from: tablet) {
+    margin-left: $legco-gutter;
+    margin-right: $legco-gutter;
+  }
+
+  // As soon as the viewport is greater than the container width plus the gutters, 
+  // center the content instead of adding gutters
+  @include legco-media-query($and: "(min-width: #{ $width + $legco-gutter * 2 })") {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

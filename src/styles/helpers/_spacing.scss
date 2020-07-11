@@ -1,0 +1,28 @@
+////
+/// @group helpers/layout
+////
+
+/// Single point spacing
+///
+/// Returns measurement corresponding to the given spacing point
+///
+/// @param {Number} $spacing-point - Point on the spacing scale set in `$legco-spacing-points`
+/// @return {String} Spacing measurement e.g. 10px
+/// @example scss
+///   .element {
+///     padding: legco-get-space(5);
+///   }
+/// @access public
+
+@function legco-get-space($spacing-point) {
+  $actual-input-type: type-of($spacing-point);
+  @if $actual-input-type != "number" {
+    @error "Expect a integer, but got a #{$actual-input-type}.";
+  }
+
+  @if not map-has-key($legco-spacing-points, $spacing-point) {
+    @error "Unknown spacing variable: `#{$spacing-point}`.";
+  }
+
+  @return map-get($legco-spacing-points, $spacing-point);
+}

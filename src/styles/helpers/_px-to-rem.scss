@@ -1,0 +1,19 @@
+////
+/// @group helpers/typography
+////
+
+/// Pixel-to-rem conversion
+///
+/// You must configure `$legco-root-font-size` in order to use this function.
+///
+/// @param {Number} $value - Length in pixels
+/// @return {Number} - Length in rems
+/// @access public
+
+@function legco-px-to-rem($value) {
+  @if unitless($value) {
+    $value: $value * 1px;
+  }
+
+  @return $value / $legco-root-font-size * 1rem;
+}

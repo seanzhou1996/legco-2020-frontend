@@ -1,0 +1,65 @@
+/// Responsive typography helper
+///
+/// Takes a font map to create font size and line height declaration for
+/// different breakpoints, and for print.
+///
+/// Example font map
+///
+/// $my-font-map: (
+///   null: (
+///     font-size: 16px,
+///     line-height: 20px
+///   ),
+///   tablet: (
+///     font-size: 19px,
+///     line-height: 25px
+///   ),
+///   print: (
+///     font-size: 14pt,
+///     line-height: 1.15
+///   )
+/// );
+///
+/// @param {Map} $font-map - Font map
+///
+/// @access public
+
+@mixin legco-responsive-typography($size) {
+  @if not map-has-key($legco-typography-scale, $size) {
+    @error "Unknown font size: `#{$size}`. Expected a point from the responsive typography scale.";
+  }
+
+  $font-map: map-get($legco-typography-scale, $size);
+
+  @each $breakpoint, $breakpoint-map in $font-map {
+    $font-size: map-get($breakpoint-map, "font-size");
+    $font-size-rem: legco-px-to-rem($font-size);
+    $line-height: _legco-convert-line-height(
+      map-get($breakpoint-map, "line-height"),
+      $font-size
+    );
+
+    @if $breakpoint == null {
+      @if $legco-typography-use-rem {
+        font-size: $font-size-rem;
+      } @else {
+        font-size: $font-size;
+      }
+      line-height: $line-height;
+    } @else if $breakpoint == "print" {
+      @include legco-media-query($media-type: print) {
+        font-size: $font-size;
+        line-height: $line-height;
+      }
+    } @else {
+      @include legco-media-query($from: $breakpoint) {
+        @if $legco-typography-use-rem {
+          font-size: $font-size-rem;
+        } @else {
+          font-size: $font-size;
+        }
+        line-height: $line-height;  
+      }
+    }
+  }
+}
