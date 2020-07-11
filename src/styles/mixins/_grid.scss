@@ -1,0 +1,39 @@
+/// Generate grid system styles
+///
+/// Creates a grid column with standard gutter and specified width.
+///
+/// By default the column width changes from 100% to specified width at the
+/// `tablet` breakpoint, but other breakpoints can be specified using the `$at`
+/// parameter.
+///
+/// @param {String} $width [full] - Name of a grid width from `$legco-grid-widths`
+/// @param {String} $float [left] - Float direction
+/// @param {String} $float [tablet] - mobile | tablet | desktop | any custom breakpoints
+///
+/// @example scss - Default
+///   .legco-grid-column-two-thirds {
+///      @include legco-grid-column(two-thirds);
+///   }
+///
+/// @example scss - Column width changes at the `desktop` breakpoint
+///   .legco-grid-column-one-half-at-desktop {
+///     @include legco-grid-column(one-half, $at: desktop);
+///   }
+/// @example scss - Columns float to the right
+///   .legco-grid-column-one-half-right {
+///     @include legco-grid-column(one-half, $float: right);
+///   }
+///
+/// @access public
+
+@mixin legco-grid-column($width: full, $float: left, $at: tablet) {
+  box-sizing: border-box;
+  @if $at != desktop {
+    width: 100%;
+  }
+  padding: 0 $legco-gutter / 2;
+  @include legco-media-query($from: $at) {
+    width: legco-get-grid-width-in-percentage($width);
+    float: $float;
+  }
+}

@@ -1,0 +1,186 @@
+////
+/// @group settings/measurements
+////
+
+// =================================================================
+// Media query breakpoints
+// =================================================================
+
+/// Breakpoint definitions
+///
+/// @type Map
+/// @access public
+
+$legco-breakpoints: (
+  mobile: 320px,
+  tablet: 641px,
+  desktop: 769px
+) !default;
+
+// =================================================================
+// Spacing
+// =================================================================
+
+/// Single point spacing variables. Access using `legco-get-space()`.
+///
+/// @type Map
+/// @access private
+
+$legco-spacing-points: (
+  0: 0,
+  1: 5px,
+  2: 10px,
+  3: 15px,
+  4: 20px,
+  5: 25px,
+  6: 30px,
+  7: 40px,
+  8: 50px,
+  9: 60px
+) !default;
+
+/// Responsive spacing map
+///
+/// Used for generating responsive spacing that adapts
+/// according to the media query breakpoints.
+///
+/// Access responsive spacing with `legco-responsive-margin` or
+/// `legco-responsive-padding` mixins.
+///
+/// @type Map
+/// @access private
+
+$legco-spacing-responsive-scale: (
+  0: (
+    null: 0,
+    tablet: 0
+  ),
+  1: (
+    null: 5px,
+    tablet: 5px
+  ),
+  2: (
+    null: 10px,
+    tablet: 10px
+  ),
+  3: (
+    null: 15px,
+    tablet: 15px
+  ),
+  4: (
+    null: 15px,
+    tablet: 20px
+  ),
+  5: (
+    null: 15px,
+    tablet: 25px
+  ),
+  6: (
+    null: 20px,
+    tablet: 30px
+  ),
+  7: (
+    null: 25px,
+    tablet: 40px
+  ),
+  8: (
+    null: 30px,
+    tablet: 50px
+  ),
+  9: (
+    null: 40px,
+    tablet: 60px
+  )
+) !default;
+
+// =================================================================
+// Page layout
+// =================================================================
+
+/// Width of main container
+///
+/// @type Number
+/// @access public
+
+$legco-page-width: 960px !default;
+
+/// Map of grid column widths
+///
+/// @type Map
+/// @access public
+
+$legco-grid-widths: (
+  one-quarter: 25%,
+  one-third: 33.3333%,
+  one-half: 50%,
+  two-thirds: 66.6666%,
+  three-quarters: 75%,
+  full: 100%
+) !default;
+
+/// Width of gutter between grid columns
+///
+/// @type Number
+/// @access public
+
+$legco-gutter: 30px !default;
+
+// =================================================================
+// Borders
+// =================================================================
+
+/// Standard border width
+///
+/// @type Number
+/// @access public
+
+$legco-border-width: 5px !default;
+
+/// Wide border width
+///
+/// @type Number
+/// @access public
+
+$legco-border-width-wide: 10px !default;
+
+/// Narrow border width
+///
+/// @type Number
+/// @access public
+
+$legco-border-width-narrow: 4px !default;
+
+/// Form control border width
+///
+/// @type Number
+/// @access public
+
+$legco-border-width-form-element: 2px !default;
+
+/// Form control border width when in error state
+///
+/// @type Number
+/// @access public
+
+$legco-border-width-form-element-error: 4px !default;
+
+/// Form group border width when in error state
+///
+/// @type Number
+/// @access public
+
+$legco-border-width-form-group-error: $legco-border-width !default;
+
+/// Border width of focus outline
+///
+/// @type Number
+/// @access public
+
+$legco-focus-width: 3px !default;
+
+/// Hover width for form controls with a hover state
+///
+/// @type Number
+/// @access public
+
+$legco-hover-width: 10px !default;

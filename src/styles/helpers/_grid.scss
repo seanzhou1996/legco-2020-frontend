@@ -1,0 +1,18 @@
+////
+/// @group helpers/layout
+////
+
+/// Grid width percentage
+///
+/// @param {String} $key - Name of grid width (e.g. two-thirds)
+/// @return {Number} Percentage width
+/// @throw if `$key` is not a valid grid width
+/// @access public
+
+@function legco-get-grid-width-in-percentage($key) {
+  @if map-has-key($legco-grid-widths, $key) {
+    @return map-get($legco-grid-widths, $key);
+  }
+
+  @error "Unknown grid width: `#{$key}`";
+}

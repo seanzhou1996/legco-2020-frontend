@@ -1,0 +1,14 @@
+/// Focused text
+///
+/// Provides an outline to clearly show when the target element is focused.
+/// Used for interactive text-based elements.
+///
+/// @access public
+
+@mixin legco-focused-text {
+  outline: $legco-focus-color solid transparent;
+  color: $legco-focus-text-color;
+  background-color: $legco-focus-color;
+  box-shadow: 0 -2px $legco-focus-color, 0 4px $legco-focus-text-color;
+  text-decoration: none;
+}

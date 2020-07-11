@@ -1,0 +1,62 @@
+/// Link styles
+/// Provides the default link styles for normal, visited, hover, and active states.
+///
+/// @example scss
+///   .legco-component__link {
+///     @include legco-link-style;
+///   }
+///
+/// @access public
+
+@mixin legco-link-style-default {
+  &:link {
+    color: $legco-link-color;
+  }
+  &:visited {
+    color: $legco-link-visited-color;
+  }
+  &:hover {
+    color: $legco-link-hover-color;
+  }
+  &:active {
+    color: $legco-link-active-color;
+  }
+  &:focus {
+    color: $legco-focus-text-color;
+  }
+}
+
+/// Muted link styles
+///
+/// Used for secondary links, which appear in muted colors regardless of visited states.
+///
+/// @access public
+
+@mixin legco-link-style-muted {
+  &:link,
+  &:visited,
+  &:hover,
+  &:active {
+    color: $legco-secondary-text-color;
+  }
+
+  &:focus {
+    color: $legco-focus-text-color;
+  }
+}
+
+/// Links that look like text
+///
+/// Used by navigation components, such as breadscrumbs and the back list.
+///
+/// @access public
+
+@mixin legco-link-style-text {
+  &:link,
+  &:visited,
+  &:hover,
+  &:active,
+  &:focus {
+    color: $legco-text-color;
+  }
+}
