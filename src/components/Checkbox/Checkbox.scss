@@ -1,0 +1,128 @@
+@import '../../styles/base';
+
+$legco-touch-target-size: 44px;
+$legco-checkbox-size: 40px;
+$legco-checkbox-label-padding-left-right: legco-get-space(3);
+
+.legco-checkbox-group {
+  padding: 0;
+}
+
+.legco-checkbox {
+  // since the actual checkbox has absolute positioning, container needs
+  // `position: relative`
+  position: relative;
+  margin-bottom: legco-get-space(2);
+  // create space for the the actual checkbox
+  padding-left: $legco-checkbox-size;
+  min-height: $legco-checkbox-size;
+
+  // font size and line height
+  @include legco-responsive-typography($size: 19);
+
+  // text color
+  color: $legco-text-color;
+  @include legco-media-query($media-type: print) {
+    color: $legco-print-text-color;
+  }
+
+  &:last-child,
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.legco-checkbox__input {
+  // Hide the native checkbox
+  opacity: 0;
+
+  // Since touch target size is slightly larger than the actual checkbox size,
+  // we need negative top, left distance to offset the difference
+  $input-offset: ($legco-touch-target-size - $legco-checkbox-size) / 2;
+
+  position: absolute;
+  top: $input-offset * -1;
+  left: $input-offset * -1;
+
+  margin: 0;
+
+  width: $legco-touch-target-size;
+  height: $legco-touch-target-size;
+
+  cursor: pointer;
+}
+
+.legco-checkbox__label {
+  float: left;
+  padding-left: $legco-checkbox-label-padding-left-right;
+  padding-right: $legco-checkbox-label-padding-left-right;
+
+  // Set vertical alignment
+  height: $legco-checkbox-size;
+  line-height: $legco-checkbox-size;
+
+  cursor: pointer;
+  // remove 300ms pause on mobile
+  touch-action: manipulation;
+}
+
+// The actual checkbox
+.legco-checkbox__label::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: $legco-checkbox-size;
+  height: $legco-checkbox-size;
+  border: $legco-border-width-form-element solid currentColor;
+  background: transparent;
+}
+
+// ✔ Check mark
+//
+// The check mark is a box with a border on the left and bottom side (|____)
+// rotated 45 degrees
+.legco-checkbox__label::after {
+  box-sizing: content-box;
+
+  $legco-check-mark-width: 18px;
+  $legco-check-mark-height: 7px;
+  content: "";
+
+  // Position check mark to the center of the actual checkbox
+  //
+  // Check mark has a full width of `$legco-check-mark-width + $legco-border-width` and
+  // a full height of `$legco-check-mark-height + $legco-border-width`.
+  //
+  // We want the long edge to go through the center point of the actual checkbox, so we
+  // multiply the height by 2 to offset the effects of short edge on vertical position.
+  position: absolute;
+  top: ($legco-checkbox-size - $legco-check-mark-height * 2 - $legco-border-width) / 2;
+  left: ($legco-checkbox-size - $legco-check-mark-width - $legco-border-width) / 2;
+
+  width: $legco-check-mark-width;
+  height: $legco-check-mark-height;
+
+  transform: rotate(-45deg);
+  border: solid;
+  border-width: 0 0 $legco-border-width $legco-border-width;
+
+  // Fix bug in IE11 caused by transform rotate (-45deg).
+  border-top-color: transparent;
+
+  // Checkbox is unchecked by default
+  opacity: 0;
+
+  background: transparent;
+}
+
+// Focused state
+.legco-checkbox__input:focus + .legco-checkbox__label::before {
+  border-width: 4px;
+  box-shadow: 0 0 0 $legco-focus-width $legco-focus-color;
+}
+
+// Selected state
+.legco-checkbox__input:checked + .legco-checkbox__label::after {
+  opacity: 1;
+}
