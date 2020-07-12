@@ -1,0 +1,126 @@
+@import '../../styles/base';
+
+// Deprecated
+//
+// Used for getting line height of the header text
+// @function get-responsive-line-height($scale, $media: null) {
+//   $responsive-font-map: map-get($legco-typography-scale, $scale);
+//   $font-map: map-get($responsive-font-map, $media);
+//   $line-height: map-get($font-map, "line-height");
+
+//   @return $line-height;
+// }
+
+$legco-expander-header-font-scale: 19;
+
+$legco-expander-button-color: $legco-link-color;
+$legco-expander-button-hover-color: legco-get-color("light-blue");
+
+$legco-expander-content-offset-left: legco-get-space(2);
+
+$legco-expander-icon-size: 30px;
+
+// Wrapper
+.legco-expander {
+  border-top: 1px solid $legco-border-color;
+  &:last-child,
+  &:last-of-type {
+    border-bottom: 1px solid $legco-border-color;
+  }
+}
+.legco-expander__header {
+  position: relative;
+  @include legco-responsive-padding(3, "top");
+  @include legco-responsive-padding(3, "bottom");
+  // Make space for the icon and content offset
+  padding-left: $legco-expander-content-offset-left + $legco-expander-icon-size + legco-get-space(2);
+}
+.legco-expander__button {
+  display: inline-block;
+  // Remove default button styles
+  margin: 0;
+  padding: 0;
+  border-width: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+
+  // Font size and line height
+  @include legco-responsive-typography($legco-expander-header-font-scale);
+
+  color: $legco-expander-button-color;
+  @include legco-media-query($media-type: print) {
+    color: $legco-print-text-color;
+  }
+
+  &:hover {
+    color: $legco-expander-button-hover-color;
+    text-decoration: underline;
+  }
+
+  // For devices that can't hover (e.g. cell phones),
+  // remove hover state as it can get stuck in that state.
+  @media (hover: none) {
+    &:hover {
+      color: $legco-expander-button-color;
+      text-decoration: none;
+    }
+  }
+
+  &:focus {
+    @include legco-focused-text;
+  }
+
+  &:hover:not(:focus) {
+    text-decoration: underline;
+  }
+
+  // Remove default button focus outline in Firefox
+  &::-moz-focus-inner {
+    padding: 0;
+    margin: 0;
+  }
+
+  // Extend the touch area of the button to span the entire header
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.legco-expander__icon {
+  position: absolute;
+  
+  // Three steps to center the icon vertically:
+  // 1. Make sure the height is set;
+  // 2. Shift the icon from the header's top edge by 50%;
+  // 3. Apply a negative top margin to offset the icon size.
+  top: 50%;
+  margin-top: - $legco-expander-icon-size / 2;
+  height: $legco-expander-icon-size;
+
+  width: $legco-expander-icon-size;
+
+  // Apply the offset to align with content
+  left: $legco-expander-content-offset-left;
+
+  // Put icon under the button overlay
+  z-index: -1;
+}
+
+.legco-expander__content {
+  // Content is hidden by default
+  display: none;
+
+  padding-left: $legco-expander-content-offset-left;
+  // Add space between content and the bottom border
+  @include legco-responsive-padding(3, "bottom");
+}
+
+.legco-expander--expanded > .legco-expander__content {
+  display: block;
+}
