@@ -7,13 +7,18 @@ export interface CheckboxProps {
   name: string,
   label: string,
   checked: boolean,
+  size?: 'normal' | 'small',
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 class Checkbox extends React.Component<CheckboxProps> {
   render() {
+    const classList = [ 'legco-checkbox' ];
+    if (this.props.size === 'small') {
+      classList.push('legco-checkbox--small');
+    }
     return (
-      <div className="legco-checkbox">
+      <div className={ classList.join(' ') }>
         <input 
           className="legco-checkbox__input"
           type="checkbox" 
