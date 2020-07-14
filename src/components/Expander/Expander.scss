@@ -1,24 +1,13 @@
 @import '../../styles/base';
 
-// Deprecated
-//
-// Used for getting line height of the header text
-// @function get-responsive-line-height($scale, $media: null) {
-//   $responsive-font-map: map-get($legco-typography-scale, $scale);
-//   $font-map: map-get($responsive-font-map, $media);
-//   $line-height: map-get($font-map, "line-height");
+$expander-header-font-scale: 19;
 
-//   @return $line-height;
-// }
+$expander-button-color: $legco-link-color;
+$expander-button-hover-color: legco-get-color("light-blue");
 
-$legco-expander-header-font-scale: 19;
+$expander-content-offset: legco-get-space(2);
 
-$legco-expander-button-color: $legco-link-color;
-$legco-expander-button-hover-color: legco-get-color("light-blue");
-
-$legco-expander-content-offset-left: legco-get-space(2);
-
-$legco-expander-icon-size: 30px;
+$expander-icon-size: 30px;
 
 // Wrapper
 .legco-expander {
@@ -28,13 +17,17 @@ $legco-expander-icon-size: 30px;
     border-bottom: 1px solid $legco-border-color;
   }
 }
+
+// Header
 .legco-expander__header {
   position: relative;
   @include legco-responsive-padding(3, "top");
   @include legco-responsive-padding(3, "bottom");
   // Make space for the icon and content offset
-  padding-left: $legco-expander-content-offset-left + $legco-expander-icon-size + legco-get-space(2);
+  padding-left: $expander-content-offset + $expander-icon-size + legco-get-space(2);
 }
+
+// Button
 .legco-expander__button {
   display: inline-block;
   // Remove default button styles
@@ -46,15 +39,15 @@ $legco-expander-icon-size: 30px;
   -webkit-appearance: none;
 
   // Font size and line height
-  @include legco-responsive-typography($legco-expander-header-font-scale);
+  @include legco-responsive-typography($expander-header-font-scale);
 
-  color: $legco-expander-button-color;
+  color: $expander-button-color;
   @include legco-media-query($media-type: print) {
     color: $legco-print-text-color;
   }
 
   &:hover {
-    color: $legco-expander-button-hover-color;
+    color: $expander-button-hover-color;
     text-decoration: underline;
   }
 
@@ -62,7 +55,7 @@ $legco-expander-icon-size: 30px;
   // remove hover state as it can get stuck in that state.
   @media (hover: none) {
     &:hover {
-      color: $legco-expander-button-color;
+      color: $expander-button-color;
       text-decoration: none;
     }
   }
@@ -92,6 +85,7 @@ $legco-expander-icon-size: 30px;
   }
 }
 
+// Icon in the header
 .legco-expander__icon {
   position: absolute;
   
@@ -100,27 +94,34 @@ $legco-expander-icon-size: 30px;
   // 2. Shift the icon from the header's top edge by 50%;
   // 3. Apply a negative top margin to offset the icon size.
   top: 50%;
-  margin-top: - $legco-expander-icon-size / 2;
-  height: $legco-expander-icon-size;
+  margin-top: - $expander-icon-size / 2;
+  height: $expander-icon-size;
 
-  width: $legco-expander-icon-size;
+  width: $expander-icon-size;
 
   // Apply the offset to align with content
-  left: $legco-expander-content-offset-left;
+  left: $expander-content-offset;
 
   // Put icon under the button overlay
   z-index: -1;
 }
 
+// When expander is open, reverse icon direction
+.legco-expander--expanded .legco-expander__icon {
+  transform: rotate(-180deg);
+}
+
+// Content
 .legco-expander__content {
   // Content is hidden by default
   display: none;
 
-  padding-left: $legco-expander-content-offset-left;
+  padding-left: $expander-content-offset;
   // Add space between content and the bottom border
   @include legco-responsive-padding(3, "bottom");
 }
 
-.legco-expander--expanded > .legco-expander__content {
+// When expander is open, reveal content
+.legco-expander--expanded .legco-expander__content {
   display: block;
 }
