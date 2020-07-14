@@ -2,10 +2,10 @@ import React from 'react';
 
 import './Expander.scss';
 
-import UpArrow from './UpArrow';
 import DownArrow from './DownArrow';
 
 interface ExpanderProps {
+  // Title of the expander item
   title: string
 }
 
@@ -29,25 +29,28 @@ class Expander extends React.Component<ExpanderProps, ExpanderState> {
     });
   }
   render() {
-    const expanderClassList = [
-      'legco-expander'
-    ];
-    if (this.state.expanded) {
-      expanderClassList.push('legco-expander--expanded');
-    }
+    const expanderClass = [
+        'legco-expander',
+        this.state.expanded ? 'legco-expander--expanded' : null
+      ]
+      .join(' ')
+      .trim();
+
     return (
-      <div className={ expanderClassList.join(' ') }>
+      <div className={ expanderClass }>
         <header className="legco-expander__header" onClick={ this.handleClick }>
           <button type="button" className="legco-expander__button">
             { this.props.title }
           </button>
-          { this.state.expanded ? <UpArrow /> : <DownArrow /> }
+          <i className="legco-expander__icon">
+            <DownArrow />
+          </i>
         </header>
         <div className="legco-expander__content">
           { this.props.children }
         </div>
       </div>
-    )
+    );
   }
 }
 
