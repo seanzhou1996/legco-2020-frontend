@@ -1,3 +1,7 @@
+export interface Props {
+  className?: string
+}
+
 export interface Constituency {
   id: string,
   type: 'gc' | 'fc',

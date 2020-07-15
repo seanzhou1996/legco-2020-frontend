@@ -1,10 +1,11 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import './Expander.scss';
 
-import DownArrow from './DownArrow';
+import { Props } from '../../models';
 
-interface ExpanderProps {
+interface ExpanderProps extends Props {
   // Title of the expander item
   title: string
 }
@@ -29,12 +30,13 @@ class Expander extends React.Component<ExpanderProps, ExpanderState> {
     });
   }
   render() {
-    const expanderClass = [
-        'legco-expander',
-        this.state.expanded ? 'legco-expander--expanded' : null
-      ]
-      .join(' ')
-      .trim();
+    const expanderClass = classNames(
+      ...(this.props.className || '').split(/\s+/g),
+      'legco-expander',
+      {
+        'legco-expander--expanded': this.state.expanded
+      }
+    );
 
     return (
       <div className={ expanderClass }>
@@ -52,6 +54,17 @@ class Expander extends React.Component<ExpanderProps, ExpanderState> {
       </div>
     );
   }
+}
+
+function DownArrow() {
+  return (
+    <svg 
+      version="1.1" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" 
+      aria-hidden="true" 
+      focusable="false">
+        <path d="m225.84 414.16l256 256c16.683 16.683 43.691 16.683 60.331 0l256-256c16.683-16.683 16.683-43.691 0-60.331s-43.691-16.683-60.331 0l-225.84 225.84-225.84-225.84c-16.683-16.683-43.691-16.683-60.331 0s-16.683 43.691 0 60.331z"></path>
+    </svg>
+  );
 }
 
 export default Expander;
