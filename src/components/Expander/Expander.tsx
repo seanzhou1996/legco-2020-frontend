@@ -1,10 +1,11 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import './Expander.scss';
 
-import DownArrow from './DownArrow';
+import { Props } from '../../models';
 
-interface ExpanderProps {
+interface ExpanderProps extends Props {
   // Title of the expander item
   title: string
 }
@@ -29,12 +30,13 @@ class Expander extends React.Component<ExpanderProps, ExpanderState> {
     });
   }
   render() {
-    const expanderClass = [
-        'legco-expander',
-        this.state.expanded ? 'legco-expander--expanded' : null
-      ]
-      .join(' ')
-      .trim();
+    const expanderClass = classNames(
+      ...(this.props.className || '').split(/\s+/g),
+      'legco-expander',
+      {
+        'legco-expander--expanded': this.state.expanded
+      }
+    );
 
     return (
       <div className={ expanderClass }>
