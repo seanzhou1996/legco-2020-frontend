@@ -8,7 +8,7 @@ export interface CheckboxProps {
   label: string,
   checked: boolean,
   size?: 'normal' | 'small',
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  onChange: React.ChangeEventHandler
 }
 
 class Checkbox extends React.Component<CheckboxProps> {
