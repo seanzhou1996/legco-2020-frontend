@@ -5,8 +5,7 @@ $expander-header-font-scale: 19;
 $expander-button-color: $legco-link-color;
 $expander-button-hover-color: legco-get-color("light-blue");
 
-$expander-content-offset: legco-get-space(2);
-
+$expander-icon-offset: legco-get-space(2);
 $expander-icon-size: 30px;
 
 // Wrapper
@@ -21,10 +20,20 @@ $expander-icon-size: 30px;
 // Header
 .legco-expander__header {
   position: relative;
-  @include legco-responsive-padding(3, "top");
-  @include legco-responsive-padding(3, "bottom");
-  // Make space for the icon and content offset
-  padding-left: $expander-content-offset + $expander-icon-size + legco-get-space(2);
+  padding-top: legco-get-space(4);
+  padding-bottom: legco-get-space(4);
+  // 1. Offset for the icon
+  // 2. Space the icon takes up
+  // 3. Space between the icon and the title
+  padding-left: 
+    $expander-icon-offset + // 1.
+    $expander-icon-size + // 2.
+    legco-get-space(2); // 3.
+
+  @include legco-media-query($from: tablet) {
+    padding-top: legco-get-space(5);
+    padding-bottom: legco-get-space(5);  
+  }
 }
 
 // Button
@@ -99,8 +108,8 @@ $expander-icon-size: 30px;
 
   width: $expander-icon-size;
 
-  // Apply the offset to align with content
-  left: $expander-content-offset;
+  // Apply the offset
+  left: $expander-icon-offset;
 
   // Put icon under the button overlay
   z-index: -1;
@@ -115,10 +124,6 @@ $expander-icon-size: 30px;
 .legco-expander__content {
   // Content is hidden by default
   display: none;
-
-  padding-left: $expander-content-offset;
-  // Add space between content and the bottom border
-  @include legco-responsive-padding(3, "bottom");
 }
 
 // When expander is open, reveal content
