@@ -183,6 +183,9 @@ $legco-checkbox-size: 40px;
     // Touch area offset
     $input-offset: ($legco-touch-target-size - $legco-checkbox-size) / 2;
     // Create space for the touch target visual feedback.
+    //
+    // Should there be no left padding, the label would touch the right
+    // edge of the checkbox widget.
     padding-left: $input-offset;
   }
 
