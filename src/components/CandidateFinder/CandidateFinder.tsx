@@ -2,18 +2,18 @@ import React from 'react';
 import axios from 'axios';
 import classnames from 'classnames';
 
-import Checkbox from './Checkbox/Checkbox';
-import Input from './Input';
-import Expander from './Expander/Expander';
-import ExpanderButton from './Expander/ExpanderButton';
-import ExpanderPanel from './Expander/ExpanderPanel';
+import Checkbox from '../Checkbox/Checkbox';
+import Input from '../Input/Input';
+import Expander from '../Expander/Expander';
+import ExpanderButton from '../Expander/ExpanderButton';
+import ExpanderPanel from '../Expander/ExpanderPanel';
 
 import './CandidateFinder.scss';
 
 import {
   Constituency,
   PoliticalPosition 
-} from '../models';
+} from '../../models';
 
 interface CandidateFinderState {
   searchText: string,
