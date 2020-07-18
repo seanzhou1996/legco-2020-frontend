@@ -9,6 +9,6 @@ export interface Constituency {
 }
 
 export interface PoliticalPosition {
-  id: 'dem' | 'est' | 'center' | 'unclear',
+  id: string,
   name: string
 }
