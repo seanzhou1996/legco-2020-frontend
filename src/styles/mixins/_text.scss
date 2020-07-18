@@ -6,7 +6,7 @@
 /// @access public
 
 @mixin legco-focused-text {
-  outline: $legco-focus-color solid transparent;
+  outline: $legco-focus-width solid transparent;
   color: $legco-focus-text-color;
   background-color: $legco-focus-color;
   box-shadow: 0 -2px $legco-focus-color, 0 4px $legco-focus-text-color;

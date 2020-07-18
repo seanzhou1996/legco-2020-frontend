@@ -1,0 +1,23 @@
+/// Hide an element visually, but have it available for screen readers
+///
+/// @access public
+
+@mixin legco-visually-hidden {
+  position: absolute !important;
+  // If margin is set to a negative value it can cause text to be announced in
+  // the wrong order in VoiceOver for OSX.
+  margin: 0 !important;
+  border: 0 !important;
+  padding: 0 !important;
+
+  // Screen readers skip elements with zero width or height so
+  // we use a positive value here.
+  width: 1px !important;
+  height: 1px !important;
+
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+
+  white-space: nowrap;
+}

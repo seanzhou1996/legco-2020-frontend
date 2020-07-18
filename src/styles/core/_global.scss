@@ -1,0 +1,7 @@
+body {
+  font-family: $legco-font-family;
+}
+
+.visually-hidden {
+  @include legco-visually-hidden;
+}
