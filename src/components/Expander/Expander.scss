@@ -120,13 +120,15 @@ $expander-icon-size: 30px;
   transform: rotate(-180deg);
 }
 
-// Content
-.legco-expander__content {
-  // Content is hidden by default
+// Panel
+.legco-expander__panel {
+  // Hide panel by default
   display: none;
+
+  padding-bottom: legco-get-space(1);
 }
 
 // When expander is open, reveal content
-.legco-expander--expanded .legco-expander__content {
+.legco-expander--expanded .legco-expander__panel {
   display: block;
 }
