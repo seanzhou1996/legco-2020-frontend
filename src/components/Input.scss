@@ -1,0 +1,22 @@
+@import '../styles/base';
+
+$legco-input-height: 40px;
+
+.legco-input {
+  display: block;
+  width: 100%;
+
+  border: $legco-border-width-form-element solid $legco-input-border-color;
+  border-radius: 0;
+  @include legco-responsive-padding(1, "all");
+  @include legco-responsive-typography(19);
+
+  appearance: none;
+
+  &:focus {
+    outline: $legco-focus-width solid $legco-focus-color;
+    // Ensure outline appears outside of the element
+    outline-offset: 0;
+    box-shadow: inset 0 0 0 $legco-border-width-form-element;
+  }
+}
