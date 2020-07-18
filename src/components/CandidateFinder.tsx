@@ -4,6 +4,8 @@ import axios from 'axios';
 import ListOfCheckboxes from './ListOfCheckboxes';
 import TextInput from './TextInput';
 
+import './CandidateFinder.scss';
+
 import {
   Constituency,
   PoliticalPosition 
