@@ -1,8 +1,12 @@
 import React from 'react';
 import axios from 'axios';
+import classnames from 'classnames';
 
-import ListOfCheckboxes from './ListOfCheckboxes';
-import TextInput from './TextInput';
+import Checkbox from './Checkbox/Checkbox';
+import Input from './Input';
+import Expander from './Expander/Expander';
+import ExpanderButton from './Expander/ExpanderButton';
+import ExpanderPanel from './Expander/ExpanderPanel';
 
 import './CandidateFinder.scss';
 
@@ -13,6 +17,7 @@ import {
 
 interface CandidateFinderState {
   searchText: string,
+  focused?: boolean,
   isChecked: {
     [propName: string]: boolean
   }
@@ -32,12 +37,8 @@ class CandidateFinder extends React.Component<any, CandidateFinderState> {
       name: '民主派'
     },
     {
-      id: 'center',
-      name: '中間派'
-    },
-    {
-      id: 'unclear',
-      name: '未知'
+      id: 'others',
+      name: '其他'
     }
   ];
 
@@ -47,7 +48,9 @@ class CandidateFinder extends React.Component<any, CandidateFinderState> {
       searchText: '',
       isChecked: {}
     };
-    this.handleSearchTextChange = this.handleSearchTextChange.bind(this);
+    this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
+    this.handleSearchInputFocus = this.handleSearchInputFocus.bind(this);
+    this.handleSearchInputBlur = this.handleSearchInputBlur.bind(this);
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
   }
 
@@ -93,10 +96,22 @@ class CandidateFinder extends React.Component<any, CandidateFinderState> {
     }
   }
 
-  handleSearchTextChange(event: React.ChangeEvent<HTMLInputElement>) {
+  handleSearchInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
     this.setState({
       searchText: value
+    });
+  }
+
+  handleSearchInputFocus() {
+    this.setState({
+      focused: true
+    });
+  }
+
+  handleSearchInputBlur() {
+    this.setState({
+      focused: false
     });
   }
 
@@ -112,57 +127,104 @@ class CandidateFinder extends React.Component<any, CandidateFinderState> {
     });
   }
 
-  createCheckboxes(
-    options: { id: string, name: string }[], 
+  createCheckbox(
+    option: { id: string, name: string }, 
     name: string
   ) {
-    return options.map(opt => ({
-      id: opt.id,
-      label: opt.name,
-      name,
-      checked: this.state.isChecked[opt.id] || false,
-      onCheckboxChange: this.handleCheckboxChange
-    }));
+    return (
+      <Checkbox 
+        key={ option.id }
+        id={ option.id }
+        label={ option.name }
+        name={ name }
+        checked={ this.state.isChecked[option.id] || false }
+        size={ 'small' }
+        onChange={ this.handleCheckboxChange } />
+    );
   }
 
   render() {
-    const checkboxes_1 = this.createCheckboxes(
-      this.geographicalConstituencies,
-      'constituencies'
-    );
-    const checkboxes_2 = this.createCheckboxes(
-      this.functionalConstituencies,
-      'constituencies'
-    );
-    const checkboxes_3 = this.createCheckboxes(
-      this.politicalPositions,
-      'political_positions'
-    );
+    const checkboxes1 = this.geographicalConstituencies.map(obj => {
+      return this.createCheckbox(obj, 'constituencies');
+    });
+    const checkboxes2 = this.functionalConstituencies.map(obj => {
+      return this.createCheckbox(obj, 'constituencies');
+    });
+    const checkboxes3 = this.politicalPositions.map(obj => {
+      return this.createCheckbox(obj, 'political_positions');
+    });
+    const labelClass = classnames(
+      'candidate-search__label',
+      'legco-label',
+      // Visually hide label when [1] input is in focus and
+      // [2] input is not empty.
+      {
+        'visually-hidden': 
+          this.state.focused || // [1]
+          !!this.state.searchText // [2]
+      }
+    )
     return (
       <div className="candidate-finder">
+        <header className="candidate-finder__header">
+          <h1 className="candidate-finder__title">篩選候選人</h1>
+          <button className="candidate-finder__return-link" type="button">
+            返回主頁
+          </button>
+        </header>
         <form className="candidate-finder__form">
-          <fieldset>
-            <legend>Name</legend>
-            <TextInput
-              name="name" 
-              placeholder="Input candidate name" 
+          <div className="candidate-search legco-form-group">
+            <label className={ labelClass } htmlFor="candidate_search_input">搜索候選人</label>
+            <Input
+              className="candidate-search__input"
+              id="candidate_search_input"
+              name="candidate_name" 
               value={ this.state.searchText } 
-              onChange={ this.handleSearchTextChange } />
-          </fieldset>
-          <fieldset>
-            <legend>Constituencies</legend>
-            <div>
-              <div>Geographical constituencies</div>
-              <ListOfCheckboxes checkboxes={ checkboxes_1 } />
-              <div>Functional constituencies</div>
-              <ListOfCheckboxes checkboxes={ checkboxes_2 } />
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend>Political positions</legend>
-            <ListOfCheckboxes checkboxes={ checkboxes_3 } />
-          </fieldset>
+              onChange={ this.handleSearchInputChange }
+              onFocus={ this.handleSearchInputFocus }
+              onBlur={ this.handleSearchInputBlur } />
+          </div>
+          <div className="candidate-filter">
+            <Expander className="candidate-filter__expander">
+              <ExpanderButton>地方選區</ExpanderButton>
+              <ExpanderPanel>
+                <fieldset className="legco-fieldset">
+                  <legend className="candidate-filter__label legco-legend visually-hidden">地方選區</legend>
+                  <div className="candidate-filter__options legco-form-group">
+                    { checkboxes1 }
+                  </div>
+                </fieldset>
+              </ExpanderPanel>
+            </Expander>
+            <Expander className="candidate-filter__expander">
+              <ExpanderButton>功能組別選區</ExpanderButton>
+              <ExpanderPanel>
+                <fieldset className="legco-fieldset">
+                  <legend className="candidate-filter__label legco-legend visually-hidden">功能組別選區</legend>
+                  <div className="candidate-filter__options legco-form-group">
+                    { checkboxes2 }
+                  </div>
+                </fieldset>
+              </ExpanderPanel>
+            </Expander>
+            <Expander className="candidate-filter__expander">
+              <ExpanderButton>政治立場</ExpanderButton>
+              <ExpanderPanel>
+                <fieldset className="legco-fieldset">
+                  <legend className="candidate-filter__label legco-legend visually-hidden">政治立場</legend>
+                  <div className="candidate-filter__options legco-form-group">
+                    { checkboxes3 }
+                  </div>
+                </fieldset>
+              </ExpanderPanel>
+            </Expander>
+          </div>
         </form>
+        <footer className="candidate-finder__footer">
+          <div className="legco-container">
+            <button type="button" className="legco-button candidate-finder__show-results">查看xxx個結果</button>
+          </div>
+        </footer>
       </div>
     )
   }
