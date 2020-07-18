@@ -1,0 +1,10 @@
+.legco-label {
+  display: block;
+  margin-bottom: legco-get-space(1);
+  @include legco-responsive-typography(19);
+
+  color: $legco-text-color;
+  @include legco-media-query($media-type: print) {
+    color: $legco-print-text-color;
+  }
+}
