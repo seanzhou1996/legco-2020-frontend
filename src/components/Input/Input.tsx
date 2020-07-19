@@ -26,16 +26,7 @@ class Input extends React.Component<InputProps> {
       'legco-input'
     );
     return (
-      <input 
-        className={ inputClass }
-        type={ this.props.type } 
-        name={ this.props.name }
-        id={ this.props.id }
-        value={ this.props.value }
-        placeholder={ this.props.placeholder || '' }
-        onChange={ this.props.onChange }
-        onFocus={ this.props.onFocus }
-        onBlur={ this.props.onBlur } />
+      <input {...this.props} className={ inputClass } />
     );
   }
 }
