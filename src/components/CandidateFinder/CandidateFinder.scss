@@ -1,5 +1,8 @@
 @import '../../styles/base';
 
+// Styling for the finder
+
+// Get height of the show results button
 $candidate-finder-show-results-height:
   legco-get-space(2) + // Button top and bottom paddings
   get-typography-property(19, "line-height", null) * 2; // Button line height
@@ -9,6 +12,10 @@ $candidate-finder-footer-top-bottom-padding: legco-get-space(3);
 $candidate-finder-footer-height: 
   $candidate-finder-show-results-height + 
   $candidate-finder-footer-top-bottom-padding * 2;
+
+.candidate-finder {
+  @extend %legco-facet-wrapper;
+}
 
 .candidate-finder__header {
   @include legco-width-container;
@@ -73,8 +80,12 @@ $candidate-finder-footer-height:
 }
 
 .candidate-finder__form {
+  $candidate-finder-footer-top-margin: legco-get-space(4);
   @include legco-width-container;
-  padding-bottom: $candidate-finder-footer-height + legco-get-space(4);
+
+  padding-bottom: 
+    $candidate-finder-footer-height + 
+    $candidate-finder-footer-top-margin;
 
   @include legco-media-query($from: tablet) {
     $candidate-finder-show-results-height:
@@ -84,24 +95,16 @@ $candidate-finder-footer-height:
       $candidate-finder-show-results-height + 
       $candidate-finder-footer-top-bottom-padding * 2;
     
-    padding-bottom: $candidate-finder-footer-height + legco-get-space(4);
+    padding-bottom: 
+      $candidate-finder-footer-height + 
+      $candidate-finder-footer-top-margin;
   }
 }
 
 .candidate-finder__footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-
+  @extend %legco-facet-footer;
   padding-top: $candidate-finder-footer-top-bottom-padding;
   padding-bottom: $candidate-finder-footer-top-bottom-padding;
-  border-top: 1px solid legco-get-color("mid-grey");
-
-  width: 100%;
-
-  background-color: legco-get-color("white");
-
-  box-shadow: 0 0 5px rgba(177,180,182,0.8);
 }
 
 .candidate-finder__show-results {
