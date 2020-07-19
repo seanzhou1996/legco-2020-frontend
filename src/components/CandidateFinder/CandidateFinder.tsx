@@ -7,6 +7,7 @@ import Input from '../Input/Input';
 import Expander from '../Expander/Expander';
 import ExpanderButton from '../Expander/ExpanderButton';
 import ExpanderPanel from '../Expander/ExpanderPanel';
+import Listbox from '../Listbox/Listbox';
 
 import './CandidateFinder.scss';
 
@@ -20,13 +21,18 @@ interface CandidateFinderState {
   focused?: boolean,
   isChecked: {
     [propName: string]: boolean
-  }
+  },
+  constituencyType: string,
+  constituency: string
 }
+
+const DEFAULT_CONSTITUENCY_TYPE = 'all';
+const DEFAULT_CONSTITUENCY = 'all';
 
 class CandidateFinder extends React.Component<any, CandidateFinderState> {
   constituencies: Constituency[] = [];
-  geographicalConstituencies: Constituency[] = [];
-  functionalConstituencies: Constituency[] = [];
+  // geographicalConstituencies: Constituency[] = [];
+  // functionalConstituencies: Constituency[] = [];
   politicalPositions: PoliticalPosition[] = [
     {
       id: 'est',
@@ -42,13 +48,28 @@ class CandidateFinder extends React.Component<any, CandidateFinderState> {
     }
   ];
 
+  constituencyTypes = [
+    {
+      id: 'gc',
+      name: '地方選區'
+    },
+    {
+      id: 'fc',
+      name: '功能組別選區'
+    }
+  ]
+
   constructor(props: any) {
     super(props);
     this.state = {
       searchText: '',
-      isChecked: {}
+      isChecked: {},
+      constituencyType: DEFAULT_CONSTITUENCY_TYPE,
+      constituency: DEFAULT_CONSTITUENCY
     };
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
+    this.handleConstituencyTypeChange = this.handleConstituencyTypeChange.bind(this);
+    this.handleConstituencyChange = this.handleConstituencyChange.bind(this);
     this.handleSearchInputFocus = this.handleSearchInputFocus.bind(this);
     this.handleSearchInputBlur = this.handleSearchInputBlur.bind(this);
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
@@ -73,12 +94,6 @@ class CandidateFinder extends React.Component<any, CandidateFinderState> {
   async componentDidMount() {
     try {
       this.constituencies = await this.getConstituencies();
-      this.geographicalConstituencies = this.constituencies.filter(obj => {
-        return obj.type === 'gc';
-      });
-      this.functionalConstituencies = this.constituencies.filter(obj => {
-        return obj.type === 'fc';
-      });
       const isChecked = [
         ...this.constituencies.map(obj => obj.id),
         ...this.politicalPositions.map(obj => obj.id)
@@ -100,6 +115,22 @@ class CandidateFinder extends React.Component<any, CandidateFinderState> {
     const { value } = event.target;
     this.setState({
       searchText: value
+    });
+  }
+
+  handleConstituencyTypeChange(event: React.ChangeEvent<HTMLSelectElement>) {
+    const { value } = event.target;
+    this.setState(prevState => {
+      const prevValue = prevState.constituencyType;
+      return {
+        constituency: value !== prevValue ? DEFAULT_CONSTITUENCY : prevState.constituency,
+        constituencyType: value
+      }
+    })
+  }
+  handleConstituencyChange(event: React.ChangeEvent<HTMLSelectElement>) {
+    this.setState({
+      constituency: event.target.value
     });
   }
 
@@ -138,21 +169,12 @@ class CandidateFinder extends React.Component<any, CandidateFinderState> {
         label={ option.name }
         name={ name }
         checked={ this.state.isChecked[option.id] || false }
-        size={ 'small' }
+        size="small"
         onChange={ this.handleCheckboxChange } />
     );
   }
 
   render() {
-    const checkboxes1 = this.geographicalConstituencies.map(obj => {
-      return this.createCheckbox(obj, 'constituencies');
-    });
-    const checkboxes2 = this.functionalConstituencies.map(obj => {
-      return this.createCheckbox(obj, 'constituencies');
-    });
-    const checkboxes3 = this.politicalPositions.map(obj => {
-      return this.createCheckbox(obj, 'political_positions');
-    });
     const labelClass = classnames(
       'candidate-search__label',
       'legco-label',
@@ -186,25 +208,47 @@ class CandidateFinder extends React.Component<any, CandidateFinderState> {
           </div>
           <div className="candidate-filter">
             <Expander className="candidate-filter__expander">
-              <ExpanderButton>地方選區</ExpanderButton>
+              <ExpanderButton>所在選區</ExpanderButton>
               <ExpanderPanel>
-                <fieldset className="legco-fieldset">
-                  <legend className="candidate-filter__label legco-legend visually-hidden">地方選區</legend>
-                  <div className="candidate-filter__options legco-form-group">
-                    { checkboxes1 }
-                  </div>
-                </fieldset>
-              </ExpanderPanel>
-            </Expander>
-            <Expander className="candidate-filter__expander">
-              <ExpanderButton>功能組別選區</ExpanderButton>
-              <ExpanderPanel>
-                <fieldset className="legco-fieldset">
-                  <legend className="candidate-filter__label legco-legend visually-hidden">功能組別選區</legend>
-                  <div className="candidate-filter__options legco-form-group">
-                    { checkboxes2 }
-                  </div>
-                </fieldset>
+                <div className="legco-form-group">
+                  <label 
+                    className="candidate-filter__label legco-label" 
+                    htmlFor="constituency_type"
+                  >選區類別</label>
+                  <Listbox 
+                    className="candidate-filter__options" 
+                    selectProps={ {
+                      id: 'constituency_type',
+                      name: 'constituency_type',
+                      value: this.state.constituencyType,
+                      onChange: this.handleConstituencyTypeChange
+                    } }
+                    choices={ [
+                      { value: DEFAULT_CONSTITUENCY_TYPE, label: '所有選區類別' },
+                      ...this.constituencyTypes.map(obj => ({ value: obj.id, label: obj.name }))
+                    ] } />
+                </div>
+                <div className="legco-form-group">
+                  <label 
+                    className="candidate-filter__label legco-label" 
+                    htmlFor="constituency_name"
+                  >選區</label>
+                  <Listbox 
+                    className="candidate-filter__options" 
+                    selectProps={ {
+                      id: "constituency_name",
+                      name: "constituency",
+                      value: this.state.constituency,
+                      onChange: this.handleConstituencyChange,
+                      disabled: this.state.constituencyType === DEFAULT_CONSTITUENCY_TYPE
+                    } }
+                    choices={ [
+                      { value: DEFAULT_CONSTITUENCY, label: '所有選區' },
+                      ...this.constituencies
+                        .filter(obj => obj.type === this.state.constituencyType)
+                        .map(obj => ({ value: obj.id, label: obj.name }))
+                    ] } />
+                </div>
               </ExpanderPanel>
             </Expander>
             <Expander className="candidate-filter__expander">
@@ -213,7 +257,10 @@ class CandidateFinder extends React.Component<any, CandidateFinderState> {
                 <fieldset className="legco-fieldset">
                   <legend className="candidate-filter__label legco-legend visually-hidden">政治立場</legend>
                   <div className="candidate-filter__options legco-form-group">
-                    { checkboxes3 }
+                    {
+                      this.politicalPositions
+                        .map(obj => this.createCheckbox(obj, 'political_positions'))
+                    }
                   </div>
                 </fieldset>
               </ExpanderPanel>
