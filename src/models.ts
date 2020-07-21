@@ -8,6 +8,11 @@ export interface Constituency {
   name: string
 }
 
+export interface ConstituencyType {
+  id: string,
+  name: string
+}
+
 export interface PoliticalPosition {
   id: string,
   name: string
