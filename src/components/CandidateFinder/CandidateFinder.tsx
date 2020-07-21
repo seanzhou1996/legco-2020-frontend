@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ChangeEventHandler, createRef, Component } from 'react';
 import axios from 'axios';
 import classnames from 'classnames';
 
-import Checkbox from '../Checkbox/Checkbox';
+import Checkbox, { CheckboxProps } from '../Checkbox/Checkbox';
 import Input from '../Input/Input';
 import Expander from '../Expander/Expander';
 import ExpanderButton from '../Expander/ExpanderButton';
@@ -13,26 +13,24 @@ import './CandidateFinder.scss';
 
 import {
   Constituency,
+  ConstituencyType,
   PoliticalPosition 
 } from '../../models';
 
 interface CandidateFinderState {
-  searchText: string,
-  focused?: boolean,
-  isChecked: {
+  keyword: string,
+  checked: {
     [propName: string]: boolean
   },
   constituencyType: string,
   constituency: string
 }
 
-const DEFAULT_CONSTITUENCY_TYPE = 'all';
-const DEFAULT_CONSTITUENCY = 'all';
+const DEFAULT_CONSTITUENCY_TYPE = '';
+const DEFAULT_CONSTITUENCY = '';
 
-class CandidateFinder extends React.Component<any, CandidateFinderState> {
+class CandidateFinder extends Component<any, CandidateFinderState> {
   constituencies: Constituency[] = [];
-  // geographicalConstituencies: Constituency[] = [];
-  // functionalConstituencies: Constituency[] = [];
   politicalPositions: PoliticalPosition[] = [
     {
       id: 'est',
@@ -48,7 +46,7 @@ class CandidateFinder extends React.Component<any, CandidateFinderState> {
     }
   ];
 
-  constituencyTypes = [
+  constituencyTypes: ConstituencyType[] = [
     {
       id: 'gc',
       name: '地方選區'
@@ -59,20 +57,16 @@ class CandidateFinder extends React.Component<any, CandidateFinderState> {
     }
   ]
 
+  candidateSearchInputRef = createRef<HTMLInputElement>();
+
   constructor(props: any) {
     super(props);
     this.state = {
-      searchText: '',
-      isChecked: {},
+      keyword: '',
+      checked: {},
       constituencyType: DEFAULT_CONSTITUENCY_TYPE,
       constituency: DEFAULT_CONSTITUENCY
     };
-    this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
-    this.handleConstituencyTypeChange = this.handleConstituencyTypeChange.bind(this);
-    this.handleConstituencyChange = this.handleConstituencyChange.bind(this);
-    this.handleSearchInputFocus = this.handleSearchInputFocus.bind(this);
-    this.handleSearchInputBlur = this.handleSearchInputBlur.bind(this);
-    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
   }
 
   async getConstituencies(): Promise<Constituency[]> {
@@ -92,33 +86,36 @@ class CandidateFinder extends React.Component<any, CandidateFinderState> {
   }
 
   async componentDidMount() {
+    const candidateSearchInput = this.candidateSearchInputRef.current;
+    const checked = [
+      ...this.politicalPositions.map(obj => obj.id)
+    ].reduce((set, id) => {
+      return {
+        ...set,
+        [id]: false
+      }
+    }, {});  
+    this.setState({
+      checked
+    });
+    if (candidateSearchInput !== null) {
+      candidateSearchInput.focus();
+    }
     try {
       this.constituencies = await this.getConstituencies();
-      const isChecked = [
-        ...this.constituencies.map(obj => obj.id),
-        ...this.politicalPositions.map(obj => obj.id)
-      ].reduce((set, id) => {
-        return {
-          ...set,
-          [id]: false
-        }
-      }, {});  
-      this.setState({
-        isChecked
-      });
     } catch (error) {
       console.error(error);
     }
   }
 
-  handleSearchInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+  handleSearchInputChange: ChangeEventHandler<HTMLInputElement> = event => {
     const { value } = event.target;
     this.setState({
-      searchText: value
+      keyword: value
     });
   }
 
-  handleConstituencyTypeChange(event: React.ChangeEvent<HTMLSelectElement>) {
+  handleConstituencyTypeChange: ChangeEventHandler<HTMLSelectElement> = event => {
     const { value } = event.target;
     this.setState(prevState => {
       const prevValue = prevState.constituencyType;
@@ -128,62 +125,57 @@ class CandidateFinder extends React.Component<any, CandidateFinderState> {
       }
     })
   }
-  handleConstituencyChange(event: React.ChangeEvent<HTMLSelectElement>) {
+  handleConstituencyChange: ChangeEventHandler<HTMLSelectElement> = event => {
     this.setState({
       constituency: event.target.value
     });
   }
 
-  handleSearchInputFocus() {
-    this.setState({
-      focused: true
-    });
-  }
-
-  handleSearchInputBlur() {
-    this.setState({
-      focused: false
-    });
-  }
-
-  handleCheckboxChange(event: React.ChangeEvent<HTMLInputElement>) {
+  handleCheckboxChange: ChangeEventHandler<HTMLInputElement> = event => {
     const { id } = event.target;
     this.setState(prevState => {
       return {
-        isChecked: {
-          ...prevState.isChecked,
-          [id]: !prevState.isChecked[id]
+        checked: {
+          ...prevState.checked,
+          [id]: !prevState.checked[id]
         }
       }
     });
+  }
+
+  createOption(value: string, label: string) {
+    return (
+      <option key={ value } value={ value } >
+        { label }
+      </option>
+    );
   }
 
   createCheckbox(
     option: { id: string, name: string }, 
     name: string
   ) {
+    const props: CheckboxProps = {
+      className: 'legco-checkbox--small',
+      id: option.id,
+      label: option.name,
+      name,
+      checked: this.state.checked[option.id] || false,
+      onChange: this.handleCheckboxChange
+    };
     return (
-      <Checkbox 
-        key={ option.id }
-        id={ option.id }
-        label={ option.name }
-        name={ name }
-        checked={ this.state.isChecked[option.id] || false }
-        size="small"
-        onChange={ this.handleCheckboxChange } />
+      <Checkbox key={ option.id } {...props} />
     );
   }
 
   render() {
-    const labelClass = classnames(
-      'candidate-search__label',
-      'legco-label',
-      // Visually hide label when [1] input is in focus and
-      // [2] input is not empty.
+    // To visually hide label, we lift input up when
+    // [1] input is in focus (handled by CSS) and
+    // [2] input is not empty.
+    const candidateSearchInputClass = classnames(
+      'candidate-search__input',
       {
-        'visually-hidden': 
-          this.state.focused || // [1]
-          !!this.state.searchText // [2]
+        'candidate-search__input--non-empty': !!this.state.keyword // [2]
       }
     )
     return (
@@ -196,15 +188,17 @@ class CandidateFinder extends React.Component<any, CandidateFinderState> {
         </header>
         <form className="candidate-finder__form">
           <div className="candidate-search legco-form-group">
-            <label className={ labelClass } htmlFor="candidate_search_input">搜索候選人</label>
+            <label 
+              className="legco-label candidate-search__label" 
+              htmlFor="candidate_search_input"
+            >搜索候選人</label>
             <Input
-              className="candidate-search__input"
+              ref={ this.candidateSearchInputRef }
+              className={ candidateSearchInputClass }
               id="candidate_search_input"
               name="candidate_name" 
-              value={ this.state.searchText } 
-              onChange={ this.handleSearchInputChange }
-              onFocus={ this.handleSearchInputFocus }
-              onBlur={ this.handleSearchInputBlur } />
+              value={ this.state.keyword } 
+              onChange={ this.handleSearchInputChange } />
           </div>
           <div className="candidate-filter">
             <Expander className="candidate-filter__expander">
@@ -217,16 +211,16 @@ class CandidateFinder extends React.Component<any, CandidateFinderState> {
                   >選區類別</label>
                   <Listbox 
                     className="candidate-filter__options" 
-                    selectProps={ {
-                      id: 'constituency_type',
-                      name: 'constituency_type',
-                      value: this.state.constituencyType,
-                      onChange: this.handleConstituencyTypeChange
-                    } }
-                    choices={ [
-                      { value: DEFAULT_CONSTITUENCY_TYPE, label: '所有選區類別' },
-                      ...this.constituencyTypes.map(obj => ({ value: obj.id, label: obj.name }))
-                    ] } />
+                    id="constituency_type"
+                    name="constituency_type"
+                    value={ this.state.constituencyType }
+                    onChange={ this.handleConstituencyTypeChange }
+                  >
+                    <option value={ DEFAULT_CONSTITUENCY_TYPE }>
+                      所有選區類別
+                    </option>
+                    { this.constituencyTypes.map(obj => this.createOption(obj.id, obj.name)) }
+                  </Listbox>
                 </div>
                 <div className="legco-form-group">
                   <label 
@@ -235,19 +229,21 @@ class CandidateFinder extends React.Component<any, CandidateFinderState> {
                   >選區</label>
                   <Listbox 
                     className="candidate-filter__options" 
-                    selectProps={ {
-                      id: "constituency_name",
-                      name: "constituency",
-                      value: this.state.constituency,
-                      onChange: this.handleConstituencyChange,
-                      disabled: this.state.constituencyType === DEFAULT_CONSTITUENCY_TYPE
-                    } }
-                    choices={ [
-                      { value: DEFAULT_CONSTITUENCY, label: '所有選區' },
-                      ...this.constituencies
+                    id="constituency_name"
+                    name="constituency"
+                    value={ this.state.constituency }
+                    onChange={ this.handleConstituencyChange }
+                    disabled={ this.state.constituencyType === DEFAULT_CONSTITUENCY_TYPE }
+                  >
+                    <option value={ DEFAULT_CONSTITUENCY }>
+                      所有選區
+                    </option>
+                    {
+                      this.constituencies
                         .filter(obj => obj.type === this.state.constituencyType)
-                        .map(obj => ({ value: obj.id, label: obj.name }))
-                    ] } />
+                        .map(obj => this.createOption(obj.id, obj.name))
+                    }
+                  </Listbox>
                 </div>
               </ExpanderPanel>
             </Expander>
@@ -269,7 +265,9 @@ class CandidateFinder extends React.Component<any, CandidateFinderState> {
         </form>
         <footer className="candidate-finder__footer">
           <div className="legco-container">
-            <button type="button" className="legco-button candidate-finder__show-results">查看xxx個結果</button>
+            <button type="button" className="legco-button candidate-finder__show-results">
+              查看xxx個結果
+            </button>
           </div>
         </footer>
       </div>

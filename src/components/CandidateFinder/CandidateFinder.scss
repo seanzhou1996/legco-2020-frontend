@@ -113,12 +113,31 @@ $candidate-finder-footer-height:
   }
 }
 
-// Styling for the text search box
+// Styling for the text search
 //
-// Put the label over the input widget
+// We place the input widget under the label [1] to make
+// the label looks like a placeholder; when the input
+// widget gets focus, or when the user has enter a
+// search term, we lift the input widget up [2] so that
+// the label is hidden from the user.
 
 .candidate-search {
   position: relative;
+}
+
+.candidate-search__input {
+  // `z-index` only works on elements with relative,
+  // absolute, or fixed positioning
+  position: relative;
+  // Since default background is transparent we have
+  // to explicitly set one
+  background-color: legco-get-color("white");
+  z-index: -1; // [1]
+}
+
+.candidate-search__input:focus,
+.candidate-search__input--non-empty {
+  z-index: 1; // [2]
 }
 
 .candidate-search__label {
@@ -158,14 +177,14 @@ $legco-expander-offset: ($legco-touch-target-size - $legco-checkbox-size) / 2;
       $legco-checkbox-size + 
       ($legco-touch-target-size - $legco-checkbox-size) / 2;
     
-    padding-left: $header-left-padding;
+    padding-left: $header-left-padding; // 1.
   }
   .legco-expander__icon {
     // Align header icon (arrow) with the checkbox widget
     $icon-offset: $legco-expander-offset - 
       ($legco-expander-icon-size - $legco-checkbox-size) / 2;
     
-    left: $icon-offset;
+    left: $icon-offset; // 2.
   }
 }
 
