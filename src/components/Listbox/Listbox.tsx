@@ -4,18 +4,15 @@ import { Props } from '../../models';
 
 import './Listbox.scss';
 
-interface ListboxProps extends Props {
-  selectProps: {
+export interface ListboxProps extends Props {
     id: string, 
     name: string, 
     value: string, 
-    onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void,
+    onChange: React.ChangeEventHandler<HTMLSelectElement>,
     disabled?: boolean
-  },
-  choices: Option[]
 }
 
-interface Option extends Props {
+export interface Option extends Props {
   value: string,
   label: string,
 }
@@ -25,15 +22,15 @@ export default class Listbox extends React.Component<ListboxProps> {
     return <option key={ value } value={ value } >{ label }</option>;
   }
   render() {
+    const { className, children, ...selectProps } = this.props;
     const listboxClass = classnames(
-      ...(this.props.className || '').split(/\s+/g),
+      ...(className || '').split(/\s+/g),
       'legco-listbox'
     );
-    const options = this.props.choices.map(obj => this.createOption(obj.value, obj.label));
     return (
       <div className={ listboxClass }>
-        <select className="legco-select" {...this.props.selectProps}>
-          { options }
+        <select {...selectProps} className="legco-select">
+          { children }
         </select>
       </div>
     );
