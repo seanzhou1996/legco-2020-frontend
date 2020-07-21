@@ -1,33 +1,33 @@
 import React from 'react';
+import classnames from 'classnames';
+
+import { Props } from '../../models';
 
 import './Checkbox.scss';
 
-export interface CheckboxProps {
+export interface CheckboxProps extends Props {
   id: string,
   name: string,
   label: string,
   checked: boolean,
-  size?: 'normal' | 'small',
-  onChange: React.ChangeEventHandler
+  onChange: React.ChangeEventHandler<HTMLInputElement>
 }
 
 class Checkbox extends React.Component<CheckboxProps> {
   render() {
-    const classList = [ 'legco-checkbox' ];
-    if (this.props.size === 'small') {
-      classList.push('legco-checkbox--small');
-    }
+    const { className, label, ...inputProps } = this.props;
+    const checkboxClass = classnames(
+      ...(className || '').split(/\s+/g),
+      'legco-checkbox'
+    );
     return (
-      <div className={ classList.join(' ') }>
+      <div className={ checkboxClass }>
         <input 
           className="legco-checkbox__input"
           type="checkbox" 
-          name={ this.props.name } 
-          id={ this.props.id } 
-          checked={ this.props.checked }
-          onChange={ this.props.onChange } />
-        <label className="legco-checkbox__label" htmlFor={ this.props.id }>
-          { this.props.label }
+          {...inputProps} />
+        <label className="legco-checkbox__label" htmlFor={ inputProps.id }>
+          { label }
         </label>
       </div>
     );
