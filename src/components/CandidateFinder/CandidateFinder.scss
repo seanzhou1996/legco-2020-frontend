@@ -119,10 +119,14 @@ $candidate-finder-footer-height:
 // the label looks like a placeholder; when the input
 // widget gets focus, or when the user has enter a
 // search term, we lift the input widget up [2] so that
-// the label is hidden from the user.
+// the label is hidden from the user; To ensure the
+// input is interactive, we lift the entire candidate
+// search component up [3]. 
 
 .candidate-search {
+  // Create a new stacking context
   position: relative;
+  z-index: 1;
 }
 
 .candidate-search__input {
