@@ -3,12 +3,9 @@ import classNames from 'classnames';
 
 import './Expander.scss';
 
-import { Props } from '../../models';
+import { Props as ExpanderProps } from '../../models';
 
 import ExpanderContext from './context';
-
-interface ExpanderProps extends Props {
-}
 
 interface ExpanderState {
   expanded: boolean
