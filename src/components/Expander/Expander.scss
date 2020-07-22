@@ -10,6 +10,8 @@ $expander-icon-size: 30px;
 
 // Wrapper
 .legco-expander {
+  padding-top: legco-get-space(2);
+  padding-bottom: legco-get-space(2);
   border-top: 1px solid $legco-border-color;
   &:last-child,
   &:last-of-type {
@@ -20,8 +22,8 @@ $expander-icon-size: 30px;
 // Header
 .legco-expander__header {
   position: relative;
-  padding-top: legco-get-space(4);
-  padding-bottom: legco-get-space(4);
+  padding-top: legco-get-space(2);
+  padding-bottom: legco-get-space(2);
   // 1. Offset for the icon
   // 2. Space the icon takes up
   // 3. Space between the icon and the title
@@ -29,11 +31,6 @@ $expander-icon-size: 30px;
     $expander-icon-offset + // 1.
     $expander-icon-size + // 2.
     legco-get-space(2); // 3.
-
-  @include legco-media-query($from: tablet) {
-    padding-top: legco-get-space(5);
-    padding-bottom: legco-get-space(5);  
-  }
 }
 
 // Button
@@ -125,7 +122,8 @@ $expander-icon-size: 30px;
   // Hide panel by default
   display: none;
 
-  padding-bottom: legco-get-space(1);
+  padding-top: legco-get-space(2);
+  padding-bottom: legco-get-space(2);
 }
 
 // When expander is open, reveal content
