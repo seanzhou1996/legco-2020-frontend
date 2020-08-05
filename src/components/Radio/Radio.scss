@@ -1,0 +1,238 @@
+@import '../../styles/base';
+
+// Get line height of a font scale at a specified breakpoint
+@function legco-get-line-height($font-scale, $from) {
+  $responsive-font-map: map-get($legco-typography-scale, $font-scale);
+  $font-map: map-get($responsive-font-map, $from);
+  $line-height: map-get($font-map, "line-height");
+
+  @return $line-height;
+}
+
+// Scale of the radio label
+$legco-font-scale: 19;
+// Height of the container
+$legco-container-height: 40px;
+$legco-touch-target-size: 44px;
+// Size of the radio widget
+$legco-radio-size: 40px;
+
+.legco-radio {
+  position: relative;
+  margin-bottom: legco-get-space(2);
+
+  // Create space for the the radio widget
+  padding-left: $legco-radio-size;
+
+  height: $legco-container-height;
+
+  // Font size and line height
+  @include legco-responsive-typography($legco-font-scale);
+
+  color: $legco-text-color;
+  @include legco-media-query($media-type: print) {
+    color: $legco-print-text-color;
+  }
+
+  &:last-child,
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.legco-radio__input {
+  // Since touch target is slightly larger than the radio widget,
+  // we need to offset the difference.
+  $input-offset: ($legco-touch-target-size - $legco-radio-size) / 2;
+
+  // Hide the native radio widget
+  opacity: 0;
+
+  position: absolute;
+  top: - $input-offset;
+  left: - $input-offset;
+
+  margin: 0;
+
+  width: $legco-touch-target-size;
+  height: $legco-touch-target-size;
+
+  cursor: pointer;
+
+  // Move touch target on the top of the stacking context to
+  // show focus state correctly.
+  z-index: 1;
+}
+
+.legco-radio__label {
+  $line-height: legco-get-line-height($legco-font-scale, null);
+  $padding-top-bottom: ($legco-container-height - $line-height) / 2;
+
+  // We don't want the label to span the entire container, thus
+  // we make it float to shrink the size.
+  float: left;
+
+  // Center the label vertically
+  padding-top: $padding-top-bottom;
+  padding-bottom: $padding-top-bottom;
+
+  // Since line height responds to device size change, we need to re-calculate
+  // top and bottom paddings.
+  @include legco-media-query($from: tablet) {
+    $line-height: legco-get-line-height($legco-font-scale, tablet);
+    $padding-top-bottom: ($legco-container-height - $line-height) / 2;
+
+    padding-top: $padding-top-bottom;
+    padding-bottom: $padding-top-bottom;  
+  }
+
+  padding-left: legco-get-space(3);
+  padding-right: legco-get-space(3);
+
+  cursor: pointer;
+  // remove 300ms pause on mobile
+  touch-action: manipulation;
+}
+
+// 🔘 Radio widget
+.legco-radio__label::before {
+  content: "";
+
+  position: absolute;
+  top: ($legco-container-height - $legco-radio-size) / 2;
+  left: 0;
+
+  width: $legco-radio-size;
+  height: $legco-radio-size;
+  border: $legco-border-width-form-element solid currentColor;
+  border-radius: 50%;
+  background: transparent;
+}
+
+// • Filling for selected radio
+.legco-radio__label::after {
+  $radio-filling-border-width: legco-get-space(2);
+  $radio-filling-box-size: $radio-filling-border-width * 2;
+
+  box-sizing: content-box;
+  content: "";
+
+  // Align filling with the radio widget
+  position: absolute;
+  top: ($legco-container-height - $radio-filling-box-size) / 2;
+  left: ($legco-radio-size - $radio-filling-box-size) / 2;
+
+  width: 0;
+  height: 0;
+
+  border: $radio-filling-border-width solid currentColor;
+  border-radius: 50%;
+
+  // Radio is not selected by default
+  opacity: 0;
+
+  background: transparent;
+}
+
+// Focused state
+.legco-radio__input:focus + .legco-radio__label::before {
+  border-width: 4px;
+  box-shadow: 0 0 0 $legco-focus-width $legco-focus-color;
+}
+
+// Selected state
+.legco-radio__input:checked + .legco-radio__label::after {
+  // Show the filling when the radio is selected
+  opacity: 1;
+}
+
+// Small radio
+.legco-radio--small {
+  // Size of the small radio widget
+  $legco-radio-size: 24px;
+
+  margin-bottom: legco-get-space(1);
+  // Make space for the radio widget
+  padding-left: $legco-radio-size;
+  @include legco-clearfix;
+
+  .legco-radio__input {
+    // Input has absolute positioning, and is hidden.
+    $input-offset: ($legco-touch-target-size - $legco-radio-size) / 2;
+    // We shift the input into the left margin so that the visible edge of the
+    // input and the radio widget is aligned.
+    left: - $input-offset;
+  }
+
+  .legco-radio__label {
+    // Touch area offset
+    $input-offset: ($legco-touch-target-size - $legco-radio-size) / 2;
+    // Create space for the touch target visual feedback.
+    //
+    // Should there be no left padding, the label would touch the right
+    // edge of the radio widget.
+    padding-left: $input-offset;
+  }
+
+  // 🔘 Radio widget
+  .legco-radio__label::before {
+    // Since the radio size has changed, we need to re-caculate the
+    // top offset.
+    top: ($legco-container-height - $legco-radio-size) / 2;
+    width: $legco-radio-size;
+    height: $legco-radio-size;
+  }
+
+  // • Filling for selected radio
+  .legco-radio__label::after {
+    $radio-filling-border-width: 5px;
+    $radio-filling-box-size: $radio-filling-border-width * 2;
+  
+    top: ($legco-container-height - $radio-filling-box-size) / 2;
+    left: ($legco-radio-size - $radio-filling-box-size) / 2;
+  
+    border: $radio-filling-border-width solid currentColor;
+  }
+
+  &:hover {
+    // Show a grey background when the radio is hovered over.
+    //
+    // We do this because the touch target is much larger than the visible
+    // radio widget, so we need to provide feedback to the user as to
+    // which radio they will select when their cursor is outside of the
+    // the visible area.
+    .legco-radio__input:not(:disabled) +
+    .legco-radio__label::before {
+      box-shadow: 0 0 0 $legco-hover-width $legco-hover-color;
+    }
+
+    // Since we've overriden the box shadow provided by the focus state, we
+    // need to refine that too.
+    //
+    // We need two box shadows to 1. restore the original focus state and
+    // 2. indicate the hover state.
+    .legco-radio__input:focus +
+    .legco-radio__label::before {
+      box-shadow: 
+        0 0 0 $legco-focus-width $legco-focus-color, // 1
+        0 0 0 $legco-hover-width $legco-hover-color; // 2
+    }
+  }
+
+  // For devices that can't hover (e.g. touch devices), don't
+  // provide a hover state. Since we set the hover state 
+  // before, We need to manually undo it.
+  @media (hover: none), (pointer: coarse) {
+    &:hover {
+      .legco-radio__input:not(:disabled) +
+      .legco-radio__label::before {
+        box-shadow: initial;
+      }
+  
+      .legco-radio__input:focus +
+      .legco-radio__label::before {
+        box-shadow: 0 0 0 $legco-focus-width $legco-focus-color;
+      }
+    }  
+  }
+}
