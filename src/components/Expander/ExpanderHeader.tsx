@@ -1,20 +1,51 @@
 import React from 'react';
+import classnames from 'classnames';
+import { Props } from '../../models';
 
 import ExpanderContext from './context';
 
-export default class ExpanderButton extends React.Component {
+export interface ExpanderHeaderProps extends Props {
+}
+
+export interface ExpanderLabelProps extends Props {
+
+}
+
+export default class ExpanderHeader extends React.Component {
   static contextType = ExpanderContext;
   context!: React.ContextType<typeof ExpanderContext>;
   render() {
     return (
       <header className="legco-expander__header" onClick={ this.context.handleClick }>
-        <button type="button" className="legco-expander__button">
-          { this.props.children }
-        </button>
+        { this.props.children }
         <i className="legco-expander__icon">
           <DownArrow />
         </i>
       </header>
+    );
+  }
+}
+
+export class ExpanderButton extends React.Component {
+  render() {
+    return (
+      <button type="button" className="legco-expander__button">
+        { this.props.children }
+      </button>
+    );
+  }
+}
+
+export class ExpanderLabel extends React.Component<ExpanderLabelProps> {
+  render() {
+    const labelClass = classnames(
+      ...(this.props.className || '').split(/\s+/g),
+      'legco-expander__header-label'
+    )
+    return (
+      <span className={ labelClass }>
+        { this.props.children }
+      </span>
     );
   }
 }

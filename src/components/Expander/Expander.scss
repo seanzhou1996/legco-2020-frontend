@@ -91,16 +91,27 @@ $expander-icon-size: 30px;
   }
 }
 
+.legco-expander__header-label {
+  display: block;
+  margin-top: legco-get-space(2);
+
+  @include legco-responsive-typography(14);
+
+  color: $legco-text-color;
+}
+
 // Icon in the header
 .legco-expander__icon {
+  $expander-button-line-height: get-typography-property($expander-header-font-scale, "line-height", null);
   position: absolute;
   
-  // Three steps to center the icon vertically:
-  // 1. Make sure the height is set;
-  // 2. Shift the icon from the header's top edge by 50%;
-  // 3. Apply a negative top margin to offset the icon size.
-  top: 50%;
-  margin-top: - $expander-icon-size / 2;
+  top: legco-get-space(2) + ($expander-button-line-height - $expander-icon-size) / 2;
+
+  @include legco-media-query($from: tablet) {
+    $expander-button-line-height: get-typography-property($expander-header-font-scale, "line-height", tablet);
+    top: legco-get-space(2) + ($expander-button-line-height - $expander-icon-size) / 2;
+  }
+
   height: $expander-icon-size;
 
   width: $expander-icon-size;
