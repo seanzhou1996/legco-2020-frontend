@@ -2,60 +2,86 @@ import React, { ChangeEventHandler, createRef, Component } from 'react';
 import axios from 'axios';
 import classnames from 'classnames';
 
-import Checkbox, { CheckboxProps } from '../Checkbox/Checkbox';
 import Input from '../Input/Input';
-import Expander from '../Expander/Expander';
-import ExpanderButton from '../Expander/ExpanderButton';
-import ExpanderPanel from '../Expander/ExpanderPanel';
-import Listbox from '../Listbox/Listbox';
+
+import CandidateFilter, { CandidateFilterProps } from './CandidateFilter/CandidateFilter';
+import SelectedFilters, { SelectedFiltersProps } from './SelectedFilters/SelectedFilters';
 
 import './CandidateFinder.scss';
 
 import {
-  Constituency,
-  ConstituencyType,
-  PoliticalPosition 
+  Constituency
 } from '../../models';
 
 interface CandidateFinderState {
   keyword: string,
   checked: {
-    [propName: string]: boolean
+    [id: string]: boolean
   },
-  constituencyType: string,
-  constituency: string
+  selected: {
+    [group: string]: string
+  }
 }
 
-const DEFAULT_CONSTITUENCY_TYPE = '';
-const DEFAULT_CONSTITUENCY = '';
-
 class CandidateFinder extends Component<any, CandidateFinderState> {
-  constituencies: Constituency[] = [];
-  politicalPositions: PoliticalPosition[] = [
+  checkboxOptions = [
     {
-      id: 'est',
-      name: '建制派'
+      id: '35_or_younger', 
+      name: '35嵗及以下候選人',
+      group: 'age'
     },
     {
-      id: 'dem',
-      name: '民主派'
+      id: 'dem_primary',
+      name: '參與民主派初選',
+      group: 'others'
     },
     {
-      id: 'others',
-      name: '其他'
+      id: 'fresh_face',
+      name: '首次參選立法會',
+      group: 'others'
+    },
+    {
+      id: 'independent',
+      name: '無政黨背景',
+      group: 'others'
     }
   ];
 
-  constituencyTypes: ConstituencyType[] = [
+  selectOptions = [
+    {
+      id: 'all',
+      name: '不限',
+      group: 'political_position'
+    },
+    {
+      id: 'est',
+      name: '建制派',
+      group: 'political_position'
+    },
+    {
+      id: 'dem',
+      name: '民主派',
+      group: 'political_position'
+    },
     {
       id: 'gc',
-      name: '地方選區'
+      name: '地方選區',
+      group: 'constituency_type'
     },
     {
       id: 'fc',
-      name: '功能組別選區'
+      name: '功能組別選區',
+      group: 'constituency_type'
     }
-  ]
+  ];
+
+  readonly defaultSelects: {
+    [group: string]: string
+  } = {
+    constituency_type: '',
+    constituency: '',
+    political_position: 'all'
+  }
 
   candidateSearchInputRef = createRef<HTMLInputElement>();
 
@@ -64,8 +90,7 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     this.state = {
       keyword: '',
       checked: {},
-      constituencyType: DEFAULT_CONSTITUENCY_TYPE,
-      constituency: DEFAULT_CONSTITUENCY
+      selected: this.defaultSelects
     };
   }
 
@@ -87,22 +112,17 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
 
   async componentDidMount() {
     const candidateSearchInput = this.candidateSearchInputRef.current;
-    const checked = [
-      ...this.politicalPositions.map(obj => obj.id)
-    ].reduce((set, id) => {
-      return {
-        ...set,
-        [id]: false
-      }
-    }, {});  
-    this.setState({
-      checked
-    });
     if (candidateSearchInput !== null) {
       candidateSearchInput.focus();
     }
     try {
-      this.constituencies = await this.getConstituencies();
+      this.selectOptions.push(
+        ...(await this.getConstituencies()).map(obj => ({
+          id: obj.id,
+          name: obj.name,
+          group: obj.type
+        }))
+      );
     } catch (error) {
       console.error(error);
     }
@@ -115,60 +135,103 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     });
   }
 
+  /**
+   * Handler for change events on the constituency type select group. Updates
+   * selected state to reflect the user's choice.
+   * 
+   * @param event Change event on the select group.
+   */
   handleConstituencyTypeChange: ChangeEventHandler<HTMLSelectElement> = event => {
     const { value } = event.target;
-    this.setState(prevState => {
-      const prevValue = prevState.constituencyType;
-      return {
-        constituency: value !== prevValue ? DEFAULT_CONSTITUENCY : prevState.constituency,
-        constituencyType: value
-      }
-    })
+    this.updateSelectState('constituency_type', value);
   }
+
+  /**
+   * Handler for change events on the constituency select group. Updates
+   * selected state to reflect the user's choice.
+   * 
+   * @param event Change event on the select group.
+   */
   handleConstituencyChange: ChangeEventHandler<HTMLSelectElement> = event => {
-    this.setState({
-      constituency: event.target.value
+    const { value } = event.target;
+    this.updateSelectState('constituency', value);
+  }
+
+  updateSelectState = (
+    name: string,
+    value: string
+  ) => {
+    this.setState(prevState => {
+      const currentState = {
+        selected: {
+          ...prevState.selected,
+          [name]: value
+        }
+      };
+      switch (name) {
+        // Set current constituency type [1] and update constituency, if the current type is
+        // different from the old one [2].
+        case 'constituency_type': {
+          const {
+            name: prevValue,
+            constituency: prevConstituency
+          } = prevState.selected;
+          currentState.selected['constituency'] = value !== prevValue ? this.defaultSelects['constituency_type'] : prevConstituency;
+        }
+      }
+      return currentState;
     });
   }
 
-  handleCheckboxChange: ChangeEventHandler<HTMLInputElement> = event => {
-    const { id } = event.target;
+  updateCheckboxState = (id: string) => {
     this.setState(prevState => {
+      let previouslyChecked = prevState.checked?.[id] || false;
       return {
         checked: {
           ...prevState.checked,
-          [id]: !prevState.checked[id]
+          [id]: !previouslyChecked
         }
-      }
+      };
     });
   }
 
-  createOption(value: string, label: string) {
-    return (
-      <option key={ value } value={ value } >
-        { label }
-      </option>
-    );
+  /**
+   * Change event handler for checkbox `id` under `group`.
+   * 
+   * @param group Form group the checkbox belongs to.
+   * @param id Identifier of the checkbox.
+   */
+  handleCheckboxChange = (id: string) => {
+    this.updateCheckboxState(id);
   }
 
-  createCheckbox(
-    option: { id: string, name: string }, 
-    name: string
-  ) {
-    const props: CheckboxProps = {
-      className: 'legco-checkbox--small',
-      id: option.id,
-      label: option.name,
-      name,
-      checked: this.state.checked[option.id] || false,
-      onChange: this.handleCheckboxChange
-    };
-    return (
-      <Checkbox key={ option.id } {...props} />
-    );
+  handleRadioChange = (group: string, id: string) => {
+    this.updateSelectState(group, id);
   }
 
   render() {
+    const candidateFilterProps: CandidateFilterProps = {
+      selected: this.state.selected,
+      checked: this.state.checked,
+      selectOptions: this.selectOptions,
+      checkboxOptions: this.checkboxOptions,
+      defaultSelects: this.defaultSelects,
+      handleConstituencyTypeChange: this.handleConstituencyTypeChange,
+      handleConstituencyChange: this.handleConstituencyChange,
+      handleCheckboxChange: this.handleCheckboxChange,
+      handleRadioChange: this.handleRadioChange
+    };
+
+    const selectedFiltersProps: SelectedFiltersProps = {
+      selected: this.state.selected,
+      checked: this.state.checked,
+      selectOptions: this.selectOptions,
+      checkboxOptions: this.checkboxOptions,
+      defaultSelects: this.defaultSelects,
+      updateSelectState: this.updateSelectState,
+      updateCheckboxState: this.updateCheckboxState
+    }
+
     // To visually hide label, we lift input up when
     // [1] input is in focus (handled by CSS) and
     // [2] input is not empty.
@@ -200,68 +263,8 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
               value={ this.state.keyword } 
               onChange={ this.handleSearchInputChange } />
           </div>
-          <div className="candidate-filter">
-            <Expander className="candidate-filter__expander">
-              <ExpanderButton>所在選區</ExpanderButton>
-              <ExpanderPanel>
-                <div className="legco-form-group">
-                  <label 
-                    className="candidate-filter__label legco-label" 
-                    htmlFor="constituency_type"
-                  >選區類別</label>
-                  <Listbox 
-                    className="candidate-filter__options" 
-                    id="constituency_type"
-                    name="constituency_type"
-                    value={ this.state.constituencyType }
-                    onChange={ this.handleConstituencyTypeChange }
-                  >
-                    <option value={ DEFAULT_CONSTITUENCY_TYPE }>
-                      所有選區類別
-                    </option>
-                    { this.constituencyTypes.map(obj => this.createOption(obj.id, obj.name)) }
-                  </Listbox>
-                </div>
-                <div className="legco-form-group">
-                  <label 
-                    className="candidate-filter__label legco-label" 
-                    htmlFor="constituency_name"
-                  >選區</label>
-                  <Listbox 
-                    className="candidate-filter__options" 
-                    id="constituency_name"
-                    name="constituency"
-                    value={ this.state.constituency }
-                    onChange={ this.handleConstituencyChange }
-                    disabled={ this.state.constituencyType === DEFAULT_CONSTITUENCY_TYPE }
-                  >
-                    <option value={ DEFAULT_CONSTITUENCY }>
-                      所有選區
-                    </option>
-                    {
-                      this.constituencies
-                        .filter(obj => obj.type === this.state.constituencyType)
-                        .map(obj => this.createOption(obj.id, obj.name))
-                    }
-                  </Listbox>
-                </div>
-              </ExpanderPanel>
-            </Expander>
-            <Expander className="candidate-filter__expander">
-              <ExpanderButton>政治立場</ExpanderButton>
-              <ExpanderPanel>
-                <fieldset className="legco-fieldset">
-                  <legend className="candidate-filter__label legco-legend visually-hidden">政治立場</legend>
-                  <div className="candidate-filter__options legco-form-group">
-                    {
-                      this.politicalPositions
-                        .map(obj => this.createCheckbox(obj, 'political_positions'))
-                    }
-                  </div>
-                </fieldset>
-              </ExpanderPanel>
-            </Expander>
-          </div>
+          <CandidateFilter { ...candidateFilterProps } />
+          <SelectedFilters { ...selectedFiltersProps } />
         </form>
         <footer className="candidate-finder__footer">
           <div className="legco-container">
