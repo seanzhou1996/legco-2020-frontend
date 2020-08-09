@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Checkbox, { CheckboxProps } from '../../Checkbox/Checkbox';
-import Radio, { RadioProps } from '../../Radio/Radio';
-import Expander from '../../Expander/Expander';
-import ExpanderHeader, { ExpanderButton, ExpanderLabel } from '../../Expander/ExpanderHeader';
-import ExpanderPanel from '../../Expander/ExpanderPanel';
-import Listbox from '../../Listbox/Listbox';
+import Checkbox, { CheckboxProps } from 'components/Checkbox/Checkbox';
+import Radio, { RadioProps } from 'components/Radio/Radio';
+import Expander from 'components/Expander/Expander';
+import ExpanderHeader, { ExpanderButton, ExpanderLabel } from 'components/Expander/ExpanderHeader';
+import ExpanderPanel from 'components/Expander/ExpanderPanel';
+import Listbox from 'components/Listbox/Listbox';
 
 import './CandidateFilter.scss';
 

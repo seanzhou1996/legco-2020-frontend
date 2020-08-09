@@ -2,7 +2,7 @@ import React, { ChangeEventHandler, createRef, Component } from 'react';
 import axios from 'axios';
 import classnames from 'classnames';
 
-import Input from '../Input/Input';
+import Input from 'components/Input/Input';
 
 import CandidateFilter, { CandidateFilterProps } from './CandidateFilter/CandidateFilter';
 import SelectedFilters, { SelectedFiltersProps } from './SelectedFilters/SelectedFilters';
@@ -12,7 +12,7 @@ import './CandidateFinder.scss';
 import {
   Constituency,
   Candidate
-} from '../../models';
+} from 'models';
 
 interface CandidateFinderState {
   keyword: string,
