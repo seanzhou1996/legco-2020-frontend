@@ -20,10 +20,13 @@ interface CandidateFinderState {
   },
   selected: {
     [group: string]: string
-  }
+  },
+  remoteSourceFetched: boolean
 }
 
 class CandidateFinder extends Component<any, CandidateFinderState> {
+  candidates: Candidate[] = [];
+  constituencies: Constituency[] = [];
   checkboxOptions = [
     {
       id: '35_or_younger', 
@@ -90,7 +93,8 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     this.state = {
       keyword: '',
       checked: {},
-      selected: this.defaultSelects
+      selected: this.defaultSelects,
+      remoteSourceFetched: false
     };
   }
 
@@ -110,19 +114,44 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
       });
   }
 
+  async getCandidates(): Promise<Candidate[]> {
+    const url = process.env.PUBLIC_URL + '/assets/candidates.json';
+    return axios.get(url)
+      .then(res => {
+        if ([201, 200].includes(res.status)) {
+          return res.data.candidates;
+        } else {
+          console.warn(res.statusText);
+          return [];
+        }
+      })
+      .catch(err => {
+        throw err;
+      });
+  }
+
   async componentDidMount() {
     const candidateSearchInput = this.candidateSearchInputRef.current;
     if (candidateSearchInput !== null) {
       candidateSearchInput.focus();
     }
     try {
+      this.constituencies.push(
+        ...(await this.getConstituencies())
+      );
+      this.candidates.push(
+        ...(await this.getCandidates())
+      );
       this.selectOptions.push(
-        ...(await this.getConstituencies()).map(obj => ({
+        ...this.constituencies.map(obj => ({
           id: obj.id,
           name: obj.name,
           group: obj.type
         }))
       );
+      this.setState({
+        remoteSourceFetched: true
+      });
     } catch (error) {
       console.error(error);
     }
@@ -195,6 +224,43 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     });
   }
 
+  getFilteredCandidates = () => {
+    const {
+      constituency_type: selectedConstituencyType,
+      constituency: selectedConstituency
+    } = this.state.selected;
+
+    let hasConstituencyTypeFilter = false;
+    let hasConstituencyFilter = false;
+    if (
+      selectedConstituency && 
+      selectedConstituency !== this.defaultSelects['constituency']
+    ) {
+      hasConstituencyFilter = true;
+    }
+    if (
+      selectedConstituencyType && 
+      selectedConstituencyType !== this.defaultSelects['constituency_type']
+    ) {
+      hasConstituencyTypeFilter = true;
+    }
+
+    const filteredCandidates = this.candidates.filter(obj => {
+      if (hasConstituencyFilter) {
+        return obj.constituency_id === selectedConstituency;
+      }
+      if (hasConstituencyTypeFilter) {
+        // Type of the constituency the candidate is in
+        const _type = this.constituencies
+          .find(_obj => _obj.id === obj.constituency_id)?.type;
+        return _type === selectedConstituencyType;
+      }
+      return true;
+    });
+
+    return filteredCandidates;
+  }
+
   /**
    * Change event handler for checkbox `id` under `group`.
    * 
@@ -210,6 +276,8 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
   }
 
   render() {
+    const filteredCandidates = this.getFilteredCandidates();
+    const countOfResults = filteredCandidates.length;
     const candidateFilterProps: CandidateFilterProps = {
       selected: this.state.selected,
       checked: this.state.checked,
@@ -269,7 +337,7 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
         <footer className="candidate-finder__footer">
           <div className="legco-container">
             <button type="button" className="legco-button candidate-finder__show-results">
-              查看xxx個結果
+              查看{ countOfResults }個結果
             </button>
           </div>
         </footer>
