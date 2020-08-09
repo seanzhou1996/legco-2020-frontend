@@ -2,15 +2,23 @@ export interface Props {
   className?: string
 }
 
+export type ConstituencyType = 'gc' | 'fc'
+
 export interface Constituency {
   id: string,
-  type: 'gc' | 'fc',
+  type: ConstituencyType,
   name: string
 }
 
-export interface ConstituencyType {
+export interface ConstituencyTypeMap {
+  [constituencyId: string]: ConstituencyType
+}
+
+export interface Candidate {
   id: string,
-  name: string
+  label: string,
+  candidates: string,
+  constituencyId: string
 }
 
 export interface PoliticalPosition {

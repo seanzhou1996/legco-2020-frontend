@@ -10,7 +10,8 @@ import SelectedFilters, { SelectedFiltersProps } from './SelectedFilters/Selecte
 import './CandidateFinder.scss';
 
 import {
-  Constituency
+  Constituency,
+  Candidate
 } from '../../models';
 
 interface CandidateFinderState {
@@ -247,12 +248,12 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
 
     const filteredCandidates = this.candidates.filter(obj => {
       if (hasConstituencyFilter) {
-        return obj.constituency_id === selectedConstituency;
+        return obj.constituencyId === selectedConstituency;
       }
       if (hasConstituencyTypeFilter) {
         // Type of the constituency the candidate is in
         const _type = this.constituencies
-          .find(_obj => _obj.id === obj.constituency_id)?.type;
+          .find(_obj => _obj.id === obj.constituencyId)?.type;
         return _type === selectedConstituencyType;
       }
       return true;
