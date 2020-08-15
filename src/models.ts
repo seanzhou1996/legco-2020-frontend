@@ -21,7 +21,15 @@ export interface Candidate {
   constituencyId: string
 }
 
-export interface PoliticalPosition {
+export type SelectType = 
+  'constituency_type' | 
+  'constituency' | 
+  'political_position';
+
+export type Selected = Record<SelectType, string>;
+
+export interface SelectOption {
   id: string,
-  name: string
+  name: string,
+  type: SelectType
 }

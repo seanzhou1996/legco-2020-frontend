@@ -1,29 +1,27 @@
 import React from 'react';
 
+import {
+  Selected,
+  SelectType,
+  SelectOption
+} from 'models';
+
 import './SelectedFilters.scss';
 
 export interface SelectedFiltersProps {
-  selected: {
-    [group: string]: string
-  }
+  selected: Selected,
   checked: {
     [id: string]: boolean
   },
-  selectOptions: {
-    id: string,
-    name: string,
-    group: string
-  }[],
+  selectOptions: SelectOption[],
   checkboxOptions: {
     id: string,
     name: string,
     group: string
   }[],
-  defaultSelects: {
-    [group: string]: string
-  },
+  defaultSelects: Selected,
   updateCheckboxState: (id: string) => void,
-  updateSelectState: (group: string, selected: string) => void
+  updateSelectState: (type: SelectType, selected: string) => void
 }
 
 export default class SelectedFilters extends React.Component<SelectedFiltersProps> {
@@ -57,12 +55,10 @@ export default class SelectedFilters extends React.Component<SelectedFiltersProp
     if (!selectOption) {
       throw Error(`Couldn't find checkbox with ID ${id}.`);
     }
-    const group = ['gc', 'fc'].includes(selectOption.group) 
-      ? 'constituency' 
-      : selectOption.group;
-    const initialValue = this.props.defaultSelects[group];
+    const type = selectOption.type;
+    const initialValue = this.props.defaultSelects[type];
     // Resets the select group to its initial value
-    this.props.updateSelectState(group, initialValue);
+    this.props.updateSelectState(type, initialValue);
   }
 
   /**
@@ -141,8 +137,15 @@ export default class SelectedFilters extends React.Component<SelectedFiltersProp
     // to.
     const selectFilterTags = Object.entries(this.props.selected)
       .filter(arr => {
-        const [group, id] = arr;
-        return id !== this.props.defaultSelects[group];
+        const [type, id] = arr;
+        switch (type) {
+          case 'constituency_type':
+          case 'constituency':
+          case 'political_position':
+            return id !== this.props.defaultSelects[type];
+          default:
+            throw Error(`Invalid select type: ${type}.`);
+        }
       })
       .map(arr => {
         const id = arr[1];

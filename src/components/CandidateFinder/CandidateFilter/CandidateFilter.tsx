@@ -1,38 +1,45 @@
 import React from 'react';
 
-import Checkbox, { CheckboxProps } from 'components/Checkbox/Checkbox';
-import Radio, { RadioProps } from 'components/Radio/Radio';
+import Checkbox, { 
+  CheckboxProps 
+} from 'components/Checkbox/Checkbox';
+import Radio, { 
+  RadioProps 
+} from 'components/Radio/Radio';
 import Expander from 'components/Expander/Expander';
-import ExpanderHeader, { ExpanderButton, ExpanderLabel } from 'components/Expander/ExpanderHeader';
+import ExpanderHeader, { 
+  ExpanderButton, 
+  ExpanderLabel 
+} from 'components/Expander/ExpanderHeader';
 import ExpanderPanel from 'components/Expander/ExpanderPanel';
 import Listbox from 'components/Listbox/Listbox';
+
+import {
+  Selected,
+  SelectType,
+  SelectOption,
+  ConstituencyTypeMap
+} from 'models';
 
 import './CandidateFilter.scss';
 
 export interface CandidateFilterProps {
-  selected: {
-    [group: string]: string
-  },
+  selected: Selected,
   checked: {
     [id: string]: boolean
   },
-  selectOptions: {
-    id: string,
-    name: string,
-    group: string
-  }[],
+  selectOptions: SelectOption[],
   checkboxOptions: {
     id: string,
     name: string,
     group: string
   }[],
-  defaultSelects: {
-    [group: string]: string
-  },
+  defaultSelects: Selected,
+  constituencyTypeMap: ConstituencyTypeMap,
   handleConstituencyTypeChange: React.ChangeEventHandler<HTMLSelectElement>,
   handleConstituencyChange: React.ChangeEventHandler<HTMLSelectElement>,
   handleCheckboxChange: (id: string) => void,
-  handleRadioChange: (group: string, id: string) => void
+  handleRadioSelectChange: (type: SelectType, id: string) => void
 }
 
 export default class CandidateFilter extends React.Component<CandidateFilterProps> {
@@ -73,18 +80,18 @@ export default class CandidateFilter extends React.Component<CandidateFilterProp
 
   createRadioSelect(
     option: { id: string, name: string }, 
-    name?: string
+    type: SelectType
   ) {
-    // Group radio inputs by category name, or their IDs when name is not given.
-    const group = name || option.id;
-
+    let checked = this.props.selected[type] === option.id;
     const props: RadioProps = {
       className: 'legco-radio--small',
       id: option.id,
       label: option.name,
-      name: group,
-      checked: this.props.selected?.[group] === option.id,
-      onChange: () => { this.props.handleRadioChange(group, option.id) }
+      name: type,
+      checked,
+      onChange: () => { 
+        this.props.handleRadioSelectChange(type, option.id)
+      }
     };
 
     return (
@@ -93,24 +100,56 @@ export default class CandidateFilter extends React.Component<CandidateFilterProp
   }
 
   render() {
-    const selectedConstituencies = [
-      this.props.selectOptions.find(obj => obj.id === this.props.selected['constituency_type'])?.name,
-      this.props.selectOptions.find(obj => obj.id === this.props.selected.constituency)?.name
-    ].filter(str => str !== undefined).join('，');
+    let constituencySelectGroup = this.props.selectOptions
+      .filter(obj => {
+        return obj.type === 'constituency' && (
+          this.props.constituencyTypeMap[obj.id] === 
+            this.props.selected.constituency_type
+        );
+      })
+      .map(obj => {
+        return this.createOption(
+          obj.id,
+          obj.name
+        );
+      });
+    const selectedConstituencies = this.props.selectOptions
+      .filter(obj => {
+        const type = obj.type;
+        switch (type) {
+          case 'constituency_type':
+          case 'constituency':
+            return obj.id === this.props.selected[type];
+          default:
+            return false;
+        }
+      })
+      .map(obj => obj.name)
+      .join('，');
 
     const countOfSelectedPersonalInfoFilters = 
-      this.props.checkboxOptions.filter(obj => this.props.checked?.[obj.id] === true).length +
-      this.props.selectOptions.filter(obj => {
-        return obj.id === this.props.selected['political_position'] && 
-          obj.id !== this.props.defaultSelects['political_position'];
-      }).length;
+      this.props.checkboxOptions
+        .filter(obj => this.props.checked?.[obj.id] === true).length +
+      this.props.selectOptions
+        .filter(obj => {
+          return obj.id === this.props.selected['political_position'] && 
+            obj.id !== this.props.defaultSelects['political_position'];
+        }).length;
 
+    const politicalPositionSelectGroup = this.props.selectOptions
+      .filter(obj => obj.type === 'political_position')
+      .map(obj => this.createRadioSelect(obj, obj.type));
+    
     return (
       <div className="candidate-filter">
         <Expander className="candidate-filter__expander">
           <ExpanderHeader>
             <ExpanderButton>所在選區</ExpanderButton>
-            <ExpanderLabel className={ selectedConstituencies === '' ? 'visually-hidden' : undefined }>
+            <ExpanderLabel className={ 
+              selectedConstituencies === '' ? 
+              'visually-hidden' : 
+              undefined 
+            }>
               { '已選擇：' + selectedConstituencies }
             </ExpanderLabel>
           </ExpanderHeader>
@@ -132,7 +171,7 @@ export default class CandidateFilter extends React.Component<CandidateFilterProp
                 </option>
                 { 
                   this.props.selectOptions
-                    .filter(obj => obj.group === 'constituency_type')
+                    .filter(obj => obj.type === 'constituency_type')
                     .map(obj => this.createOption(obj.id, obj.name))
                 }
               </Listbox>
@@ -148,16 +187,14 @@ export default class CandidateFilter extends React.Component<CandidateFilterProp
                 name="constituency"
                 value={ this.props.selected.constituency }
                 onChange={ this.props.handleConstituencyChange }
-                disabled={ this.props.selected['constituency_type'] === this.props.defaultSelects['constituency_type'] }
-              >
+                disabled={ 
+                  this.props.selected['constituency_type'] === 
+                    this.props.defaultSelects['constituency_type'] 
+              }>
                 <option value={ this.props.defaultSelects['constituency'] }>
                   所有選區
                 </option>
-                {
-                  this.props.selectOptions
-                    .filter(obj => obj.group === this.props.selected['constituency_type'])
-                    .map(obj => this.createOption(obj.id, obj.name))
-                }
+                { constituencySelectGroup }
               </Listbox>
             </div>
           </ExpanderPanel>
@@ -165,7 +202,11 @@ export default class CandidateFilter extends React.Component<CandidateFilterProp
         <Expander className="candidate-filter__expander">
           <ExpanderHeader>
             <ExpanderButton>個人資料</ExpanderButton>
-            <ExpanderLabel className={ countOfSelectedPersonalInfoFilters === 0 ? 'visually-hidden' : undefined }>
+            <ExpanderLabel className={ 
+              countOfSelectedPersonalInfoFilters === 0 ? 
+              'visually-hidden' : 
+              undefined 
+            }>
               { '已選擇：' + countOfSelectedPersonalInfoFilters + '項' }
             </ExpanderLabel>
           </ExpanderHeader>
@@ -173,11 +214,7 @@ export default class CandidateFilter extends React.Component<CandidateFilterProp
             <fieldset className="legco-fieldset">
               <legend className="candidate-filter__label legco-label">政治立場</legend>
               <div className="candidate-filter__options legco-form-group">
-                {
-                  this.props.selectOptions
-                    .filter(obj => obj.group === 'political_position')
-                    .map(obj => this.createRadioSelect(obj, obj.group))
-                }
+                { politicalPositionSelectGroup }
               </div>
             </fieldset>
             <fieldset className="legco-fieldset">

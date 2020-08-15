@@ -1,17 +1,30 @@
-import React, { ChangeEventHandler, createRef, Component } from 'react';
+import React, { 
+  ChangeEventHandler, 
+  createRef, 
+  Component 
+} from 'react';
 import axios from 'axios';
 import classnames from 'classnames';
 
 import Input from 'components/Input/Input';
 
-import CandidateFilter, { CandidateFilterProps } from './CandidateFilter/CandidateFilter';
-import SelectedFilters, { SelectedFiltersProps } from './SelectedFilters/SelectedFilters';
+import CandidateFilter, { 
+  CandidateFilterProps 
+} from './CandidateFilter/CandidateFilter';
+
+import SelectedFilters, { 
+  SelectedFiltersProps 
+} from './SelectedFilters/SelectedFilters';
 
 import './CandidateFinder.scss';
 
 import {
   Constituency,
-  Candidate
+  ConstituencyTypeMap,
+  Candidate,
+  SelectOption,
+  Selected,
+  SelectType
 } from 'models';
 
 interface CandidateFinderState {
@@ -19,15 +32,14 @@ interface CandidateFinderState {
   checked: {
     [id: string]: boolean
   },
-  selected: {
-    [group: string]: string
-  },
+  selected: Selected,
   remoteSourceFetched: boolean
 }
 
 class CandidateFinder extends Component<any, CandidateFinderState> {
   candidates: Candidate[] = [];
   constituencies: Constituency[] = [];
+  constituencyTypeMap: ConstituencyTypeMap = {};
   checkboxOptions = [
     {
       id: '35_or_younger', 
@@ -51,37 +63,35 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     }
   ];
 
-  selectOptions = [
+  selectOptions: SelectOption[] = [
     {
       id: 'all',
       name: '不限',
-      group: 'political_position'
+      type: 'political_position'
     },
     {
       id: 'est',
       name: '建制派',
-      group: 'political_position'
+      type: 'political_position'
     },
     {
       id: 'dem',
       name: '民主派',
-      group: 'political_position'
+      type: 'political_position'
     },
     {
       id: 'gc',
       name: '地方選區',
-      group: 'constituency_type'
+      type: 'constituency_type'
     },
     {
       id: 'fc',
       name: '功能組別選區',
-      group: 'constituency_type'
+      type: 'constituency_type'
     }
   ];
 
-  readonly defaultSelects: {
-    [group: string]: string
-  } = {
+  readonly defaultSelects: Selected = {
     constituency_type: '',
     constituency: '',
     political_position: 'all'
@@ -137,18 +147,25 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
       candidateSearchInput.focus();
     }
     try {
-      this.constituencies.push(
-        ...(await this.getConstituencies())
-      );
+      const constituencies = await this.getConstituencies();
+      constituencies.forEach(obj => {
+        this.constituencies.push(obj);
+        this.constituencyTypeMap[
+          obj.id
+        ] = obj.type;
+      });
       this.candidates.push(
         ...(await this.getCandidates())
       );
       this.selectOptions.push(
-        ...this.constituencies.map(obj => ({
-          id: obj.id,
-          name: obj.name,
-          group: obj.type
-        }))
+        ...this.constituencies.map(obj => {
+          const option: SelectOption = {
+            id: obj.id,
+            name: obj.name,
+            type: 'constituency'  
+          };
+          return option;
+        })
       );
       this.setState({
         remoteSourceFetched: true
@@ -188,25 +205,28 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
   }
 
   updateSelectState = (
-    name: string,
+    type: SelectType,
     value: string
   ) => {
     this.setState(prevState => {
       const currentState = {
         selected: {
           ...prevState.selected,
-          [name]: value
+          [type]: value
         }
       };
-      switch (name) {
+      switch (type) {
         // Set current constituency type [1] and update constituency, if the current type is
         // different from the old one [2].
         case 'constituency_type': {
           const {
-            name: prevValue,
+            constituency_type: prevValue,
             constituency: prevConstituency
           } = prevState.selected;
-          currentState.selected['constituency'] = value !== prevValue ? this.defaultSelects['constituency_type'] : prevConstituency;
+          currentState.selected['constituency'] = 
+            value !== prevValue ? 
+            this.defaultSelects['constituency_type'] : 
+            prevConstituency;
         }
       }
       return currentState;
@@ -272,8 +292,8 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     this.updateCheckboxState(id);
   }
 
-  handleRadioChange = (group: string, id: string) => {
-    this.updateSelectState(group, id);
+  handleRadioSelectChange = (type: SelectType, id: string) => {
+    this.updateSelectState(type, id);
   }
 
   render() {
@@ -285,10 +305,11 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
       selectOptions: this.selectOptions,
       checkboxOptions: this.checkboxOptions,
       defaultSelects: this.defaultSelects,
+      constituencyTypeMap: this.constituencyTypeMap,
       handleConstituencyTypeChange: this.handleConstituencyTypeChange,
       handleConstituencyChange: this.handleConstituencyChange,
       handleCheckboxChange: this.handleCheckboxChange,
-      handleRadioChange: this.handleRadioChange
+      handleRadioSelectChange: this.handleRadioSelectChange
     };
 
     const selectedFiltersProps: SelectedFiltersProps = {
