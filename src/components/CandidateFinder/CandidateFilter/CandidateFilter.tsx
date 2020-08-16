@@ -17,7 +17,7 @@ import Listbox from 'components/Listbox/Listbox';
 import {
   Selected,
   SelectType,
-  SelectOption,
+  SelectSet,
   ConstituencyTypeMap
 } from 'models';
 
@@ -28,7 +28,7 @@ export interface CandidateFilterProps {
   checked: {
     [id: string]: boolean
   },
-  selectOptions: SelectOption[],
+  selectSet: SelectSet,
   checkboxOptions: {
     id: string,
     name: string,
@@ -43,6 +43,9 @@ export interface CandidateFilterProps {
 }
 
 export default class CandidateFilter extends React.Component<CandidateFilterProps> {
+  notUndefined<T>(x: T | undefined): x is T {
+    return x !== undefined;
+  }
   /**
    * Returns a select option.
    * 
@@ -100,12 +103,33 @@ export default class CandidateFilter extends React.Component<CandidateFilterProp
   }
 
   render() {
-    let constituencySelectGroup = this.props.selectOptions
+    const constTypeMap = this.props.constituencyTypeMap;
+
+    const {
+      constituency: allConsts,
+      constituency_type: allConstTypes,
+      political_position: allPolitiPos
+    } = this.props.selectSet;
+
+    const {
+      constituency: defaultConstId,
+      constituency_type: defaultConstTypeId,
+      political_position: defaultPolitiPosId
+    } = this.props.defaultSelects;
+
+    const {
+      constituency: constId,
+      constituency_type: constTypeId,
+      political_position: politiPosId
+    } = this.props.selected;
+
+    const currentConst = allConsts.find(obj => obj.id === constId);
+    const currentConstType = allConstTypes.find(obj => obj.id === constTypeId);
+    // const currentPolitiPos = allPolitiPos.find(obj => obj.id === politiPosId);
+
+    const constSelectGroup = allConsts
       .filter(obj => {
-        return obj.type === 'constituency' && (
-          this.props.constituencyTypeMap[obj.id] === 
-            this.props.selected.constituency_type
-        );
+        return constTypeMap[obj.id] === constTypeId;
       })
       .map(obj => {
         return this.createOption(
@@ -113,44 +137,37 @@ export default class CandidateFilter extends React.Component<CandidateFilterProp
           obj.name
         );
       });
-    const selectedConstituencies = this.props.selectOptions
-      .filter(obj => {
-        const type = obj.type;
-        switch (type) {
-          case 'constituency_type':
-          case 'constituency':
-            return obj.id === this.props.selected[type];
-          default:
-            return false;
-        }
-      })
-      .map(obj => obj.name)
-      .join('，');
 
-    const countOfSelectedPersonalInfoFilters = 
-      this.props.checkboxOptions
-        .filter(obj => this.props.checked?.[obj.id] === true).length +
-      this.props.selectOptions
-        .filter(obj => {
-          return obj.id === this.props.selected['political_position'] && 
-            obj.id !== this.props.defaultSelects['political_position'];
-        }).length;
+    const politiPosSelectGroup = allPolitiPos
+      .map(obj => this.createRadioSelect(obj, 'political_position'));
 
-    const politicalPositionSelectGroup = this.props.selectOptions
-      .filter(obj => obj.type === 'political_position')
-      .map(obj => this.createRadioSelect(obj, obj.type));
-    
+    const constSelects = [
+      currentConstType,
+      currentConst
+    ]
+    .filter(this.notUndefined)
+    .map(obj => obj.name);
+
+    let activeInfoFiltersCounter = Object.values(this.props.checked)
+      .filter(checked => checked).length;
+
+    if (
+      politiPosId !== defaultPolitiPosId
+    ) {
+      activeInfoFiltersCounter++;
+    }
+
     return (
       <div className="candidate-filter">
         <Expander className="candidate-filter__expander">
           <ExpanderHeader>
             <ExpanderButton>所在選區</ExpanderButton>
             <ExpanderLabel className={ 
-              selectedConstituencies === '' ? 
+              constSelects.length === 0 ? 
               'visually-hidden' : 
               undefined 
             }>
-              { '已選擇：' + selectedConstituencies }
+              已選擇：{ constSelects.join('，') }
             </ExpanderLabel>
           </ExpanderHeader>
           <ExpanderPanel>
@@ -163,15 +180,14 @@ export default class CandidateFilter extends React.Component<CandidateFilterProp
                 className="candidate-filter__options" 
                 id="constituency_type"
                 name="constituency_type"
-                value={ this.props.selected['constituency_type'] }
+                value={ constTypeId }
                 onChange={ this.props.handleConstituencyTypeChange }
               >
-                <option value={ this.props.defaultSelects['constituency_type'] }>
+                <option value={ defaultConstTypeId }>
                   所有選區類別
                 </option>
                 { 
-                  this.props.selectOptions
-                    .filter(obj => obj.type === 'constituency_type')
+                  allConstTypes
                     .map(obj => this.createOption(obj.id, obj.name))
                 }
               </Listbox>
@@ -185,16 +201,13 @@ export default class CandidateFilter extends React.Component<CandidateFilterProp
                 className="candidate-filter__options" 
                 id="constituency_name"
                 name="constituency"
-                value={ this.props.selected.constituency }
+                value={ constId }
                 onChange={ this.props.handleConstituencyChange }
-                disabled={ 
-                  this.props.selected['constituency_type'] === 
-                    this.props.defaultSelects['constituency_type'] 
-              }>
-                <option value={ this.props.defaultSelects['constituency'] }>
+                disabled={ constTypeId === defaultConstTypeId }>
+                <option value={ defaultConstId }>
                   所有選區
                 </option>
-                { constituencySelectGroup }
+                { constSelectGroup }
               </Listbox>
             </div>
           </ExpanderPanel>
@@ -203,18 +216,18 @@ export default class CandidateFilter extends React.Component<CandidateFilterProp
           <ExpanderHeader>
             <ExpanderButton>個人資料</ExpanderButton>
             <ExpanderLabel className={ 
-              countOfSelectedPersonalInfoFilters === 0 ? 
+              activeInfoFiltersCounter === 0 ? 
               'visually-hidden' : 
               undefined 
             }>
-              { '已選擇：' + countOfSelectedPersonalInfoFilters + '項' }
+              已選擇：{ activeInfoFiltersCounter }項
             </ExpanderLabel>
           </ExpanderHeader>
           <ExpanderPanel>
             <fieldset className="legco-fieldset">
               <legend className="candidate-filter__label legco-label">政治立場</legend>
               <div className="candidate-filter__options legco-form-group">
-                { politicalPositionSelectGroup }
+                { politiPosSelectGroup }
               </div>
             </fieldset>
             <fieldset className="legco-fieldset">

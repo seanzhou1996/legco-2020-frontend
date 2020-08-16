@@ -24,7 +24,8 @@ import {
   Candidate,
   SelectOption,
   Selected,
-  SelectType
+  SelectType,
+  SelectSet
 } from 'models';
 
 interface CandidateFinderState {
@@ -63,33 +64,33 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     }
   ];
 
-  selectOptions: SelectOption[] = [
-    {
-      id: 'all',
-      name: '不限',
-      type: 'political_position'
-    },
-    {
-      id: 'est',
-      name: '建制派',
-      type: 'political_position'
-    },
-    {
-      id: 'dem',
-      name: '民主派',
-      type: 'political_position'
-    },
-    {
-      id: 'gc',
-      name: '地方選區',
-      type: 'constituency_type'
-    },
-    {
-      id: 'fc',
-      name: '功能組別選區',
-      type: 'constituency_type'
-    }
-  ];
+  selectSet: SelectSet = {
+    constituency_type: [
+      {
+        id: 'gc',
+        name: '地方選區'
+      },
+      {
+        id: 'fc',
+        name: '功能組別選區'
+      }  
+    ],
+    constituency: [],
+    political_position: [
+      {
+        id: 'all',
+        name: '不限'
+      },
+      {
+        id: 'est',
+        name: '建制派'
+      },
+      {
+        id: 'dem',
+        name: '民主派'
+      },  
+    ]
+  }
 
   readonly defaultSelects: Selected = {
     constituency_type: '',
@@ -157,12 +158,11 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
       this.candidates.push(
         ...(await this.getCandidates())
       );
-      this.selectOptions.push(
+      this.selectSet.constituency.push(
         ...this.constituencies.map(obj => {
           const option: SelectOption = {
             id: obj.id,
-            name: obj.name,
-            type: 'constituency'  
+            name: obj.name
           };
           return option;
         })
@@ -302,7 +302,7 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     const candidateFilterProps: CandidateFilterProps = {
       selected: this.state.selected,
       checked: this.state.checked,
-      selectOptions: this.selectOptions,
+      selectSet: this.selectSet,
       checkboxOptions: this.checkboxOptions,
       defaultSelects: this.defaultSelects,
       constituencyTypeMap: this.constituencyTypeMap,
@@ -315,7 +315,7 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     const selectedFiltersProps: SelectedFiltersProps = {
       selected: this.state.selected,
       checked: this.state.checked,
-      selectOptions: this.selectOptions,
+      selectSet: this.selectSet,
       checkboxOptions: this.checkboxOptions,
       defaultSelects: this.defaultSelects,
       updateSelectState: this.updateSelectState,

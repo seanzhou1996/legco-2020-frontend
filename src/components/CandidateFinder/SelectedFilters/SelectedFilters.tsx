@@ -3,7 +3,7 @@ import React from 'react';
 import {
   Selected,
   SelectType,
-  SelectOption
+  SelectSet
 } from 'models';
 
 import './SelectedFilters.scss';
@@ -13,7 +13,7 @@ export interface SelectedFiltersProps {
   checked: {
     [id: string]: boolean
   },
-  selectOptions: SelectOption[],
+  selectSet: SelectSet,
   checkboxOptions: {
     id: string,
     name: string,
@@ -49,13 +49,12 @@ export default class SelectedFilters extends React.Component<SelectedFiltersProp
    * 
    * @param id Identifier of the filter.
    */
-  handleSelectTagClick = (id: string) => {
-    const selectOption = this.props.selectOptions
+  handleSelectTagClick = (id: string, type: SelectType) => {
+    const selectOption = this.props.selectSet[type]
       .find(obj => obj.id === id);
     if (!selectOption) {
       throw Error(`Couldn't find checkbox with ID ${id}.`);
     }
-    const type = selectOption.type;
     const initialValue = this.props.defaultSelects[type];
     // Resets the select group to its initial value
     this.props.updateSelectState(type, initialValue);
@@ -90,19 +89,19 @@ export default class SelectedFilters extends React.Component<SelectedFiltersProp
    * 
    * @param id Identifier of the selected option.
    */
-  createSelectTag(id: string) {
-    const filterOption = this.props.selectOptions
+  createSelectTag(id: string, type: SelectType) {
+    const filter = this.props.selectSet[type]
       .find(obj => obj.id === id);
-    if (!filterOption) {
+    if (!filter) {
       throw Error(`Couldn't find filter with id ${id}.`);
     }
     const clickHandler = () => {
-      this.handleSelectTagClick(id);
+      this.handleSelectTagClick(id, type);
     };
     return this.createFilterTag(
       clickHandler,
       id,
-      filterOption.name
+      filter.name
     );
   }
 
@@ -131,25 +130,28 @@ export default class SelectedFilters extends React.Component<SelectedFiltersProp
     );
   }
 
+  isSelectType(x: SelectType | string): x is SelectType {
+    const selectTypes = [
+      'constituency_type',
+      'constituency',
+      'political_position'
+    ];
+    return selectTypes.includes(x);
+  }
+
   render() {
     // Create tags for all select options currently chosen, given that
     // they aren't the initial value of the select group they belong
     // to.
-    const selectFilterTags = Object.entries(this.props.selected)
-      .filter(arr => {
-        const [type, id] = arr;
-        switch (type) {
-          case 'constituency_type':
-          case 'constituency':
-          case 'political_position':
-            return id !== this.props.defaultSelects[type];
-          default:
-            throw Error(`Invalid select type: ${type}.`);
-        }
+    const selectFilterTags = Object.keys(this.props.selected)
+      .filter(this.isSelectType)
+      .filter(type => {
+        const selectedId = this.props.selected[type];
+        return selectedId !== this.props.defaultSelects[type];
       })
-      .map(arr => {
-        const id = arr[1];
-        return this.createSelectTag(id);
+      .map(type => {
+        const selectedId = this.props.selected[type];
+        return this.createSelectTag(selectedId, type);
       });
 
     // Create tags for all checkboxes currently checked

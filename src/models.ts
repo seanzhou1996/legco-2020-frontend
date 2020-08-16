@@ -28,8 +28,9 @@ export type SelectType =
 
 export type Selected = Record<SelectType, string>;
 
+export type SelectSet = Record<SelectType, SelectOption[]>;
+
 export interface SelectOption {
   id: string,
-  name: string,
-  type: SelectType
+  name: string
 }
