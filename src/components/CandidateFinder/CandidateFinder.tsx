@@ -33,7 +33,7 @@ interface CandidateFinderState {
   keyword: string,
   checked: Checked,
   selected: Selected,
-  remoteSourceFetched: boolean
+  resourceFetched: boolean
 }
 
 class CandidateFinder extends Component<any, CandidateFinderState> {
@@ -62,6 +62,9 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     }
   ];
 
+  // Unlike checkbox options, we use a map to store different types of
+  // select options. The map allows to get a specific type of options
+  // without filtering.
   selectSet: SelectSet = {
     constituency_type: [
       {
@@ -90,21 +93,29 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     ]
   }
 
+  // Default values for all select types. We use "all" for 
+  // political position because it's a real option in the
+  // select set.
   readonly defaultSelects: Selected = {
     constituency_type: '',
     constituency: '',
     political_position: 'all'
   }
 
+  // A reference to the native candidate search input element
   candidateSearchInputRef = createRef<HTMLInputElement>();
 
   constructor(props: any) {
     super(props);
+    // Set initial state. While `checked` is empty, we must
+    // initialize `selected` with the default selects so
+    // that all select inputs correctly display the default
+    // selections.
     this.state = {
       keyword: '',
       checked: {},
       selected: this.defaultSelects,
-      remoteSourceFetched: false
+      resourceFetched: false
     };
   }
 
@@ -141,12 +152,16 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
   }
 
   async componentDidMount() {
+    // Get the referred element
     const candidateSearchInput = this.candidateSearchInputRef.current;
+    // If the current reference is valid, focus the input.
     if (candidateSearchInput !== null) {
       candidateSearchInput.focus();
     }
     try {
       const constituencies = await this.getConstituencies();
+      const candidates = await this.getCandidates();
+      
       constituencies.forEach(obj => {
         const option: SelectOption = {
           id: obj.id,
@@ -155,11 +170,10 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
         this.selectSet.constituency.push(option);
         this.constituencies.push(obj);
       });
-      this.candidates.push(
-        ...(await this.getCandidates())
-      );
+      this.candidates = candidates;
+      // Update resource fetched flag to trigger a re-render
       this.setState({
-        remoteSourceFetched: true
+        resourceFetched: true
       });
     } catch (error) {
       console.error(error);
@@ -184,18 +198,17 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
           [type]: value
         }
       };
-      switch (type) {
-        // Set current constituency type [1] and update constituency, if the current type is
-        // different from the old one [2].
-        case 'constituency_type': {
-          const {
-            constituency_type: prevValue,
-            constituency: prevConstituency
-          } = prevState.selected;
-          currentState.selected['constituency'] = 
-            value !== prevValue ? 
-            this.defaultSelects['constituency_type'] : 
-            prevConstituency;
+      if (type === 'constituency_type') {
+        // If constituency type is changed, reset constituency to its default [1].
+        const currentConstType = value;
+        const {
+          constituency_type: prevConstType,
+          constituency: prevConst
+        } = prevState.selected;
+        if (prevConstType !== currentConstType) {
+          currentState.selected.constituency = this.defaultSelects.constituency; // [1]
+        } else {
+          currentState.selected.constituency = prevConst;
         }
       }
       return currentState;
@@ -204,7 +217,7 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
 
   updateCheckedState = (id: string) => {
     this.setState(prevState => {
-      let previouslyChecked = prevState.checked?.[id] || false;
+      let previouslyChecked = prevState.checked[id] || false;
       return {
         checked: {
           ...prevState.checked,
@@ -266,50 +279,51 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     };
 
     // To visually hide label, we lift input up when
-    // [1] input is in focus (handled by CSS) and
+    // [1] input is in focus (handled by CSS) or
     // [2] input is not empty.
     const candidateSearchInputClass = classnames(
       'candidate-search__input',
       {
-        'candidate-search__input--non-empty': !!this.state.keyword // [2]
+        'candidate-search__input--non-empty': this.state.keyword !== '' // [2]
       }
-    )
+    );
+
     return (
-    <FinderContext.Provider value = { contextValue }> 
-      <div className="candidate-finder">
-        <header className="candidate-finder__header">
-          <h1 className="candidate-finder__title">篩選候選人</h1>
-          <button className="candidate-finder__return-link" type="button">
-            返回主頁
-          </button>
-        </header>
-        <form className="candidate-finder__form">
-          <div className="candidate-search legco-form-group">
-            <label 
-              className="legco-label candidate-search__label" 
-              htmlFor="candidate_search_input"
-            >搜索候選人</label>
-            <Input
-              ref={ this.candidateSearchInputRef }
-              className={ candidateSearchInputClass }
-              id="candidate_search_input"
-              name="candidate_name" 
-              value={ this.state.keyword } 
-              onChange={ this.handleSearchInputChange } />
-          </div>
-          <CandidateFilter />
-          <SelectedFilters />
-        </form>
-        <footer className="candidate-finder__footer">
-          <div className="legco-container">
-            <button type="button" className="legco-button candidate-finder__show-results">
-              查看{ countOfResults }個結果
+      <FinderContext.Provider value = { contextValue }> 
+        <div className="candidate-finder">
+          <header className="candidate-finder__header">
+            <h1 className="candidate-finder__title">篩選候選人</h1>
+            <button className="candidate-finder__return-link" type="button">
+              返回主頁
             </button>
-          </div>
-        </footer>
-      </div>
-    </FinderContext.Provider>
-    )
+          </header>
+          <form className="candidate-finder__form">
+            <div className="candidate-search legco-form-group">
+              <label 
+                className="legco-label candidate-search__label" 
+                htmlFor="candidate_search_input"
+              >搜索候選人</label>
+              <Input
+                ref={ this.candidateSearchInputRef }
+                className={ candidateSearchInputClass }
+                id="candidate_search_input"
+                name="candidate_name" 
+                value={ this.state.keyword } 
+                onChange={ this.handleSearchInputChange } />
+            </div>
+            <CandidateFilter />
+            <SelectedFilters />
+          </form>
+          <footer className="candidate-finder__footer">
+            <div className="legco-container">
+              <button type="button" className="legco-button candidate-finder__show-results">
+                查看{ countOfResults }個結果
+              </button>
+            </div>
+          </footer>
+        </div>
+      </FinderContext.Provider>
+    );
   }
 }
 

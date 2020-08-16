@@ -11,6 +11,7 @@ import './SelectedFilters.scss';
 export default class SelectedFilters extends React.Component {
   static contextType = FinderContext;
   context!: React.ContextType<typeof FinderContext>;
+
   /**
    * Handler for click events on checkbox tags. Checkboxes are unchecked
    * when the user clicks on their tags.
@@ -116,6 +117,12 @@ export default class SelectedFilters extends React.Component {
     );
   }
 
+  /**
+   * Select groups type guard. Returns true if `x` is
+   * a select type. Returns false otherwise.
+   * 
+   * @param x string to check.
+   */
   isSelectType(x: SelectType | string): x is SelectType {
     const selectTypes = [
       'constituency_type',
@@ -131,7 +138,7 @@ export default class SelectedFilters extends React.Component {
       defaultSelects,
       checked
     } = this.context;
-    
+
     // Create tags for all select options currently chosen, given that
     // they aren't the initial value of the select group they belong
     // to.
@@ -157,25 +164,19 @@ export default class SelectedFilters extends React.Component {
         return this.createCheckboxTag(id);
       });
 
-    // Labels for all filter groups. A label and a filter group match
-    // using their indexes in the array.
-    const labelsForFilterGroups = [
-      '屬於',
-      '同時是'
-    ];
-
+    // [1] Filter out empty groups so they don't generate any markup
+    // [2] Map each group to a list of tags with a leading label
     const filterTagGroups = [
-      selectFilterTags,
-      checkboxFilterTags
+      { tags: selectFilterTags, label: '屬於' },
+      { tags: checkboxFilterTags, label: '同時是' }
     ]
-    // Filter out empty groups so they don't generate any markup
-    .filter(group => group.length > 0)
-    // Map each group into a list of tags with a leading label
-    .map((tags, index) => {
+    .filter(obj => obj.tags.length > 0) // [1]
+    .map((obj, index) => { // [2]
+      const { tags, label } = obj;
       return (
         <div key={ index } className="selected-filters__group">
           <span className="selected-filters__label">
-            { labelsForFilterGroups[index] }
+            { label }
           </span>
           { tags }
         </div>

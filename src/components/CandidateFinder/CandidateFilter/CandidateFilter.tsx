@@ -20,8 +20,7 @@ import FinderContext from 'components/CandidateFinder/context';
 
 import {
   SelectType, 
-  ConstituencyType, 
-  Constituency
+  ConstituencyType
 } from 'models';
 
 import './CandidateFilter.scss';
@@ -111,9 +110,8 @@ export default class CandidateFilter extends React.Component {
   }
 
   /**
-   * Change event handler for checkbox `id` under `group`.
+   * Change event handler for checkbox `id`.
    * 
-   * @param group Form group the checkbox belongs to.
    * @param id Identifier of the checkbox.
    */
   handleCheckboxChange = (id: string) => {
@@ -122,18 +120,6 @@ export default class CandidateFilter extends React.Component {
 
   handleRadioSelectChange = (type: SelectType, id: string) => {
     this.context.updateSelectedState(type, id);
-  }
-
-  createConstTypeMap = (constituencies: Constituency[]) => {
-    const map: {
-      [constId: string]: ConstituencyType
-    } = {};
-
-    constituencies.forEach(obj => {
-      map[obj.id] = obj.type
-    });
-
-    return map;
   }
 
   render() {
@@ -146,7 +132,16 @@ export default class CandidateFilter extends React.Component {
       checked
     } = this.context;
 
-    const constTypeMap = this.createConstTypeMap(constituencies);
+    // Create a map from constituency IDs to constituency types
+    const constTypeMap: {
+      [constId: string]: ConstituencyType
+    } = constituencies.reduce((previous, current) => {
+      const accumulator = {
+        ...previous,
+        [current.id]: current.type
+      }
+      return accumulator;
+    }, {});
 
     const {
       constituency: allConsts,
@@ -168,6 +163,14 @@ export default class CandidateFilter extends React.Component {
 
     const currentConst = allConsts.find(obj => obj.id === constId);
     const currentConstType = allConstTypes.find(obj => obj.id === constTypeId);
+
+    const ageCheckboxGroup = checkboxOptions
+      .filter(obj => obj.group === 'age')
+      .map(obj => this.createCheckbox(obj, 'age'));
+
+    const otherInfoCheckboxGroup = checkboxOptions
+      .filter(obj => obj.group === 'other_info')
+      .map(obj => this.createCheckbox(obj, 'other_info'));
 
     const constSelectGroup = allConsts
       .filter(obj => {
@@ -275,21 +278,13 @@ export default class CandidateFilter extends React.Component {
             <fieldset className="legco-fieldset">
               <legend className="candidate-filter__label legco-label">年齡</legend>
               <div className="candidate-filter__options legco-form-group">
-                {
-                  checkboxOptions
-                    .filter(obj => obj.group === 'age')
-                    .map(obj => this.createCheckbox(obj, 'age'))
-                }
+                { ageCheckboxGroup }
               </div>
             </fieldset>
             <fieldset className="legco-fieldset">
               <legend className="candidate-filter__label legco-label">其他</legend>
               <div className="candidate-filter__options legco-form-group">
-                {
-                  checkboxOptions
-                    .filter(obj => obj.group === 'other_info')
-                    .map(obj => this.createCheckbox(obj, 'other_info'))
-                }
+                { otherInfoCheckboxGroup }
               </div>
             </fieldset>
           </ExpanderPanel>
