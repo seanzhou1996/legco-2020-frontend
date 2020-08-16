@@ -256,7 +256,7 @@ export default class CandidateFilter extends React.Component {
                 {
                   this.context.checkboxOptions
                     .filter(obj => obj.group === 'age')
-                    .map(obj => this.createCheckbox(obj, obj.group))
+                    .map(obj => this.createCheckbox(obj, 'age'))
                 }
               </div>
             </fieldset>
@@ -265,8 +265,8 @@ export default class CandidateFilter extends React.Component {
               <div className="candidate-filter__options legco-form-group">
                 {
                   this.context.checkboxOptions
-                    .filter(obj => obj.group === 'others')
-                    .map(obj => this.createCheckbox(obj, obj.group))
+                    .filter(obj => obj.group === 'other_info')
+                    .map(obj => this.createCheckbox(obj, 'other_info'))
                 }
               </div>
             </fieldset>

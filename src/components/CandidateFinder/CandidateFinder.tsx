@@ -50,17 +50,17 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     {
       id: 'dem_primary',
       name: '參與民主派初選',
-      group: 'others'
+      group: 'other_info'
     },
     {
       id: 'fresh_face',
       name: '首次參選立法會',
-      group: 'others'
+      group: 'other_info'
     },
     {
       id: 'independent',
       name: '無政黨背景',
-      group: 'others'
+      group: 'other_info'
     }
   ];
 
