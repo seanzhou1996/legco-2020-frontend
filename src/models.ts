@@ -10,10 +10,6 @@ export interface Constituency {
   name: string
 }
 
-export interface ConstituencyTypeMap {
-  [constituencyId: string]: ConstituencyType
-}
-
 export interface Candidate {
   id: string,
   label: string,

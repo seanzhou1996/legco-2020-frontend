@@ -20,7 +20,6 @@ import './CandidateFinder.scss';
 
 import {
   Constituency,
-  ConstituencyTypeMap,
   Candidate,
   SelectOption,
   Selected,
@@ -40,7 +39,6 @@ interface CandidateFinderState {
 class CandidateFinder extends Component<any, CandidateFinderState> {
   candidates: Candidate[] = [];
   constituencies: Constituency[] = [];
-  constituencyTypeMap: ConstituencyTypeMap = {};
   checkboxOptions: CheckboxOption[] = [
     {
       id: '35_or_younger', 
@@ -156,9 +154,6 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
         };
         this.selectSet.constituency.push(option);
         this.constituencies.push(obj);
-        this.constituencyTypeMap[
-          obj.id
-        ] = obj.type;
       });
       this.candidates.push(
         ...(await this.getCandidates())
@@ -260,12 +255,12 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     const filteredCandidates = this.getFilteredCandidates();
     const countOfResults = filteredCandidates.length;
     const contextValue: FinderContextValue = {
+      constituencies: this.constituencies,
       selected: this.state.selected,
       checked: this.state.checked,
       selectSet: this.selectSet,
       checkboxOptions: this.checkboxOptions,
       defaultSelects: this.defaultSelects,
-      constituencyTypeMap: this.constituencyTypeMap,
       updateSelectedState: this.updateSelectedState,
       updateCheckedState: this.updateCheckedState
     };

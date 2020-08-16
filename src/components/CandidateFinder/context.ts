@@ -3,23 +3,24 @@ import {
   SelectType,
   Selected,
   SelectSet,
-  ConstituencyTypeMap,
   Checked,
-  CheckboxOption
+  CheckboxOption,
+  Constituency
 } from 'models';
 
 export interface FinderContextValue {
+  constituencies: Constituency[],
   selected: Selected,
   checked: Checked,
   selectSet: SelectSet,
   checkboxOptions: CheckboxOption[],
   defaultSelects: Selected,
-  constituencyTypeMap: ConstituencyTypeMap,
   updateSelectedState: (type: SelectType, value: string) => void,
   updateCheckedState: (id: string) => void
 }
 
 const defaultContext: FinderContextValue = {
+  constituencies: [],
   selected: {
     constituency_type: '',
     constituency: '',
@@ -37,7 +38,6 @@ const defaultContext: FinderContextValue = {
     constituency: '',
     political_position: 'all'
   },
-  constituencyTypeMap: {},
   updateSelectedState: () => {},
   updateCheckedState: () => {}
 }

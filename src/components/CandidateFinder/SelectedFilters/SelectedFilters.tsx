@@ -126,22 +126,28 @@ export default class SelectedFilters extends React.Component {
   }
 
   render() {
+    const {
+      selected,
+      defaultSelects,
+      checked
+    } = this.context;
+    
     // Create tags for all select options currently chosen, given that
     // they aren't the initial value of the select group they belong
     // to.
-    const selectFilterTags = Object.keys(this.context.selected)
+    const selectFilterTags = Object.keys(selected)
       .filter(this.isSelectType)
       .filter(type => {
-        const selectedId = this.context.selected[type];
-        return selectedId !== this.context.defaultSelects[type];
+        const selectedId = selected[type];
+        return selectedId !== defaultSelects[type];
       })
       .map(type => {
-        const selectedId = this.context.selected[type];
+        const selectedId = selected[type];
         return this.createSelectTag(selectedId, type);
       });
 
     // Create tags for all checkboxes currently checked
-    const checkboxFilterTags = Object.entries(this.context.checked)
+    const checkboxFilterTags = Object.entries(checked)
       .filter(arr => {
         const checked = arr[1];
         return checked;

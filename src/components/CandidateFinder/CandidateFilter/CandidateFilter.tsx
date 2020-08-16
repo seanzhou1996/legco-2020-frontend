@@ -19,7 +19,9 @@ import Listbox from 'components/Listbox/Listbox';
 import FinderContext from 'components/CandidateFinder/context';
 
 import {
-  SelectType
+  SelectType, 
+  ConstituencyType, 
+  Constituency
 } from 'models';
 
 import './CandidateFilter.scss';
@@ -122,30 +124,50 @@ export default class CandidateFilter extends React.Component {
     this.context.updateSelectedState(type, id);
   }
 
+  createConstTypeMap = (constituencies: Constituency[]) => {
+    const map: {
+      [constId: string]: ConstituencyType
+    } = {};
+
+    constituencies.forEach(obj => {
+      map[obj.id] = obj.type
+    });
+
+    return map;
+  }
+
   render() {
-    const constTypeMap = this.context.constituencyTypeMap;
+    const {
+      constituencies,
+      selectSet,
+      defaultSelects,
+      selected,
+      checkboxOptions,
+      checked
+    } = this.context;
+
+    const constTypeMap = this.createConstTypeMap(constituencies);
 
     const {
       constituency: allConsts,
       constituency_type: allConstTypes,
       political_position: allPolitiPos
-    } = this.context.selectSet;
+    } = selectSet;
 
     const {
       constituency: defaultConstId,
       constituency_type: defaultConstTypeId,
       political_position: defaultPolitiPosId
-    } = this.context.defaultSelects;
+    } = defaultSelects;
 
     const {
       constituency: constId,
       constituency_type: constTypeId,
       political_position: politiPosId
-    } = this.context.selected;
+    } = selected;
 
     const currentConst = allConsts.find(obj => obj.id === constId);
     const currentConstType = allConstTypes.find(obj => obj.id === constTypeId);
-    // const currentPolitiPos = allPolitiPos.find(obj => obj.id === politiPosId);
 
     const constSelectGroup = allConsts
       .filter(obj => {
@@ -168,7 +190,7 @@ export default class CandidateFilter extends React.Component {
     .filter(this.notUndefined)
     .map(obj => obj.name);
 
-    let activeInfoFiltersCounter = Object.values(this.context.checked)
+    let activeInfoFiltersCounter = Object.values(checked)
       .filter(checked => checked).length;
 
     if (
@@ -254,7 +276,7 @@ export default class CandidateFilter extends React.Component {
               <legend className="candidate-filter__label legco-label">年齡</legend>
               <div className="candidate-filter__options legco-form-group">
                 {
-                  this.context.checkboxOptions
+                  checkboxOptions
                     .filter(obj => obj.group === 'age')
                     .map(obj => this.createCheckbox(obj, 'age'))
                 }
@@ -264,7 +286,7 @@ export default class CandidateFilter extends React.Component {
               <legend className="candidate-filter__label legco-label">其他</legend>
               <div className="candidate-filter__options legco-form-group">
                 {
-                  this.context.checkboxOptions
+                  checkboxOptions
                     .filter(obj => obj.group === 'other_info')
                     .map(obj => this.createCheckbox(obj, 'other_info'))
                 }
