@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { 
+  ChangeEventHandler 
+} from 'react';
 
 import Checkbox, { 
   CheckboxProps 
@@ -14,35 +16,17 @@ import ExpanderHeader, {
 import ExpanderPanel from 'components/Expander/ExpanderPanel';
 import Listbox from 'components/Listbox/Listbox';
 
+import FinderContext from 'components/CandidateFinder/context';
+
 import {
-  Selected,
-  SelectType,
-  SelectSet,
-  ConstituencyTypeMap
+  SelectType
 } from 'models';
 
 import './CandidateFilter.scss';
 
-export interface CandidateFilterProps {
-  selected: Selected,
-  checked: {
-    [id: string]: boolean
-  },
-  selectSet: SelectSet,
-  checkboxOptions: {
-    id: string,
-    name: string,
-    group: string
-  }[],
-  defaultSelects: Selected,
-  constituencyTypeMap: ConstituencyTypeMap,
-  handleConstituencyTypeChange: React.ChangeEventHandler<HTMLSelectElement>,
-  handleConstituencyChange: React.ChangeEventHandler<HTMLSelectElement>,
-  handleCheckboxChange: (id: string) => void,
-  handleRadioSelectChange: (type: SelectType, id: string) => void
-}
-
-export default class CandidateFilter extends React.Component<CandidateFilterProps> {
+export default class CandidateFilter extends React.Component {
+  static contextType = FinderContext;
+  context!: React.ContextType<typeof FinderContext>;
   notUndefined<T>(x: T | undefined): x is T {
     return x !== undefined;
   }
@@ -67,17 +51,17 @@ export default class CandidateFilter extends React.Component<CandidateFilterProp
     // Group checkboxes by category name, or their IDs when name is not given.
     const group = name || option.id;
 
-    const props: CheckboxProps = {
+    const context: CheckboxProps = {
       className: 'legco-checkbox--small',
       id: option.id,
       label: option.name,
       name: group,
-      checked: this.props.checked?.[option.id] || false,
-      onChange: () => { this.props.handleCheckboxChange(option.id) }
+      checked: this.context.checked?.[option.id] || false,
+      onChange: () => { this.handleCheckboxChange(option.id) }
     };
 
     return (
-      <Checkbox key={ option.id } {...props} />
+      <Checkbox key={ option.id } {...context} />
     );
   }
 
@@ -85,43 +69,79 @@ export default class CandidateFilter extends React.Component<CandidateFilterProp
     option: { id: string, name: string }, 
     type: SelectType
   ) {
-    let checked = this.props.selected[type] === option.id;
-    const props: RadioProps = {
+    let checked = this.context.selected[type] === option.id;
+    const context: RadioProps = {
       className: 'legco-radio--small',
       id: option.id,
       label: option.name,
       name: type,
       checked,
       onChange: () => { 
-        this.props.handleRadioSelectChange(type, option.id)
+        this.handleRadioSelectChange(type, option.id)
       }
     };
 
     return (
-      <Radio key={ option.id } {...props} />
+      <Radio key={ option.id } {...context} />
     );
   }
 
+  /**
+   * Handler for change events on the constituency type select group. Updates
+   * selected state to reflect the user's choice.
+   * 
+   * @param event Change event on the select group.
+   */
+  handleConstTypeChange: ChangeEventHandler<HTMLSelectElement> = event => {
+    const { value } = event.target;
+    this.context.updateSelectedState('constituency_type', value);
+  }
+
+  /**
+   * Handler for change events on the constituency select group. Updates
+   * selected state to reflect the user's choice.
+   * 
+   * @param event Change event on the select group.
+   */
+  handleConstChange: ChangeEventHandler<HTMLSelectElement> = event => {
+    const { value } = event.target;
+    this.context.updateSelectedState('constituency', value);
+  }
+
+  /**
+   * Change event handler for checkbox `id` under `group`.
+   * 
+   * @param group Form group the checkbox belongs to.
+   * @param id Identifier of the checkbox.
+   */
+  handleCheckboxChange = (id: string) => {
+    this.context.updateCheckedState(id);
+  }
+
+  handleRadioSelectChange = (type: SelectType, id: string) => {
+    this.context.updateSelectedState(type, id);
+  }
+
   render() {
-    const constTypeMap = this.props.constituencyTypeMap;
+    const constTypeMap = this.context.constituencyTypeMap;
 
     const {
       constituency: allConsts,
       constituency_type: allConstTypes,
       political_position: allPolitiPos
-    } = this.props.selectSet;
+    } = this.context.selectSet;
 
     const {
       constituency: defaultConstId,
       constituency_type: defaultConstTypeId,
       political_position: defaultPolitiPosId
-    } = this.props.defaultSelects;
+    } = this.context.defaultSelects;
 
     const {
       constituency: constId,
       constituency_type: constTypeId,
       political_position: politiPosId
-    } = this.props.selected;
+    } = this.context.selected;
 
     const currentConst = allConsts.find(obj => obj.id === constId);
     const currentConstType = allConstTypes.find(obj => obj.id === constTypeId);
@@ -148,7 +168,7 @@ export default class CandidateFilter extends React.Component<CandidateFilterProp
     .filter(this.notUndefined)
     .map(obj => obj.name);
 
-    let activeInfoFiltersCounter = Object.values(this.props.checked)
+    let activeInfoFiltersCounter = Object.values(this.context.checked)
       .filter(checked => checked).length;
 
     if (
@@ -181,7 +201,7 @@ export default class CandidateFilter extends React.Component<CandidateFilterProp
                 id="constituency_type"
                 name="constituency_type"
                 value={ constTypeId }
-                onChange={ this.props.handleConstituencyTypeChange }
+                onChange={ this.handleConstTypeChange }
               >
                 <option value={ defaultConstTypeId }>
                   所有選區類別
@@ -202,7 +222,7 @@ export default class CandidateFilter extends React.Component<CandidateFilterProp
                 id="constituency_name"
                 name="constituency"
                 value={ constId }
-                onChange={ this.props.handleConstituencyChange }
+                onChange={ this.handleConstChange }
                 disabled={ constTypeId === defaultConstTypeId }>
                 <option value={ defaultConstId }>
                   所有選區
@@ -234,7 +254,7 @@ export default class CandidateFilter extends React.Component<CandidateFilterProp
               <legend className="candidate-filter__label legco-label">年齡</legend>
               <div className="candidate-filter__options legco-form-group">
                 {
-                  this.props.checkboxOptions
+                  this.context.checkboxOptions
                     .filter(obj => obj.group === 'age')
                     .map(obj => this.createCheckbox(obj, obj.group))
                 }
@@ -244,7 +264,7 @@ export default class CandidateFilter extends React.Component<CandidateFilterProp
               <legend className="candidate-filter__label legco-label">其他</legend>
               <div className="candidate-filter__options legco-form-group">
                 {
-                  this.props.checkboxOptions
+                  this.context.checkboxOptions
                     .filter(obj => obj.group === 'others')
                     .map(obj => this.createCheckbox(obj, obj.group))
                 }

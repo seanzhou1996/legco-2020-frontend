@@ -1,30 +1,16 @@
 import React from 'react';
 
+import FinderContext from 'components/CandidateFinder/context';
+
 import {
-  Selected,
-  SelectType,
-  SelectSet
+  SelectType
 } from 'models';
 
 import './SelectedFilters.scss';
 
-export interface SelectedFiltersProps {
-  selected: Selected,
-  checked: {
-    [id: string]: boolean
-  },
-  selectSet: SelectSet,
-  checkboxOptions: {
-    id: string,
-    name: string,
-    group: string
-  }[],
-  defaultSelects: Selected,
-  updateCheckboxState: (id: string) => void,
-  updateSelectState: (type: SelectType, selected: string) => void
-}
-
-export default class SelectedFilters extends React.Component<SelectedFiltersProps> {
+export default class SelectedFilters extends React.Component {
+  static contextType = FinderContext;
+  context!: React.ContextType<typeof FinderContext>;
   /**
    * Handler for click events on checkbox tags. Checkboxes are unchecked
    * when the user clicks on their tags.
@@ -33,13 +19,13 @@ export default class SelectedFilters extends React.Component<SelectedFiltersProp
    */
   handleCheckboxTagClick = (id: string) => {
     // Look for the matching checkbox option
-    const checkboxOption = this.props.checkboxOptions
+    const checkboxOption = this.context.checkboxOptions
       .find(obj => obj.id === id);
     if (!checkboxOption) {
       throw Error(`Couldn't find checkbox with ID ${id}.`);
     }
     // Uncheck the option that is currently checked.
-    this.props.updateCheckboxState(id);
+    this.context.updateCheckedState(id);
   }
 
   /**
@@ -50,14 +36,14 @@ export default class SelectedFilters extends React.Component<SelectedFiltersProp
    * @param id Identifier of the filter.
    */
   handleSelectTagClick = (id: string, type: SelectType) => {
-    const selectOption = this.props.selectSet[type]
+    const selectOption = this.context.selectSet[type]
       .find(obj => obj.id === id);
     if (!selectOption) {
       throw Error(`Couldn't find checkbox with ID ${id}.`);
     }
-    const initialValue = this.props.defaultSelects[type];
+    const initialValue = this.context.defaultSelects[type];
     // Resets the select group to its initial value
-    this.props.updateSelectState(type, initialValue);
+    this.context.updateSelectedState(type, initialValue);
   }
 
   /**
@@ -67,7 +53,7 @@ export default class SelectedFilters extends React.Component<SelectedFiltersProp
    * @param id Identifier of the checked option.
    */
   createCheckboxTag(id: string) {
-    const filterOption = this.props.checkboxOptions
+    const filterOption = this.context.checkboxOptions
       .find(obj => obj.id === id);
     if (!filterOption) {
       throw Error(`Couldn't find filter with id ${id}.`);
@@ -90,7 +76,7 @@ export default class SelectedFilters extends React.Component<SelectedFiltersProp
    * @param id Identifier of the selected option.
    */
   createSelectTag(id: string, type: SelectType) {
-    const filter = this.props.selectSet[type]
+    const filter = this.context.selectSet[type]
       .find(obj => obj.id === id);
     if (!filter) {
       throw Error(`Couldn't find filter with id ${id}.`);
@@ -143,19 +129,19 @@ export default class SelectedFilters extends React.Component<SelectedFiltersProp
     // Create tags for all select options currently chosen, given that
     // they aren't the initial value of the select group they belong
     // to.
-    const selectFilterTags = Object.keys(this.props.selected)
+    const selectFilterTags = Object.keys(this.context.selected)
       .filter(this.isSelectType)
       .filter(type => {
-        const selectedId = this.props.selected[type];
-        return selectedId !== this.props.defaultSelects[type];
+        const selectedId = this.context.selected[type];
+        return selectedId !== this.context.defaultSelects[type];
       })
       .map(type => {
-        const selectedId = this.props.selected[type];
+        const selectedId = this.context.selected[type];
         return this.createSelectTag(selectedId, type);
       });
 
     // Create tags for all checkboxes currently checked
-    const checkboxFilterTags = Object.entries(this.props.checked)
+    const checkboxFilterTags = Object.entries(this.context.checked)
       .filter(arr => {
         const checked = arr[1];
         return checked;

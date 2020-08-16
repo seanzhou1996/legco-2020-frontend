@@ -8,13 +8,13 @@ import classnames from 'classnames';
 
 import Input from 'components/Input/Input';
 
-import CandidateFilter, { 
-  CandidateFilterProps 
-} from './CandidateFilter/CandidateFilter';
+import FinderContext, { 
+  FinderContextValue 
+} from './context';
 
-import SelectedFilters, { 
-  SelectedFiltersProps 
-} from './SelectedFilters/SelectedFilters';
+import CandidateFilter from './CandidateFilter/CandidateFilter';
+
+import SelectedFilters from './SelectedFilters/SelectedFilters';
 
 import './CandidateFinder.scss';
 
@@ -25,14 +25,14 @@ import {
   SelectOption,
   Selected,
   SelectType,
-  SelectSet
+  SelectSet,
+  CheckboxOption,
+  Checked
 } from 'models';
 
 interface CandidateFinderState {
   keyword: string,
-  checked: {
-    [id: string]: boolean
-  },
+  checked: Checked,
   selected: Selected,
   remoteSourceFetched: boolean
 }
@@ -41,7 +41,7 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
   candidates: Candidate[] = [];
   constituencies: Constituency[] = [];
   constituencyTypeMap: ConstituencyTypeMap = {};
-  checkboxOptions = [
+  checkboxOptions: CheckboxOption[] = [
     {
       id: '35_or_younger', 
       name: '35嵗及以下候選人',
@@ -150,6 +150,11 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     try {
       const constituencies = await this.getConstituencies();
       constituencies.forEach(obj => {
+        const option: SelectOption = {
+          id: obj.id,
+          name: obj.name
+        };
+        this.selectSet.constituency.push(option);
         this.constituencies.push(obj);
         this.constituencyTypeMap[
           obj.id
@@ -157,15 +162,6 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
       });
       this.candidates.push(
         ...(await this.getCandidates())
-      );
-      this.selectSet.constituency.push(
-        ...this.constituencies.map(obj => {
-          const option: SelectOption = {
-            id: obj.id,
-            name: obj.name
-          };
-          return option;
-        })
       );
       this.setState({
         remoteSourceFetched: true
@@ -182,29 +178,7 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     });
   }
 
-  /**
-   * Handler for change events on the constituency type select group. Updates
-   * selected state to reflect the user's choice.
-   * 
-   * @param event Change event on the select group.
-   */
-  handleConstituencyTypeChange: ChangeEventHandler<HTMLSelectElement> = event => {
-    const { value } = event.target;
-    this.updateSelectState('constituency_type', value);
-  }
-
-  /**
-   * Handler for change events on the constituency select group. Updates
-   * selected state to reflect the user's choice.
-   * 
-   * @param event Change event on the select group.
-   */
-  handleConstituencyChange: ChangeEventHandler<HTMLSelectElement> = event => {
-    const { value } = event.target;
-    this.updateSelectState('constituency', value);
-  }
-
-  updateSelectState = (
+  updateSelectedState = (
     type: SelectType,
     value: string
   ) => {
@@ -233,7 +207,7 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     });
   }
 
-  updateCheckboxState = (id: string) => {
+  updateCheckedState = (id: string) => {
     this.setState(prevState => {
       let previouslyChecked = prevState.checked?.[id] || false;
       return {
@@ -282,45 +256,19 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     return filteredCandidates;
   }
 
-  /**
-   * Change event handler for checkbox `id` under `group`.
-   * 
-   * @param group Form group the checkbox belongs to.
-   * @param id Identifier of the checkbox.
-   */
-  handleCheckboxChange = (id: string) => {
-    this.updateCheckboxState(id);
-  }
-
-  handleRadioSelectChange = (type: SelectType, id: string) => {
-    this.updateSelectState(type, id);
-  }
-
   render() {
     const filteredCandidates = this.getFilteredCandidates();
     const countOfResults = filteredCandidates.length;
-    const candidateFilterProps: CandidateFilterProps = {
+    const contextValue: FinderContextValue = {
       selected: this.state.selected,
       checked: this.state.checked,
       selectSet: this.selectSet,
       checkboxOptions: this.checkboxOptions,
       defaultSelects: this.defaultSelects,
       constituencyTypeMap: this.constituencyTypeMap,
-      handleConstituencyTypeChange: this.handleConstituencyTypeChange,
-      handleConstituencyChange: this.handleConstituencyChange,
-      handleCheckboxChange: this.handleCheckboxChange,
-      handleRadioSelectChange: this.handleRadioSelectChange
+      updateSelectedState: this.updateSelectedState,
+      updateCheckedState: this.updateCheckedState
     };
-
-    const selectedFiltersProps: SelectedFiltersProps = {
-      selected: this.state.selected,
-      checked: this.state.checked,
-      selectSet: this.selectSet,
-      checkboxOptions: this.checkboxOptions,
-      defaultSelects: this.defaultSelects,
-      updateSelectState: this.updateSelectState,
-      updateCheckboxState: this.updateCheckboxState
-    }
 
     // To visually hide label, we lift input up when
     // [1] input is in focus (handled by CSS) and
@@ -332,6 +280,7 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
       }
     )
     return (
+    <FinderContext.Provider value = { contextValue }> 
       <div className="candidate-finder">
         <header className="candidate-finder__header">
           <h1 className="candidate-finder__title">篩選候選人</h1>
@@ -353,8 +302,8 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
               value={ this.state.keyword } 
               onChange={ this.handleSearchInputChange } />
           </div>
-          <CandidateFilter { ...candidateFilterProps } />
-          <SelectedFilters { ...selectedFiltersProps } />
+          <CandidateFilter />
+          <SelectedFilters />
         </form>
         <footer className="candidate-finder__footer">
           <div className="legco-container">
@@ -364,6 +313,7 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
           </div>
         </footer>
       </div>
+    </FinderContext.Provider>
     )
   }
 }

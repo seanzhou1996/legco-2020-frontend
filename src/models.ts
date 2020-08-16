@@ -34,3 +34,13 @@ export interface SelectOption {
   id: string,
   name: string
 }
+
+export interface Checked {
+  [id: string]: boolean
+}
+
+export interface CheckboxOption {
+  id: string,
+  name: string,
+  group: string
+}
