@@ -35,17 +35,3 @@ $legco-expander-offset: ($legco-touch-target-size - $legco-checkbox-size) / 2;
   // Apply expander panel offset
   padding-left: $legco-expander-offset;
 }
-
-.app-delimited {
-  display: inline-block;
-}
-
-.app-delimited__item {
-  display: inline-block;
-  &:not(:first-of-type):not(:first-child) {
-    &::before {
-      content: "，";
-      display: inline-block;
-    }
-  }
-}

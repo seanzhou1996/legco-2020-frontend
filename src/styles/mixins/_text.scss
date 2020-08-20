@@ -12,3 +12,11 @@
   box-shadow: 0 -2px $legco-focus-color, 0 4px $legco-focus-text-color;
   text-decoration: none;
 }
+
+@mixin legco-delimited-text($delimiter: '') {
+  display: inline-block;
+  &:not(:first-of-type):not(:first-child)::before {
+    content: "#{$delimiter}";
+    display: inline-block;
+  }
+}
