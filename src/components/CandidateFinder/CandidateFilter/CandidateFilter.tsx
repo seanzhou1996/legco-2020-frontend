@@ -122,6 +122,14 @@ export default class CandidateFilter extends React.Component {
     this.context.updateSelectedState(type, id);
   }
 
+  createDelimitedItem = (text: string, key?: number | string) => {
+    return (
+      <span key={ key } className="app-delimited__item">
+        { text }
+      </span>
+    );
+  }
+
   render() {
     const {
       constituencies,
@@ -186,12 +194,17 @@ export default class CandidateFilter extends React.Component {
     const politiPosSelectGroup = allPolitiPos
       .map(obj => this.createRadioSelect(obj, 'political_position'));
 
-    const constSelects = [
+    const delimitedConstNames = [
       currentConstType,
       currentConst
     ]
     .filter(_.notUndefined)
-    .map(obj => obj.name);
+    .map((obj, index) => {
+      return this.createDelimitedItem(
+        obj.name,
+        index
+      );
+    });
 
     let activeInfoFiltersCounter = Object.values(checked)
       .filter(checked => checked).length;
@@ -208,11 +221,14 @@ export default class CandidateFilter extends React.Component {
           <ExpanderHeader>
             <ExpanderButton>所在選區</ExpanderButton>
             <ExpanderLabel className={ 
-              constSelects.length === 0 ? 
+              delimitedConstNames.length === 0 ? 
               'visually-hidden' : 
               undefined 
             }>
-              已選擇：{ constSelects.join('，') }
+              已選擇：
+              <span className="app-delimited">
+                { delimitedConstNames }
+              </span>
             </ExpanderLabel>
           </ExpanderHeader>
           <ExpanderPanel>
