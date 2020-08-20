@@ -6,6 +6,8 @@ import {
   SelectType
 } from 'models';
 
+import * as _ from 'utilities';
+
 import './SelectedFilters.scss';
 
 export default class SelectedFilters extends React.Component {
@@ -117,21 +119,6 @@ export default class SelectedFilters extends React.Component {
     );
   }
 
-  /**
-   * Select groups type guard. Returns true if `x` is
-   * a select type. Returns false otherwise.
-   * 
-   * @param x string to check.
-   */
-  isSelectType(x: SelectType | string): x is SelectType {
-    const selectTypes = [
-      'constituency_type',
-      'constituency',
-      'political_position'
-    ];
-    return selectTypes.includes(x);
-  }
-
   render() {
     const {
       selected,
@@ -143,7 +130,7 @@ export default class SelectedFilters extends React.Component {
     // they aren't the initial value of the select group they belong
     // to.
     const selectFilterTags = Object.keys(selected)
-      .filter(this.isSelectType)
+      .filter(_.isSelectType)
       .filter(type => {
         const selectedId = selected[type];
         return selectedId !== defaultSelects[type];

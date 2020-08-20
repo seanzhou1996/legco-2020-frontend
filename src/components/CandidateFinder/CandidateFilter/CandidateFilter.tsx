@@ -23,14 +23,14 @@ import {
   ConstituencyType
 } from 'models';
 
+import * as _ from 'utilities';
+
 import './CandidateFilter.scss';
 
 export default class CandidateFilter extends React.Component {
   static contextType = FinderContext;
   context!: React.ContextType<typeof FinderContext>;
-  notUndefined<T>(x: T | undefined): x is T {
-    return x !== undefined;
-  }
+
   /**
    * Returns a select option.
    * 
@@ -190,7 +190,7 @@ export default class CandidateFilter extends React.Component {
       currentConstType,
       currentConst
     ]
-    .filter(this.notUndefined)
+    .filter(_.notUndefined)
     .map(obj => obj.name);
 
     let activeInfoFiltersCounter = Object.values(checked)
