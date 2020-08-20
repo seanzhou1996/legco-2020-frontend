@@ -27,7 +27,7 @@ import {
   SelectSet,
   CheckboxOption,
   Checked
-} from 'models';
+} from 'types';
 
 interface CandidateFinderState {
   keyword: string,

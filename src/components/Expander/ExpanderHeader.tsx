@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import { Props } from 'models';
+import { Props } from 'types';
 
 import ExpanderContext from './context';
 

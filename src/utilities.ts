@@ -1,6 +1,6 @@
 import {
   SelectType
-} from 'models';
+} from 'types';
 
 /**
  * Type guard to check if an variable is not undefined.

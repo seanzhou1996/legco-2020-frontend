@@ -6,7 +6,7 @@ import {
   Checked,
   CheckboxOption,
   Constituency
-} from 'models';
+} from 'types';
 
 export interface FinderContextValue {
   constituencies: Constituency[],

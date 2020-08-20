@@ -4,7 +4,7 @@ import FinderContext from 'components/CandidateFinder/context';
 
 import {
   SelectType
-} from 'models';
+} from 'types';
 
 import * as _ from 'utilities';
 
