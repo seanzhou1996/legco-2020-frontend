@@ -20,15 +20,14 @@ import FinderContext from 'components/CandidateFinder/context';
 
 import {
   SelectType, 
-  ConstituencyType,
   CheckboxId
-} from 'types';
+} from 'constants/types';
 
 import {
   selectedDefaults
-} from 'defaults';
+} from 'constants/defaults';
 
-import * as _ from 'utilities';
+import * as _ from 'constants/utilities';
 
 import './FiltersPanel.scss';
 
@@ -44,7 +43,7 @@ export default class FiltersPanel extends React.Component {
    */
   createOption(value: string, label: string) {
     return (
-      <option key={ value } value={ value } >
+      <option key={ value } value={ value }>
         { label }
       </option>
     );
@@ -52,31 +51,32 @@ export default class FiltersPanel extends React.Component {
 
   createCheckbox(
     option: { id: CheckboxId, name: string }, 
-    name?: string
+    checked: boolean,
+    name?: string,
   ) {
     // Group checkboxes by category name, or their IDs when name is not given.
     const group = name || option.id;
 
-    const context: CheckboxProps = {
+    const props: CheckboxProps = {
       className: 'legco-checkbox--small',
       id: option.id,
       label: option.name,
       name: group,
-      checked: this.context.checked?.[option.id] || false,
+      checked,
       onChange: () => { this.handleCheckboxChange(option.id) }
     };
 
     return (
-      <Checkbox key={ option.id } {...context} />
+      <Checkbox key={ option.id } {...props} />
     );
   }
 
   createRadioSelect(
     option: { id: string, name: string }, 
+    checked: boolean,
     type: SelectType
   ) {
-    let checked = this.context.selected[type] === option.id;
-    const context: RadioProps = {
+    const props: RadioProps = {
       className: 'legco-radio--small',
       id: option.id,
       label: option.name,
@@ -88,7 +88,7 @@ export default class FiltersPanel extends React.Component {
     };
 
     return (
-      <Radio key={ option.id } {...context} />
+      <Radio key={ option.id } {...props} />
     );
   }
 
@@ -137,23 +137,18 @@ export default class FiltersPanel extends React.Component {
 
   render() {
     const {
-      constituencies,
-      selectSet,
       selected,
-      checkboxOptions,
-      checked
+      checked,
+      constituencies
     } = this.context;
 
-    // Create a map from constituency IDs to constituency types
-    const constTypeMap: {
-      [constId: string]: ConstituencyType
-    } = constituencies.reduce((previous, current) => {
-      const accumulator = {
-        ...previous,
-        [current.id]: current.type
-      }
-      return accumulator;
-    }, {});
+    const constituencyTypeMap = _.getConstituencyTypeMap(
+      constituencies
+    );
+    const selectSet = _.getSelectSet(
+      constituencies
+    );
+    const checkboxSet = _.getCheckboxSet();
 
     const {
       constituency: allConsts,
@@ -176,17 +171,29 @@ export default class FiltersPanel extends React.Component {
     const currentConst = allConsts.find(obj => obj.id === constId);
     const currentConstType = allConstTypes.find(obj => obj.id === constTypeId);
 
-    const ageCheckboxGroup = checkboxOptions
+    const ageCheckboxGroup = checkboxSet
       .filter(obj => obj.group === 'age')
-      .map(obj => this.createCheckbox(obj, 'age'));
+      .map(obj => {
+        return this.createCheckbox(
+          obj, 
+          checked[obj.id] || false,
+          obj.group,
+        )
+      });
 
-    const otherInfoCheckboxGroup = checkboxOptions
+    const otherInfoCheckboxGroup = checkboxSet
       .filter(obj => obj.group === 'other_info')
-      .map(obj => this.createCheckbox(obj, 'other_info'));
+      .map(obj => {
+        return this.createCheckbox(
+          obj, 
+          checked[obj.id] || false,
+          obj.group
+        );
+      });
 
     const constSelectGroup = allConsts
       .filter(obj => {
-        return constTypeMap[obj.id] === constTypeId;
+        return constituencyTypeMap[obj.id] === constTypeId;
       })
       .map(obj => {
         return this.createOption(
@@ -196,7 +203,13 @@ export default class FiltersPanel extends React.Component {
       });
 
     const politiPosSelectGroup = allPolitiPos
-      .map(obj => this.createRadioSelect(obj, 'political_position'));
+      .map(obj => {
+        return this.createRadioSelect(
+          obj,
+          selected.political_position === obj.id,
+          'political_position'
+        )
+      });
 
     const delimitedConstNames = [
       currentConstType,

@@ -43,6 +43,7 @@ export interface CheckboxOption {
   group: string
 }
 export type Checked = Record<CheckboxId, boolean>;
+export type CheckboxSet = CheckboxOption[];
 
 export interface CandidateInfo {
   id: string,

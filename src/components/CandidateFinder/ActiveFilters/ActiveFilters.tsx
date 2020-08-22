@@ -5,14 +5,14 @@ import FinderContext from 'components/CandidateFinder/context';
 import {
   SelectType,
   CheckboxId
-} from 'types';
+} from 'constants/types';
 
 import {
   selectedDefaults,
   checkedDefaults
-} from 'defaults';
+} from 'constants/defaults';
 
-import * as _ from 'utilities';
+import * as _ from 'constants/utilities';
 
 import './ActiveFilters.scss';
 
@@ -27,13 +27,6 @@ export default class ActiveFilters extends React.Component {
    * @param id Identifier of the filter.
    */
   handleCheckboxTagClick = (id: CheckboxId) => {
-    // Look for the matching checkbox option
-    const checkboxOption = this.context.checkboxOptions
-      .find(obj => obj.id === id);
-    if (!checkboxOption) {
-      throw Error(`Couldn't find checkbox with ID ${id}.`);
-    }
-    // Uncheck the option that is currently checked.
     this.context.updateCheckedState(id);
   }
 
@@ -42,62 +35,12 @@ export default class ActiveFilters extends React.Component {
    * select option belongs to resets to its initial value when the user
    * clicks on the tag.
    * 
-   * @param id Identifier of the filter.
+   * @param type Identifier of the filter.
    */
-  handleSelectTagClick = (id: string, type: SelectType) => {
-    const selectOption = this.context.selectSet[type]
-      .find(obj => obj.id === id);
-    if (!selectOption) {
-      throw Error(`Couldn't find checkbox with ID ${id}.`);
-    }
+  handleSelectTagClick = (type: SelectType) => {
     const initialValue = selectedDefaults[type];
     // Resets the select group to its initial value
     this.context.updateSelectedState(type, initialValue);
-  }
-
-  /**
-   * Returns a button that represents the checkbox with `id`. When the user
-   * clicks on it, the checkbox is unchecked and the button disappears.
-   * 
-   * @param id Identifier of the checked option.
-   */
-  createCheckboxTag(id: CheckboxId) {
-    const filterOption = this.context.checkboxOptions
-      .find(obj => obj.id === id);
-    if (!filterOption) {
-      throw Error(`Couldn't find filter with id ${id}.`);
-    }
-    const handleClick = () => {
-      this.handleCheckboxTagClick(id);
-    };
-    return this.createFilterTag(
-      handleClick,
-      id,
-      filterOption.name
-    );
-  }
-
-  /**
-   * Returns a button that represents the select option with `id`. When the user
-   * clicks on it, the select group that option belongs to resets to its default
-   * value and the button disappears.
-   * 
-   * @param id Identifier of the selected option.
-   */
-  createSelectTag(id: string, type: SelectType) {
-    const filter = this.context.selectSet[type]
-      .find(obj => obj.id === id);
-    if (!filter) {
-      throw Error(`Couldn't find filter with id ${id}.`);
-    }
-    const clickHandler = () => {
-      this.handleSelectTagClick(id, type);
-    };
-    return this.createFilterTag(
-      clickHandler,
-      id,
-      filter.name
-    );
   }
 
   /**
@@ -108,11 +51,11 @@ export default class ActiveFilters extends React.Component {
    */
   createFilterTag(
     handleClick: React.MouseEventHandler<HTMLButtonElement>,
-    id: string, 
-    name: string
+    name: string,
+    key?: string
   ) {
     return (
-      <div key={ id } className="filter-tag">
+      <div key={ key } className="filter-tag">
         <button 
           className="filter-tag__button" 
           type="button"
@@ -129,7 +72,11 @@ export default class ActiveFilters extends React.Component {
     const {
       selected,
       checked,
+      constituencies
     } = this.context;
+
+    const selectSet = _.getSelectSet(constituencies);
+    const checkboxSet = _.getCheckboxSet();
 
     // Create tags for all select options currently chosen, given that
     // they aren't the initial value of the select group they belong
@@ -142,7 +89,15 @@ export default class ActiveFilters extends React.Component {
       })
       .map(type => {
         const selectedId = selected[type];
-        return this.createSelectTag(selectedId, type);
+        const selectOption = selectSet[type].find(opt => opt.id === selectedId);
+        if (!selectOption) {
+          throw Error(`Couldn't find select option with ID ${selectedId}.`);
+        }
+        return this.createFilterTag(
+          () => { this.handleSelectTagClick(type) }, 
+          selectOption.name, 
+          selectedId
+        );
       });
 
     // Create tags for all checkboxes currently checked
@@ -152,7 +107,15 @@ export default class ActiveFilters extends React.Component {
         return checked[id] !== checkedDefaults[id];
       })
       .map(id => {
-        return this.createCheckboxTag(id);
+        const checkboxOption = checkboxSet.find(obj => obj.id === id);
+        if (!checkboxOption) {
+          throw Error(`Couldn't find checkbox with ID ${id}.`);
+        }
+        return this.createFilterTag(
+          () => { this.handleCheckboxTagClick(id); },
+          checkboxOption.name,
+          id
+        );
       });
 
     // [1] Filter out empty groups so they don't generate any markup

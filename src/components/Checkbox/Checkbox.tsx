@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import { Props } from 'types';
+import { Props } from 'constants/types';
 
 import './Checkbox.scss';
 

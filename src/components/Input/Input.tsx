@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import './Input.scss';
 
-import { Props } from 'types';
+import { Props } from 'constants/types';
 
 export interface InputProps extends Props {
   type?: 'text' | 'number',

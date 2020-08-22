@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import './Expander.scss';
 
-import { Props as ExpanderProps } from 'types';
+import { Props as ExpanderProps } from 'constants/types';
 
 import ExpanderContext from './context';
 

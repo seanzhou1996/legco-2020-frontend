@@ -3,7 +3,6 @@ import React, {
   createRef, 
   Component 
 } from 'react';
-import axios from 'axios';
 import classnames from 'classnames';
 
 import Input from 'components/Input/Input';
@@ -19,26 +18,22 @@ import ActiveFilters from './ActiveFilters/ActiveFilters';
 import './CandidateFinder.scss';
 
 import {
+  Candidate,
   Constituency,
   ConstituencyTypeMap,
-  Candidate,
-  CandidateInfo,
   CandidateInfoMap,
-  SelectOption,
   Selected,
   SelectType,
-  SelectSet,
   CheckboxId,
-  CheckboxOption,
   Checked
-} from 'types';
+} from 'constants/types';
 
-import * as _ from 'utilities';
+import * as _ from 'constants/utilities';
 
 import {
   checkedDefaults,
   selectedDefaults
-} from 'defaults';
+} from 'constants/defaults';
 
 interface CandidateFinderState {
   keyword: string,
@@ -48,63 +43,11 @@ interface CandidateFinderState {
 }
 
 class CandidateFinder extends Component<any, CandidateFinderState> {
-  candidates: Candidate[] = [];
-  candidateInfoMap: CandidateInfoMap = {};
   constituencies: Constituency[] = [];
-  constTypeMap: ConstituencyTypeMap = {};
-  checkboxOptions: CheckboxOption[] = [
-    {
-      id: 'younger_than_36', 
-      name: '35嵗及以下候選人',
-      group: 'age'
-    },
-    {
-      id: 'dem_primary',
-      name: '參與民主派初選',
-      group: 'other_info'
-    },
-    {
-      id: 'fresh_face',
-      name: '首次參選立法會',
-      group: 'other_info'
-    },
-    {
-      id: 'independent',
-      name: '無政黨背景',
-      group: 'other_info'
-    }
-  ];
-
-  // Unlike checkbox options, we use a map to store different types of
-  // select options. The map allows to get a specific type of options
-  // without filtering.
-  selectSet: SelectSet = {
-    constituency_type: [
-      {
-        id: 'gc',
-        name: '地方選區'
-      },
-      {
-        id: 'fc',
-        name: '功能組別選區'
-      }  
-    ],
-    constituency: [],
-    political_position: [
-      {
-        id: 'all',
-        name: '不限'
-      },
-      {
-        id: 'est',
-        name: '建制派'
-      },
-      {
-        id: 'dem',
-        name: '民主派'
-      },  
-    ]
-  }
+  candidates: Candidate[] = [];
+  filtered: Candidate[] = [];
+  candidateInfoMap: CandidateInfoMap = {};
+  constituencyTypeMap: ConstituencyTypeMap = {};
 
   // A reference to the native candidate search input element
   candidateSearchInputRef = createRef<HTMLInputElement>();
@@ -123,53 +66,6 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     };
   }
 
-  async getCandidateInfoList(): Promise<CandidateInfo[]> {
-    const url = process.env.PUBLIC_URL + '/assets/personalInfo.json';
-    return axios.get(url)
-      .then(res => {
-        if ([200, 201].includes(res.status)) {
-          return res.data;
-        } else {
-          console.warn(res.statusText);
-        }
-      })
-      .catch(err => {
-        throw err;
-      });
-  }
-
-  async getConstituencies(): Promise<Constituency[]> {
-    const url = process.env.PUBLIC_URL + '/assets/constituencies.json';
-    return axios.get(url)
-      .then(res => {
-        if ([200, 201].includes(res.status)) {
-          return res.data.constituencies;
-        } else {
-          console.warn(res.statusText);
-          return [];
-        }
-      })
-      .catch(err => {
-        throw err;
-      });
-  }
-
-  async getCandidates(): Promise<Candidate[]> {
-    const url = process.env.PUBLIC_URL + '/assets/candidates.json';
-    return axios.get(url)
-      .then(res => {
-        if ([201, 200].includes(res.status)) {
-          return res.data.candidates;
-        } else {
-          console.warn(res.statusText);
-          return [];
-        }
-      })
-      .catch(err => {
-        throw err;
-      });
-  }
-
   async componentDidMount() {
     // Get the referred element
     const candidateSearchInput = this.candidateSearchInputRef.current;
@@ -178,29 +74,9 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
       candidateSearchInput.focus();
     }
     try {
-      const constituencies = await this.getConstituencies();
-      const candidates = await this.getCandidates();
-      const candidateInfoList = await this.getCandidateInfoList();
-      
-      constituencies.forEach(obj => {
-        const option: SelectOption = {
-          id: obj.id,
-          name: obj.name
-        };
-        this.selectSet.constituency.push(option);
-        this.constituencies.push(obj);
-      });
-      this.constTypeMap = constituencies
-        .reduce((previous, current) => {
-          const accumulator = {
-            ...previous,
-            [current.id]: current.type
-          }
-          return accumulator;
-        }, {});
-      
-      this.candidates = candidates;
-      this.candidateInfoMap = candidateInfoList
+      this.constituencies = await _.getConstituencies();
+      this.candidates = await _.getCandidates();
+      this.candidateInfoMap = (await _.getCandidateInfoList())
         .reduce((prev, current) => {
           const {
             id,
@@ -211,6 +87,9 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
             ...prev
           };
         }, {});
+      this.constituencyTypeMap = _.getConstituencyTypeMap(
+        this.constituencies
+      );
       
       // Update resource fetched flag to trigger a re-render
       this.setState({
@@ -268,53 +147,60 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     });
   }
 
-  getFilteredCandidates = () => {
+  filterCandidates = () => {
     const currentFilters = {
       ...this.state.selected,
       ...this.state.checked
     };
 
-    const defaultFilters = {
+    const filterDefaults = {
       ...selectedDefaults,
       ...checkedDefaults
     };
 
-    const filteredCandidates = this.candidates.filter(obj => {
+    this.filtered = this.candidates.filter(obj => {
+      const constituency = obj.constituencyId;
+      const constituency_type = this.constituencyTypeMap[constituency];
+      const personalInfo = this.candidateInfoMap[obj.id];
+      const dob = personalInfo?.dob;
       // TODO: remove fallback when info list is ready.
-      const personalInfo = this.candidateInfoMap[obj.id] || {};
-      const dob = personalInfo.dob;
+      // Fallback: since candidate info map is incomplete, `personalInfo` can be
+      // undefined, in which occasion `dob` is null and consequently, `age`
+      // undefined. Therefore, we have to check `age` before comparing it with
+      // 36.
       const age = dob ? _.calculateAge(dob) : undefined;
+      const younger_than_36 = age ? age < 36 : false;
+
       const currentCandidate = {
-        constituency_type: this.constTypeMap[obj.constituencyId],
-        constituency: obj.constituencyId,
-        younger_than_36: age ? age < 36 : false,
-        ...personalInfo
+        ...personalInfo,
+        constituency_type,
+        constituency,
+        younger_than_36
       };
+      // Loop over all filters. For each filter, we call type guard to confirm its
+      // identity as filter [1]. Then, check if that filter is active [2]. If so, 
+      // check filter against current candidate, remove the candidate if they
+      // do not meet the filter condition [3].
       for (let prop in currentFilters) {
-        if (_.isFilter(prop)) {
+        if (_.isFilter(prop)) { // [1]
           const filter = prop;
-          if (currentFilters[filter] === defaultFilters[filter])
+          if (currentFilters[filter] === filterDefaults[filter]) // [2]
             continue;
-          // The filter is active
-          if (currentFilters[filter] !== currentCandidate[filter]) {
+          if (currentFilters[filter] !== currentCandidate[filter]) { // [3]
             return false;
           }
         }
       }
       return true;
     });
-
-    return filteredCandidates;
   }
 
   render() {
-    const filteredCandidates = this.getFilteredCandidates();
-    const countOfResults = filteredCandidates.length;
+    this.filterCandidates();
     const contextValue: FinderContextValue = {
+      candidates: this.candidates,
       constituencies: this.constituencies,
       selected: this.state.selected,
-      selectSet: this.selectSet,
-      checkboxOptions: this.checkboxOptions,
       checked: this.state.checked,
       updateSelectedState: this.updateSelectedState,
       updateCheckedState: this.updateCheckedState
@@ -359,7 +245,7 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
           <footer className="candidate-finder__footer">
             <div className="legco-container">
               <button type="button" className="legco-button candidate-finder__show-results">
-                查看{ countOfResults }個結果
+                查看{ this.filtered.length }個結果
               </button>
             </div>
           </footer>

@@ -1,7 +1,7 @@
 import {
   Selected,
   Checked
-} from 'types';
+} from 'constants/types';
 
 // We use "all" for political position because it's a real option in the
 // select set.
