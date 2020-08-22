@@ -20,7 +20,8 @@ import FinderContext from 'components/CandidateFinder/context';
 
 import {
   SelectType, 
-  ConstituencyType
+  ConstituencyType,
+  CheckboxId
 } from 'types';
 
 import * as _ from 'utilities';
@@ -46,7 +47,7 @@ export default class CandidateFilter extends React.Component {
   }
 
   createCheckbox(
-    option: { id: string, name: string }, 
+    option: { id: CheckboxId, name: string }, 
     name?: string
   ) {
     // Group checkboxes by category name, or their IDs when name is not given.
@@ -114,7 +115,7 @@ export default class CandidateFilter extends React.Component {
    * 
    * @param id Identifier of the checkbox.
    */
-  handleCheckboxChange = (id: string) => {
+  handleCheckboxChange = (id: CheckboxId) => {
     this.context.updateCheckedState(id);
   }
 
@@ -134,7 +135,7 @@ export default class CandidateFilter extends React.Component {
     const {
       constituencies,
       selectSet,
-      defaultSelects,
+      selectedDefaults,
       selected,
       checkboxOptions,
       checked
@@ -161,7 +162,7 @@ export default class CandidateFilter extends React.Component {
       constituency: defaultConstId,
       constituency_type: defaultConstTypeId,
       political_position: defaultPolitiPosId
-    } = defaultSelects;
+    } = selectedDefaults;
 
     const {
       constituency: constId,

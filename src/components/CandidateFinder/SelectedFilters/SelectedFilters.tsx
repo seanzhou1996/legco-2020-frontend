@@ -3,7 +3,8 @@ import React from 'react';
 import FinderContext from 'components/CandidateFinder/context';
 
 import {
-  SelectType
+  SelectType,
+  CheckboxId
 } from 'types';
 
 import * as _ from 'utilities';
@@ -20,7 +21,7 @@ export default class SelectedFilters extends React.Component {
    * 
    * @param id Identifier of the filter.
    */
-  handleCheckboxTagClick = (id: string) => {
+  handleCheckboxTagClick = (id: CheckboxId) => {
     // Look for the matching checkbox option
     const checkboxOption = this.context.checkboxOptions
       .find(obj => obj.id === id);
@@ -44,7 +45,7 @@ export default class SelectedFilters extends React.Component {
     if (!selectOption) {
       throw Error(`Couldn't find checkbox with ID ${id}.`);
     }
-    const initialValue = this.context.defaultSelects[type];
+    const initialValue = this.context.selectedDefaults[type];
     // Resets the select group to its initial value
     this.context.updateSelectedState(type, initialValue);
   }
@@ -55,7 +56,7 @@ export default class SelectedFilters extends React.Component {
    * 
    * @param id Identifier of the checked option.
    */
-  createCheckboxTag(id: string) {
+  createCheckboxTag(id: CheckboxId) {
     const filterOption = this.context.checkboxOptions
       .find(obj => obj.id === id);
     if (!filterOption) {
@@ -122,8 +123,9 @@ export default class SelectedFilters extends React.Component {
   render() {
     const {
       selected,
-      defaultSelects,
-      checked
+      selectedDefaults,
+      checked,
+      checkedDefaults
     } = this.context;
 
     // Create tags for all select options currently chosen, given that
@@ -133,7 +135,7 @@ export default class SelectedFilters extends React.Component {
       .filter(_.isSelectType)
       .filter(type => {
         const selectedId = selected[type];
-        return selectedId !== defaultSelects[type];
+        return selectedId !== selectedDefaults[type];
       })
       .map(type => {
         const selectedId = selected[type];
@@ -141,13 +143,12 @@ export default class SelectedFilters extends React.Component {
       });
 
     // Create tags for all checkboxes currently checked
-    const checkboxFilterTags = Object.entries(checked)
-      .filter(arr => {
-        const checked = arr[1];
-        return checked;
+    const checkboxFilterTags = Object.keys(checked)
+      .filter(_.isCheckboxId)
+      .filter(id => {
+        return checked[id] !== checkedDefaults[id];
       })
-      .map(arr => {
-        const id = arr[0];
+      .map(id => {
         return this.createCheckboxTag(id);
       });
 

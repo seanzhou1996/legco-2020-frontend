@@ -20,14 +20,25 @@ import './CandidateFinder.scss';
 
 import {
   Constituency,
+  ConstituencyTypeMap,
   Candidate,
+  CandidateInfo,
+  CandidateInfoMap,
   SelectOption,
   Selected,
   SelectType,
   SelectSet,
+  CheckboxId,
   CheckboxOption,
   Checked
 } from 'types';
+
+import * as _ from 'utilities';
+
+import {
+  checkedDefaults,
+  selectedDefaults
+} from 'defaults';
 
 interface CandidateFinderState {
   keyword: string,
@@ -38,10 +49,12 @@ interface CandidateFinderState {
 
 class CandidateFinder extends Component<any, CandidateFinderState> {
   candidates: Candidate[] = [];
+  candidateInfoMap: CandidateInfoMap = {};
   constituencies: Constituency[] = [];
+  constTypeMap: ConstituencyTypeMap = {};
   checkboxOptions: CheckboxOption[] = [
     {
-      id: '35_or_younger', 
+      id: 'younger_than_36', 
       name: '35嵗及以下候選人',
       group: 'age'
     },
@@ -93,15 +106,6 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     ]
   }
 
-  // Default values for all select types. We use "all" for 
-  // political position because it's a real option in the
-  // select set.
-  readonly defaultSelects: Selected = {
-    constituency_type: '',
-    constituency: '',
-    political_position: 'all'
-  }
-
   // A reference to the native candidate search input element
   candidateSearchInputRef = createRef<HTMLInputElement>();
 
@@ -113,10 +117,25 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     // selections.
     this.state = {
       keyword: '',
-      checked: {},
-      selected: this.defaultSelects,
+      checked: checkedDefaults,
+      selected: selectedDefaults,
       resourceFetched: false
     };
+  }
+
+  async getCandidateInfoList(): Promise<CandidateInfo[]> {
+    const url = process.env.PUBLIC_URL + '/assets/personalInfo.json';
+    return axios.get(url)
+      .then(res => {
+        if ([200, 201].includes(res.status)) {
+          return res.data;
+        } else {
+          console.warn(res.statusText);
+        }
+      })
+      .catch(err => {
+        throw err;
+      });
   }
 
   async getConstituencies(): Promise<Constituency[]> {
@@ -161,6 +180,7 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     try {
       const constituencies = await this.getConstituencies();
       const candidates = await this.getCandidates();
+      const candidateInfoList = await this.getCandidateInfoList();
       
       constituencies.forEach(obj => {
         const option: SelectOption = {
@@ -170,7 +190,28 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
         this.selectSet.constituency.push(option);
         this.constituencies.push(obj);
       });
+      this.constTypeMap = constituencies
+        .reduce((previous, current) => {
+          const accumulator = {
+            ...previous,
+            [current.id]: current.type
+          }
+          return accumulator;
+        }, {});
+      
       this.candidates = candidates;
+      this.candidateInfoMap = candidateInfoList
+        .reduce((prev, current) => {
+          const {
+            id,
+            ...personalInfo
+          } = current;
+          return {
+            [id]: personalInfo,
+            ...prev
+          };
+        }, {});
+      
       // Update resource fetched flag to trigger a re-render
       this.setState({
         resourceFetched: true
@@ -206,7 +247,7 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
           constituency: prevConst
         } = prevState.selected;
         if (prevConstType !== currentConstType) {
-          currentState.selected.constituency = this.defaultSelects.constituency; // [1]
+          currentState.selected.constituency = selectedDefaults.constituency; // [1]
         } else {
           currentState.selected.constituency = prevConst;
         }
@@ -215,7 +256,7 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     });
   }
 
-  updateCheckedState = (id: string) => {
+  updateCheckedState = (id: CheckboxId) => {
     this.setState(prevState => {
       let previouslyChecked = prevState.checked[id] || false;
       return {
@@ -228,35 +269,37 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
   }
 
   getFilteredCandidates = () => {
-    const {
-      constituency_type: selectedConstituencyType,
-      constituency: selectedConstituency
-    } = this.state.selected;
+    const currentFilters = {
+      ...this.state.selected,
+      ...this.state.checked
+    };
 
-    let hasConstituencyTypeFilter = false;
-    let hasConstituencyFilter = false;
-    if (
-      selectedConstituency && 
-      selectedConstituency !== this.defaultSelects['constituency']
-    ) {
-      hasConstituencyFilter = true;
-    }
-    if (
-      selectedConstituencyType && 
-      selectedConstituencyType !== this.defaultSelects['constituency_type']
-    ) {
-      hasConstituencyTypeFilter = true;
-    }
+    const defaultFilters = {
+      ...selectedDefaults,
+      ...checkedDefaults
+    };
 
     const filteredCandidates = this.candidates.filter(obj => {
-      if (hasConstituencyFilter) {
-        return obj.constituencyId === selectedConstituency;
-      }
-      if (hasConstituencyTypeFilter) {
-        // Type of the constituency the candidate is in
-        const _type = this.constituencies
-          .find(_obj => _obj.id === obj.constituencyId)?.type;
-        return _type === selectedConstituencyType;
+      // TODO: remove fallback when info list is ready.
+      const personalInfo = this.candidateInfoMap[obj.id] || {};
+      const dob = personalInfo.dob;
+      const age = dob ? _.calculateAge(dob) : undefined;
+      const currentCandidate = {
+        constituency_type: this.constTypeMap[obj.constituencyId],
+        constituency: obj.constituencyId,
+        younger_than_36: age ? age < 36 : false,
+        ...personalInfo
+      };
+      for (let prop in currentFilters) {
+        if (_.isFilter(prop)) {
+          const filter = prop;
+          if (currentFilters[filter] === defaultFilters[filter])
+            continue;
+          // The filter is active
+          if (currentFilters[filter] !== currentCandidate[filter]) {
+            return false;
+          }
+        }
       }
       return true;
     });
@@ -273,7 +316,8 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
       checked: this.state.checked,
       selectSet: this.selectSet,
       checkboxOptions: this.checkboxOptions,
-      defaultSelects: this.defaultSelects,
+      selectedDefaults: selectedDefaults,
+      checkedDefaults: checkedDefaults,
       updateSelectedState: this.updateSelectedState,
       updateCheckedState: this.updateCheckedState
     };

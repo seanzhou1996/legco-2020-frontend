@@ -3,10 +3,15 @@ import {
   SelectType,
   Selected,
   SelectSet,
+  CheckboxId,
   Checked,
   CheckboxOption,
   Constituency
 } from 'types';
+import {
+  selectedDefaults,
+  checkedDefaults
+} from 'defaults';
 
 export interface FinderContextValue {
   constituencies: Constituency[],
@@ -14,30 +19,24 @@ export interface FinderContextValue {
   checked: Checked,
   selectSet: SelectSet,
   checkboxOptions: CheckboxOption[],
-  defaultSelects: Selected,
+  selectedDefaults: Selected,
+  checkedDefaults: Checked,
   updateSelectedState: (type: SelectType, value: string) => void,
-  updateCheckedState: (id: string) => void
+  updateCheckedState: (id: CheckboxId) => void
 }
 
 const defaultContext: FinderContextValue = {
   constituencies: [],
-  selected: {
-    constituency_type: '',
-    constituency: '',
-    political_position: 'all'
-  },
-  checked: {},
+  selected: selectedDefaults,
+  checked: checkedDefaults,
   selectSet: {
     constituency_type: [],
     constituency: [],
     political_position: []
   },
   checkboxOptions: [],
-  defaultSelects: {
-    constituency_type: '',
-    constituency: '',
-    political_position: 'all'
-  },
+  selectedDefaults,
+  checkedDefaults,
   updateSelectedState: () => {},
   updateCheckedState: () => {}
 }
