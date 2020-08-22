@@ -7,6 +7,11 @@ import {
   CheckboxId
 } from 'types';
 
+import {
+  selectedDefaults,
+  checkedDefaults
+} from 'defaults';
+
 import * as _ from 'utilities';
 
 import './SelectedFilters.scss';
@@ -45,7 +50,7 @@ export default class SelectedFilters extends React.Component {
     if (!selectOption) {
       throw Error(`Couldn't find checkbox with ID ${id}.`);
     }
-    const initialValue = this.context.selectedDefaults[type];
+    const initialValue = selectedDefaults[type];
     // Resets the select group to its initial value
     this.context.updateSelectedState(type, initialValue);
   }
@@ -123,9 +128,7 @@ export default class SelectedFilters extends React.Component {
   render() {
     const {
       selected,
-      selectedDefaults,
       checked,
-      checkedDefaults
     } = this.context;
 
     // Create tags for all select options currently chosen, given that

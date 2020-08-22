@@ -313,11 +313,9 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     const contextValue: FinderContextValue = {
       constituencies: this.constituencies,
       selected: this.state.selected,
-      checked: this.state.checked,
       selectSet: this.selectSet,
       checkboxOptions: this.checkboxOptions,
-      selectedDefaults: selectedDefaults,
-      checkedDefaults: checkedDefaults,
+      checked: this.state.checked,
       updateSelectedState: this.updateSelectedState,
       updateCheckedState: this.updateCheckedState
     };

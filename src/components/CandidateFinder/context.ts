@@ -19,8 +19,6 @@ export interface FinderContextValue {
   checked: Checked,
   selectSet: SelectSet,
   checkboxOptions: CheckboxOption[],
-  selectedDefaults: Selected,
-  checkedDefaults: Checked,
   updateSelectedState: (type: SelectType, value: string) => void,
   updateCheckedState: (id: CheckboxId) => void
 }
@@ -35,8 +33,6 @@ const defaultContext: FinderContextValue = {
     political_position: []
   },
   checkboxOptions: [],
-  selectedDefaults,
-  checkedDefaults,
   updateSelectedState: () => {},
   updateCheckedState: () => {}
 }

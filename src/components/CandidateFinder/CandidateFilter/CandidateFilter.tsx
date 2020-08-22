@@ -24,6 +24,10 @@ import {
   CheckboxId
 } from 'types';
 
+import {
+  selectedDefaults
+} from 'defaults';
+
 import * as _ from 'utilities';
 
 import './CandidateFilter.scss';
@@ -135,7 +139,6 @@ export default class CandidateFilter extends React.Component {
     const {
       constituencies,
       selectSet,
-      selectedDefaults,
       selected,
       checkboxOptions,
       checked
