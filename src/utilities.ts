@@ -49,6 +49,11 @@ export function isFilter(x: Filter | string): x is Filter {
   return filters.includes(x);
 }
 
+/**
+ * Calculate age from date of birth.
+ * 
+ * @param dob Date of birth in "yyyy-mm-dd" format.
+ */
 export function calculateAge(dob: string): number {
   const then = DateTime.fromISO(dob);
   const now = DateTime.local();
