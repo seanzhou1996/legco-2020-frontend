@@ -30,9 +30,9 @@ import {
 
 import * as _ from 'utilities';
 
-import './CandidateFilter.scss';
+import './FiltersPanel.scss';
 
-export default class CandidateFilter extends React.Component {
+export default class FiltersPanel extends React.Component {
   static contextType = FinderContext;
   context!: React.ContextType<typeof FinderContext>;
 

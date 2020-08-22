@@ -14,9 +14,9 @@ import {
 
 import * as _ from 'utilities';
 
-import './SelectedFilters.scss';
+import './ActiveFilters.scss';
 
-export default class SelectedFilters extends React.Component {
+export default class ActiveFilters extends React.Component {
   static contextType = FinderContext;
   context!: React.ContextType<typeof FinderContext>;
 

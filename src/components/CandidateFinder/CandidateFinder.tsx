@@ -12,9 +12,9 @@ import FinderContext, {
   FinderContextValue 
 } from './context';
 
-import CandidateFilter from './CandidateFilter/CandidateFilter';
+import FiltersPanel from './FiltersPanel/FiltersPanel';
 
-import SelectedFilters from './SelectedFilters/SelectedFilters';
+import ActiveFilters from './ActiveFilters/ActiveFilters';
 
 import './CandidateFinder.scss';
 
@@ -353,8 +353,8 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
                 value={ this.state.keyword } 
                 onChange={ this.handleSearchInputChange } />
             </div>
-            <CandidateFilter />
-            <SelectedFilters />
+            <FiltersPanel />
+            <ActiveFilters />
           </form>
           <footer className="candidate-finder__footer">
             <div className="legco-container">
