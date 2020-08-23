@@ -1,0 +1,1365 @@
+[
+  {
+    "id": "hki_1",
+    "label": "1",
+    "leaflet": "LC1_1.pdf",
+    "constituencyId": "hki",
+    "list": [
+      "黃梓謙"
+    ]
+  },
+  {
+    "id": "hki_2",
+    "label": "2",
+    "leaflet": "LC1_2.pdf",
+    "constituencyId": "hki",
+    "list": [
+      "劉嘉鴻",
+      "袁彌明"
+    ]
+  },
+  {
+    "id": "hki_3",
+    "label": "3",
+    "leaflet": "LC1_3.pdf",
+    "constituencyId": "hki",
+    "list": [
+      "葉劉淑儀",
+      "陳家珮",
+      "李文龍",
+      "謝子祺",
+      "洪龍荃",
+      "王政芝"
+    ]
+  },
+  {
+    "id": "hki_4",
+    "label": "4",
+    "leaflet": "LC1_4.pdf",
+    "constituencyId": "hki",
+    "list": [
+      "何秀蘭",
+      "麥德正",
+      "鄭司律"
+    ]
+  },
+  {
+    "id": "hki_5",
+    "label": "5",
+    "leaflet": "LC1_5.pdf",
+    "constituencyId": "hki",
+    "list": [
+      "張國鈞",
+      "鍾樹根",
+      "鍾嘉敏",
+      "麥謝巧玲",
+      "丁江浩",
+      "王志鍾"
+    ]
+  },
+  {
+    "id": "hki_6",
+    "label": "6",
+    "leaflet": "LC1_6.pdf",
+    "constituencyId": "hki",
+    "list": [
+      "詹培忠"
+    ]
+  },
+  {
+    "id": "hki_7",
+    "label": "7",
+    "leaflet": "LC1_7.pdf",
+    "constituencyId": "hki",
+    "list": [
+      "鄭錦滿 (四眼哥哥)",
+      "鍾琬媛"
+    ]
+  },
+  {
+    "id": "hki_8",
+    "label": "8",
+    "leaflet": "LC1_8.pdf",
+    "constituencyId": "hki",
+    "list": [
+      "羅冠聰"
+    ]
+  },
+  {
+    "id": "hki_9",
+    "label": "9",
+    "leaflet": "LC1_9.pdf",
+    "constituencyId": "hki",
+    "list": [
+      "沈志超"
+    ]
+  },
+  {
+    "id": "hki_10",
+    "label": "10",
+    "leaflet": "LC1_10.pdf",
+    "constituencyId": "hki",
+    "list": [
+      "王維基"
+    ]
+  },
+  {
+    "id": "hki_11",
+    "label": "11",
+    "leaflet": "LC1_11.pdf",
+    "constituencyId": "hki",
+    "list": [
+      "徐子見"
+    ]
+  },
+  {
+    "id": "hki_12",
+    "label": "12",
+    "leaflet": "LC1_12.pdf",
+    "constituencyId": "hki",
+    "list": [
+      "司馬文"
+    ]
+  },
+  {
+    "id": "hki_13",
+    "label": "13",
+    "leaflet": "LC1_13.pdf",
+    "constituencyId": "hki",
+    "list": [
+      "許智峯",
+      "單仲偕"
+    ]
+  },
+  {
+    "id": "hki_14",
+    "label": "14",
+    "leaflet": "LC1_14.pdf",
+    "constituencyId": "hki",
+    "list": [
+      "陳淑莊",
+      "鄭達鴻"
+    ]
+  },
+  {
+    "id": "hki_15",
+    "label": "15",
+    "leaflet": "LC1_15.pdf",
+    "constituencyId": "hki",
+    "list": [
+      "郭偉强",
+      "吳秋北",
+      "何毅淦",
+      "呂鴻賓",
+      "陳榮恩"
+    ]
+  },
+  {
+    "id": "klnw_1",
+    "label": "1",
+    "leaflet": "LC2_1.pdf",
+    "constituencyId": "klnw",
+    "list": [
+      "吳文遠"
+    ]
+  },
+  {
+    "id": "klnw_2",
+    "label": "2",
+    "leaflet": "LC2_2.pdf",
+    "constituencyId": "klnw",
+    "list": [
+      "何志光"
+    ]
+  },
+  {
+    "id": "klnw_3",
+    "label": "3",
+    "leaflet": "LC2_3.pdf",
+    "constituencyId": "klnw",
+    "list": [
+      "毛孟靜",
+      "李俊晞"
+    ]
+  },
+  {
+    "id": "klnw_4",
+    "label": "4",
+    "leaflet": "LC2_4.pdf",
+    "constituencyId": "klnw",
+    "list": [
+      "梁美芬",
+      "梁文廣",
+      "左滙雄",
+      "丁煌",
+      "梁婉婷",
+      "陳國偉"
+    ]
+  },
+  {
+    "id": "klnw_5",
+    "label": "5",
+    "leaflet": "LC2_5.pdf",
+    "constituencyId": "klnw",
+    "list": [
+      "譚國僑",
+      "楊彧",
+      "黃永傑"
+    ]
+  },
+  {
+    "id": "klnw_6",
+    "label": "6",
+    "leaflet": "LC2_6.pdf",
+    "constituencyId": "klnw",
+    "list": [
+      "朱韶洪 (大陸朱)"
+    ]
+  },
+  {
+    "id": "klnw_7",
+    "label": "7",
+    "leaflet": "LC2_7.pdf",
+    "constituencyId": "klnw",
+    "list": [
+      "黃毓民",
+      "馬愉生"
+    ]
+  },
+  {
+    "id": "klnw_8",
+    "label": "8",
+    "leaflet": "LC2_8.pdf",
+    "constituencyId": "klnw",
+    "list": [
+      "黃碧雲",
+      "袁海文",
+      "馮文韜",
+      "鄒旻芳"
+    ]
+  },
+  {
+    "id": "klnw_9",
+    "label": "9",
+    "leaflet": "LC2_9.pdf",
+    "constituencyId": "klnw",
+    "list": [
+      "林依麗",
+      "區咏豪"
+    ]
+  },
+  {
+    "id": "klnw_10",
+    "label": "10",
+    "leaflet": "LC2_10.pdf",
+    "constituencyId": "klnw",
+    "list": [
+      "蔣麗芸",
+      "葉傲冬",
+      "陳偉明",
+      "邵天虹",
+      "張德偉"
+    ]
+  },
+  {
+    "id": "klnw_11",
+    "label": "11",
+    "leaflet": "LC2_11.pdf",
+    "constituencyId": "klnw",
+    "list": [
+      "關新偉",
+      "高志強"
+    ]
+  },
+  {
+    "id": "klnw_12",
+    "label": "12",
+    "leaflet": "LC2_12.pdf",
+    "constituencyId": "klnw",
+    "list": [
+      "劉小麗 (小麗老師)"
+    ]
+  },
+  {
+    "id": "klnw_13",
+    "label": "13",
+    "leaflet": "LC2_13.pdf",
+    "constituencyId": "klnw",
+    "list": [
+      "游蕙禎"
+    ]
+  },
+  {
+    "id": "klnw_14",
+    "label": "14",
+    "leaflet": "LC2_14.pdf",
+    "constituencyId": "klnw",
+    "list": [
+      "李泳漢",
+      "符偉樂"
+    ]
+  },
+  {
+    "id": "klnw_15",
+    "label": "15",
+    "leaflet": "LC2_15.pdf",
+    "constituencyId": "klnw",
+    "list": [
+      "狄志遠",
+      "黃俊瑯",
+      "彭意婷",
+      "陳麗紅"
+    ]
+  },
+  {
+    "id": "klne_1",
+    "label": "1",
+    "leaflet": "LC3_1.pdf",
+    "constituencyId": "klne",
+    "list": [
+      "黃國健",
+      "周聯僑",
+      "簡銘東",
+      "郭宏興"
+    ]
+  },
+  {
+    "id": "klne_2",
+    "label": "2",
+    "leaflet": "LC3_2.pdf",
+    "constituencyId": "klne",
+    "list": [
+      "胡穗珊",
+      "趙仕信"
+    ]
+  },
+  {
+    "id": "klne_3",
+    "label": "3",
+    "leaflet": "LC3_3.pdf",
+    "constituencyId": "klne",
+    "list": [
+      "高達斌"
+    ]
+  },
+  {
+    "id": "klne_4",
+    "label": "4",
+    "leaflet": "LC3_4.pdf",
+    "constituencyId": "klne",
+    "list": [
+      "譚香文"
+    ]
+  },
+  {
+    "id": "klne_5",
+    "label": "5",
+    "leaflet": "LC3_5.pdf",
+    "constituencyId": "klne",
+    "list": [
+      "謝偉俊"
+    ]
+  },
+  {
+    "id": "klne_6",
+    "label": "6",
+    "leaflet": "LC3_6.pdf",
+    "constituencyId": "klne",
+    "list": [
+      "柯創盛",
+      "黎榮浩",
+      "張琪騰"
+    ]
+  },
+  {
+    "id": "klne_7",
+    "label": "7",
+    "leaflet": "LC3_7.pdf",
+    "constituencyId": "klne",
+    "list": [
+      "呂永基"
+    ]
+  },
+  {
+    "id": "klne_8",
+    "label": "8",
+    "leaflet": "LC3_8.pdf",
+    "constituencyId": "klne",
+    "list": [
+      "胡志偉",
+      "莫建成",
+      "鄭景陽",
+      "胡志健"
+    ]
+  },
+  {
+    "id": "klne_9",
+    "label": "9",
+    "leaflet": "LC3_9.pdf",
+    "constituencyId": "klne",
+    "list": [
+      "譚文豪",
+      "梁家傑"
+    ]
+  },
+  {
+    "id": "klne_10",
+    "label": "10",
+    "leaflet": "LC3_10.pdf",
+    "constituencyId": "klne",
+    "list": [
+      "黃洋達"
+    ]
+  },
+  {
+    "id": "klne_11",
+    "label": "11",
+    "leaflet": "LC3_11.pdf",
+    "constituencyId": "klne",
+    "list": [
+      "陳澤滔"
+    ]
+  },
+  {
+    "id": "klne_12",
+    "label": "12",
+    "leaflet": "LC3_12.pdf",
+    "constituencyId": "klne",
+    "list": [
+      "譚得志 (快必)"
+    ]
+  },
+  {
+    "id": "ntw_1",
+    "label": "1",
+    "leaflet": "LC4_1.pdf",
+    "constituencyId": "ntw",
+    "list": [
+      "黃潤達",
+      "梁靜珊",
+      "周偉雄"
+    ]
+  },
+  {
+    "id": "ntw_2",
+    "label": "2",
+    "leaflet": "LC4_2.pdf",
+    "constituencyId": "ntw",
+    "list": [
+      "尹兆堅",
+      "何俊仁",
+      "李永達",
+      "黃麗嫦",
+      "林紹輝"
+    ]
+  },
+  {
+    "id": "ntw_3",
+    "label": "3",
+    "leaflet": "LC4_3.pdf",
+    "constituencyId": "ntw",
+    "list": [
+      "高志輝",
+      "鄧德成"
+    ]
+  },
+  {
+    "id": "ntw_4",
+    "label": "4",
+    "leaflet": "LC4_4.pdf",
+    "constituencyId": "ntw",
+    "list": [
+      "周永勤"
+    ]
+  },
+  {
+    "id": "ntw_5",
+    "label": "5",
+    "leaflet": "LC4_5.pdf",
+    "constituencyId": "ntw",
+    "list": [
+      "鄭松泰",
+      "張耀心 (水媽)"
+    ]
+  },
+  {
+    "id": "ntw_6",
+    "label": "6",
+    "leaflet": "LC4_6.pdf",
+    "constituencyId": "ntw",
+    "list": [
+      "鄺官穩"
+    ]
+  },
+  {
+    "id": "ntw_7",
+    "label": "7",
+    "leaflet": "LC4_7.pdf",
+    "constituencyId": "ntw",
+    "list": [
+      "田北辰",
+      "王威信",
+      "蘇嘉雯",
+      "徐曉杰",
+      "甘文鋒",
+      "鄭㨗彬",
+      "傅曉琳"
+    ]
+  },
+  {
+    "id": "ntw_8",
+    "label": "8",
+    "leaflet": "LC4_8.pdf",
+    "constituencyId": "ntw",
+    "list": [
+      "何君堯"
+    ]
+  },
+  {
+    "id": "ntw_9",
+    "label": "9",
+    "leaflet": "LC4_9.pdf",
+    "constituencyId": "ntw",
+    "list": [
+      "梁志祥",
+      "呂堅",
+      "黃漢權",
+      "葉文斌",
+      "徐君紹",
+      "賴嘉汶"
+    ]
+  },
+  {
+    "id": "ntw_10",
+    "label": "10",
+    "leaflet": "LC4_10.pdf",
+    "constituencyId": "ntw",
+    "list": [
+      "郭家麒",
+      "冼豪輝"
+    ]
+  },
+  {
+    "id": "ntw_11",
+    "label": "11",
+    "leaflet": "LC4_11.pdf",
+    "constituencyId": "ntw",
+    "list": [
+      "黃浩銘",
+      "陳偉業"
+    ]
+  },
+  {
+    "id": "ntw_12",
+    "label": "12",
+    "leaflet": "LC4_12.pdf",
+    "constituencyId": "ntw",
+    "list": [
+      "李卓人",
+      "趙恩來"
+    ]
+  },
+  {
+    "id": "ntw_13",
+    "label": "13",
+    "leaflet": "LC4_13.pdf",
+    "constituencyId": "ntw",
+    "list": [
+      "黃俊傑",
+      "王百羽"
+    ]
+  },
+  {
+    "id": "ntw_14",
+    "label": "14",
+    "leaflet": "LC4_14.pdf",
+    "constituencyId": "ntw",
+    "list": [
+      "麥美娟",
+      "姚國威",
+      "葛兆源",
+      "馮沛賢",
+      "劉展鵬"
+    ]
+  },
+  {
+    "id": "ntw_15",
+    "label": "15",
+    "leaflet": "LC4_15.pdf",
+    "constituencyId": "ntw",
+    "list": [
+      "馮檢基"
+    ]
+  },
+  {
+    "id": "ntw_16",
+    "label": "16",
+    "leaflet": "LC4_16.pdf",
+    "constituencyId": "ntw",
+    "list": [
+      "陳恒鑌",
+      "郭芙蓉",
+      "李世隆",
+      "梁嘉銘",
+      "陳振中",
+      "呂廸明",
+      "鮑銘康"
+    ]
+  },
+  {
+    "id": "ntw_17",
+    "label": "17",
+    "leaflet": "LC4_17.pdf",
+    "constituencyId": "ntw",
+    "list": [
+      "張慧晶"
+    ]
+  },
+  {
+    "id": "ntw_18",
+    "label": "18",
+    "leaflet": "LC4_18.pdf",
+    "constituencyId": "ntw",
+    "list": [
+      "呂智恆"
+    ]
+  },
+  {
+    "id": "ntw_19",
+    "label": "19",
+    "leaflet": "LC4_19.pdf",
+    "constituencyId": "ntw",
+    "list": [
+      "湯詠芝"
+    ]
+  },
+  {
+    "id": "ntw_20",
+    "label": "20",
+    "leaflet": "LC4_20.pdf",
+    "constituencyId": "ntw",
+    "list": [
+      "朱凱廸"
+    ]
+  },
+  {
+    "id": "nte_1",
+    "label": "1",
+    "leaflet": "LC5_1.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "方國珊 (哪吒)"
+    ]
+  },
+  {
+    "id": "nte_2",
+    "label": "2",
+    "leaflet": "LC5_2.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "林卓廷",
+      "劉慧卿",
+      "丁仕元",
+      "吳錦雄",
+      "羅英翔"
+    ]
+  },
+  {
+    "id": "nte_3",
+    "label": "3",
+    "leaflet": "LC5_3.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "廖添誠",
+      "姜炳耀",
+      "李維"
+    ]
+  },
+  {
+    "id": "nte_4",
+    "label": "4",
+    "leaflet": "LC5_4.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "陳云根 (陳雲)",
+      "李珏熙"
+    ]
+  },
+  {
+    "id": "nte_5",
+    "label": "5",
+    "leaflet": "LC5_5.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "梁國雄 (長毛)"
+    ]
+  },
+  {
+    "id": "nte_6",
+    "label": "6",
+    "leaflet": "LC5_6.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "張超雄",
+      "郭永健"
+    ]
+  },
+  {
+    "id": "nte_7",
+    "label": "7",
+    "leaflet": "LC5_7.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "楊岳橋"
+    ]
+  },
+  {
+    "id": "nte_8",
+    "label": "8",
+    "leaflet": "LC5_8.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "麥嘉晉"
+    ]
+  },
+  {
+    "id": "nte_9",
+    "label": "9",
+    "leaflet": "LC5_9.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "鄭家富"
+    ]
+  },
+  {
+    "id": "nte_10",
+    "label": "10",
+    "leaflet": "LC5_10.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "葛珮帆",
+      "莊元苳",
+      "董健莉",
+      "陳博智",
+      "招文亮",
+      "李家良",
+      "温啟明",
+      "羅棣萱",
+      "黃自勇"
+    ]
+  },
+  {
+    "id": "nte_11",
+    "label": "11",
+    "leaflet": "LC5_11.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "侯志強",
+      "王水生",
+      "彭宏健",
+      "葉華清"
+    ]
+  },
+  {
+    "id": "nte_12",
+    "label": "12",
+    "leaflet": "LC5_12.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "李梓敬",
+      "田北俊"
+    ]
+  },
+  {
+    "id": "nte_13",
+    "label": "13",
+    "leaflet": "LC5_13.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "鄧家彪",
+      "譚金蓮",
+      "曾勁聰"
+    ]
+  },
+  {
+    "id": "nte_14",
+    "label": "14",
+    "leaflet": "LC5_14.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "范國威",
+      "任啟邦",
+      "梁里",
+      "鍾錦麟",
+      "陳惠達",
+      "李世鴻",
+      "周炫瑋",
+      "呂文光"
+    ]
+  },
+  {
+    "id": "nte_15",
+    "label": "15",
+    "leaflet": "LC5_15.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "陳玉娥"
+    ]
+  },
+  {
+    "id": "nte_16",
+    "label": "16",
+    "leaflet": "LC5_16.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "黃琛喻"
+    ]
+  },
+  {
+    "id": "nte_17",
+    "label": "17",
+    "leaflet": "LC5_17.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "李偲嫣"
+    ]
+  },
+  {
+    "id": "nte_18",
+    "label": "18",
+    "leaflet": "LC5_18.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "陳志全 (慢必)"
+    ]
+  },
+  {
+    "id": "nte_19",
+    "label": "19",
+    "leaflet": "LC5_19.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "梁頌恆",
+      "李東昇"
+    ]
+  },
+  {
+    "id": "nte_20",
+    "label": "20",
+    "leaflet": "LC5_20.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "梁金成",
+      "邱文勁"
+    ]
+  },
+  {
+    "id": "nte_21",
+    "label": "21",
+    "leaflet": "LC5_21.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "容海恩",
+      "譚領律",
+      "梁家輝",
+      "陳敏娟",
+      "唐學良",
+      "葉志豪",
+      "廖子聰"
+    ]
+  },
+  {
+    "id": "nte_22",
+    "label": "22",
+    "leaflet": "LC5_22.pdf",
+    "constituencyId": "nte",
+    "list": [
+      "陳克勤",
+      "胡健民",
+      "姚銘",
+      "黃碧嬌",
+      "藍偉良",
+      "曾興隆",
+      "梅少峰",
+      "侯漢碩"
+    ]
+  },
+  {
+    "id": "hyk_1",
+    "label": null,
+    "leaflet": "HYK_1.pdf",
+    "constituencyId": "hyk",
+    "candidate": "劉業強"
+  },
+  {
+    "id": "af_afa",
+    "label": "AFA",
+    "leaflet": "AF_AFA.pdf",
+    "constituencyId": "af",
+    "candidate": "何俊賢"
+  },
+  {
+    "id": "af_afb",
+    "label": "AFB",
+    "leaflet": "AF_AFB.pdf",
+    "constituencyId": "af",
+    "candidate": "黃容根"
+  },
+  {
+    "id": "insu_1",
+    "label": null,
+    "leaflet": "IN_1.pdf",
+    "constituencyId": "insu",
+    "candidate": "陳健波"
+  },
+  {
+    "id": "tran_tra",
+    "label": "TRA",
+    "leaflet": "TR_TRA.pdf",
+    "constituencyId": "tran",
+    "candidate": "易志明"
+  },
+  {
+    "id": "tran_trb",
+    "label": "TRB",
+    "leaflet": "TR_TRB.pdf",
+    "constituencyId": "tran",
+    "candidate": "丘應樺"
+  },
+  {
+    "id": "edu_a_1",
+    "label": "A 1",
+    "leaflet": "A_A%201.pdf",
+    "constituencyId": "edu",
+    "candidate": "蔡若蓮"
+  },
+  {
+    "id": "edu_a_2",
+    "label": "A 2",
+    "leaflet": "A_A%202.pdf",
+    "constituencyId": "edu",
+    "candidate": "葉建源"
+  },
+  {
+    "id": "leg_b_1",
+    "label": "B 1",
+    "leaflet": "B_B%201.pdf",
+    "constituencyId": "leg",
+    "candidate": "郭榮鏗"
+  },
+  {
+    "id": "leg_b_2",
+    "label": "B 2",
+    "leaflet": "B_B%202.pdf",
+    "constituencyId": "leg",
+    "candidate": "文理明"
+  },
+  {
+    "id": "acc_c_1",
+    "label": "C 1",
+    "leaflet": "C_C%201.pdf",
+    "constituencyId": "acc",
+    "candidate": "梁繼昌"
+  },
+  {
+    "id": "acc_c_2",
+    "label": "C 2",
+    "leaflet": "C_C%202.pdf",
+    "constituencyId": "acc",
+    "candidate": "陳弘毅"
+  },
+  {
+    "id": "med_d_1",
+    "label": "D 1",
+    "leaflet": "D_D%201.pdf",
+    "constituencyId": "med",
+    "candidate": "陳沛然"
+  },
+  {
+    "id": "med_d_2",
+    "label": "D 2",
+    "leaflet": "D_D%202.pdf",
+    "constituencyId": "med",
+    "candidate": "黃以謙"
+  },
+  {
+    "id": "hs_e_1",
+    "label": "E 1",
+    "leaflet": "E_E%201.pdf",
+    "constituencyId": "hs",
+    "candidate": "李國麟"
+  },
+  {
+    "id": "hs_e_2",
+    "label": "E 2",
+    "leaflet": "E_E%202.pdf",
+    "constituencyId": "hs",
+    "candidate": "蔡沛華"
+  },
+  {
+    "id": "eng_f_1",
+    "label": "F 1",
+    "leaflet": "F_F%201.pdf",
+    "constituencyId": "eng",
+    "candidate": "盧偉國"
+  },
+  {
+    "id": "eng_f_2",
+    "label": "F 2",
+    "leaflet": "F_F%202.pdf",
+    "constituencyId": "eng",
+    "candidate": "程明達 (程SIR)"
+  },
+  {
+    "id": "eng_f_3",
+    "label": "F 3",
+    "leaflet": "F_F%203.pdf",
+    "constituencyId": "eng",
+    "candidate": "陸宏廣"
+  },
+  {
+    "id": "aspl_g_1",
+    "label": "G 1",
+    "leaflet": "G_G%201.pdf",
+    "constituencyId": "aspl",
+    "candidate": "謝偉銓"
+  },
+  {
+    "id": "aspl_g_2",
+    "label": "G 2",
+    "leaflet": "G_G%202.pdf",
+    "constituencyId": "aspl",
+    "candidate": "姚松炎"
+  },
+  {
+    "id": "aspl_g_3",
+    "label": "G 3",
+    "leaflet": "G_G%203.pdf",
+    "constituencyId": "aspl",
+    "candidate": "林雲峯"
+  },
+  {
+    "id": "labr_1",
+    "label": null,
+    "leaflet": "H_1.pdf",
+    "constituencyId": "labr",
+    "candidate": "潘兆平"
+  },
+  {
+    "id": "labr_1",
+    "label": null,
+    "leaflet": "H_2.pdf",
+    "constituencyId": "labr",
+    "candidate": "何啟明"
+  },
+  {
+    "id": "labr_1",
+    "label": null,
+    "leaflet": "H_3.pdf",
+    "constituencyId": "labr",
+    "candidate": "陸頌雄"
+  },
+  {
+    "id": "sw_k_1",
+    "label": "K 1",
+    "leaflet": "K_K%201.pdf",
+    "constituencyId": "sw",
+    "candidate": "關鋭煊"
+  },
+  {
+    "id": "sw_k_2",
+    "label": "K 2",
+    "leaflet": "K_K%202.pdf",
+    "constituencyId": "sw",
+    "candidate": "曾健超"
+  },
+  {
+    "id": "sw_k_3",
+    "label": "K 3",
+    "leaflet": "K_K%203.pdf",
+    "constituencyId": "sw",
+    "candidate": "邵家臻"
+  },
+  {
+    "id": "sw_k_4",
+    "label": "K 4",
+    "leaflet": "K_K%204.pdf",
+    "constituencyId": "sw",
+    "candidate": "葉建忠"
+  },
+  {
+    "id": "sw_k_5",
+    "label": "K 5",
+    "leaflet": "K_K%205.pdf",
+    "constituencyId": "sw",
+    "candidate": "黃成智"
+  },
+  {
+    "id": "rec_1",
+    "label": null,
+    "leaflet": "L_1.pdf",
+    "constituencyId": "rec",
+    "candidate": "石禮謙"
+  },
+  {
+    "id": "tour_m_1",
+    "label": "M 1",
+    "leaflet": "M_M%201.pdf",
+    "constituencyId": "tour",
+    "candidate": "林少麟 (平頭)"
+  },
+  {
+    "id": "tour_m_2",
+    "label": "M 2",
+    "leaflet": "M_M%202.pdf",
+    "constituencyId": "tour",
+    "candidate": "姚思榮"
+  },
+  {
+    "id": "tour_m_3",
+    "label": "M 3",
+    "leaflet": "M_M%203.pdf",
+    "constituencyId": "tour",
+    "candidate": "葉慶寧"
+  },
+  {
+    "id": "com1_n_1",
+    "label": "N 1",
+    "leaflet": "N_N%201.pdf",
+    "constituencyId": "com1",
+    "candidate": "陳浩濂"
+  },
+  {
+    "id": "com1_n_2",
+    "label": "N 2",
+    "leaflet": "N_N%202.pdf",
+    "constituencyId": "com1",
+    "candidate": "林健鋒"
+  },
+  {
+    "id": "com2_1",
+    "label": null,
+    "leaflet": "P_1.pdf",
+    "constituencyId": "com2",
+    "candidate": "廖長江"
+  },
+  {
+    "id": "ind1_1",
+    "label": null,
+    "leaflet": "R_1.pdf",
+    "constituencyId": "ind1",
+    "candidate": "梁君彥"
+  },
+  {
+    "id": "ind2_1",
+    "label": null,
+    "leaflet": "S_1.pdf",
+    "constituencyId": "ind2",
+    "candidate": "吳永嘉"
+  },
+  {
+    "id": "fin_1",
+    "label": null,
+    "leaflet": "T_1.pdf",
+    "constituencyId": "fin",
+    "candidate": "陳振英"
+  },
+  {
+    "id": "fs_u_1",
+    "label": "U 1",
+    "leaflet": "U_U%201.pdf",
+    "constituencyId": "fs",
+    "candidate": "張華峯 (張華峰)"
+  },
+  {
+    "id": "fs_u_2",
+    "label": "U 2",
+    "leaflet": "U_U%202.pdf",
+    "constituencyId": "fs",
+    "candidate": "詹劍崙"
+  },
+  {
+    "id": "fs_u_3",
+    "label": "U 3",
+    "leaflet": "U_U%203.pdf",
+    "constituencyId": "fs",
+    "candidate": "徐聯安"
+  },
+  {
+    "id": "spcp_v_1",
+    "label": "V 1",
+    "leaflet": "V_V%201.pdf",
+    "constituencyId": "spcp",
+    "candidate": "周博賢"
+  },
+  {
+    "id": "spcp_v_2",
+    "label": "V 2",
+    "leaflet": "V_V%202.pdf",
+    "constituencyId": "spcp",
+    "candidate": "馬逢國"
+  },
+  {
+    "id": "ie_1",
+    "label": null,
+    "leaflet": "W_1.pdf",
+    "constituencyId": "ie",
+    "candidate": "黃定光"
+  },
+  {
+    "id": "tg_x_1",
+    "label": "X 1",
+    "leaflet": "X_X%201.pdf",
+    "constituencyId": "tg",
+    "candidate": "鍾國斌"
+  },
+  {
+    "id": "tg_x_2",
+    "label": "X 2",
+    "leaflet": "X_X%202.pdf",
+    "constituencyId": "tg",
+    "candidate": "楊詩傑"
+  },
+  {
+    "id": "wr_y_1",
+    "label": "Y 1",
+    "leaflet": "Y_Y%201.pdf",
+    "constituencyId": "wr",
+    "candidate": "區諾軒"
+  },
+  {
+    "id": "wr_y_2",
+    "label": "Y 2",
+    "leaflet": "Y_Y%202.pdf",
+    "constituencyId": "wr",
+    "candidate": "邵家輝"
+  },
+  {
+    "id": "it_z_1",
+    "label": "Z 1",
+    "leaflet": "Z_Z%201.pdf",
+    "constituencyId": "it",
+    "candidate": "莫乃光"
+  },
+  {
+    "id": "it_z_2",
+    "label": "Z 2",
+    "leaflet": "Z_Z%202.pdf",
+    "constituencyId": "it",
+    "candidate": "楊全盛"
+  },
+  {
+    "id": "cat_ca1",
+    "label": "CA1",
+    "leaflet": "CA_CA1.pdf",
+    "constituencyId": "cat",
+    "candidate": "張宇人"
+  },
+  {
+    "id": "cat_ca2",
+    "label": "CA2",
+    "leaflet": "CA_CA2.pdf",
+    "constituencyId": "cat",
+    "candidate": "伍永德"
+  },
+  {
+    "id": "dc_1",
+    "label": null,
+    "leaflet": "DC_1.pdf",
+    "constituencyId": "dc",
+    "candidate": "劉國勳"
+  },
+  {
+    "id": "ds_801",
+    "label": "801",
+    "leaflet": "DS_801.pdf",
+    "constituencyId": "ds",
+    "list": [
+      "涂謹申"
+    ]
+  },
+  {
+    "id": "ds_802",
+    "label": "802",
+    "leaflet": "DS_802.pdf",
+    "constituencyId": "ds",
+    "list": [
+      "李慧琼",
+      "洪連杉",
+      "朱立威",
+      "顏汶羽",
+      "蕭嘉怡"
+    ]
+  },
+  {
+    "id": "ds_803",
+    "label": "803",
+    "leaflet": "DS_803.pdf",
+    "constituencyId": "ds",
+    "list": [
+      "鄺俊宇"
+    ]
+  },
+  {
+    "id": "ds_804",
+    "label": "804",
+    "leaflet": "DS_804.pdf",
+    "constituencyId": "ds",
+    "list": [
+      "何啟明"
+    ]
+  },
+  {
+    "id": "ds_805",
+    "label": "805",
+    "leaflet": "DS_805.pdf",
+    "constituencyId": "ds",
+    "list": [
+      "陳琬琛"
+    ]
+  },
+  {
+    "id": "ds_806",
+    "label": "806",
+    "leaflet": "DS_806.pdf",
+    "constituencyId": "ds",
+    "list": [
+      "王國興",
+      "莫健榮",
+      "黃宏滔",
+      "劉桂容"
+    ]
+  },
+  {
+    "id": "ds_807",
+    "label": "807",
+    "leaflet": "DS_807.pdf",
+    "constituencyId": "ds",
+    "list": [
+      "關永業",
+      "許鋭宇",
+      "黎銘澤"
+    ]
+  },
+  {
+    "id": "ds_808",
+    "label": "808",
+    "leaflet": "DS_808.pdf",
+    "constituencyId": "ds",
+    "list": [
+      "梁耀忠"
+    ]
+  },
+  {
+    "id": "ds_809",
+    "label": "809",
+    "leaflet": "DS_809.pdf",
+    "constituencyId": "ds",
+    "list": [
+      "周浩鼎",
+      "李世榮",
+      "林琳",
+      "巫成鋒"
+    ]
+  }
+]

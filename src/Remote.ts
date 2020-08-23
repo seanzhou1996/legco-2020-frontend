@@ -15,8 +15,9 @@ export default class Remote {
     try {
       const res = await axios.get(url);
       if ([200, 201].includes(res.status)) {
-        this.constituencies = res.data.constituencies;
+        this.constituencies = res.data;
       } else {
+        this.constituencies = [];
         throw Error(res.statusText);
       }
     } catch (err) {
@@ -29,8 +30,9 @@ export default class Remote {
     try {
       const res = await axios.get(url);
       if ([200, 201].includes(res.status)) {
-        this.candidates = res.data.candidates;
+        this.candidates = res.data;
       } else {
+        this.candidates = [];
         throw Error(res.statusText);
       }
     } catch (err) {
@@ -39,12 +41,13 @@ export default class Remote {
   }
 
   static async setCandidateInfoList() {
-    const url = process.env.PUBLIC_URL + '/assets/personalInfo.json';
+    const url = process.env.PUBLIC_URL + '/assets/candidateInfo.json';
     try {
       const res = await axios.get(url);
       if ([200, 201].includes(res.status)) {
         this.candidateInfoList = res.data;
       } else {
+        this.candidateInfoList = [];
         throw Error(res.statusText);
       }
     } catch (err) {
