@@ -1,0 +1,37 @@
+@import 'styles/base';
+
+// Styling for expanders inside candiate finder.
+//
+// Changes: 1. Shift expander panel to the right to make space for
+// the checkbox touch target visual feedback, 2. align expander 
+// header icon and text with the checkbox widgets and labels.
+
+$legco-expander-icon-size: 30px;
+$legco-checkbox-size: 24px;
+$legco-touch-target-size: 44px;
+$legco-expander-offset: ($legco-touch-target-size - $legco-checkbox-size) / 2;
+
+.candidate-filter__expander {
+  .legco-expander__header {
+    // Align header text with the checkbox labels
+    $header-left-padding: 
+      $legco-expander-offset + 
+      $legco-checkbox-size + 
+      ($legco-touch-target-size - $legco-checkbox-size) / 2;
+    
+    padding-left: $header-left-padding; // 1.
+  }
+  .legco-expander__icon {
+    // Align header icon (arrow) with the checkbox widget
+    $icon-offset: $legco-expander-offset - 
+      ($legco-expander-icon-size - $legco-checkbox-size) / 2;
+    
+    left: $icon-offset; // 2.
+  }
+}
+
+.candidate-filter__label,
+.candidate-filter__options {
+  // Apply expander panel offset
+  padding-left: $legco-expander-offset;
+}

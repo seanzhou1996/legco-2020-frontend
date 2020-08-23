@@ -1,0 +1,100 @@
+@import 'styles/base';
+
+.selected-filters__group {
+  margin-bottom: legco-get-space(3);
+
+  &:last-child,
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.selected-filters {
+  margin-top: legco-get-space(6);
+}
+
+// Label in front of a group of tags
+.selected-filters__label {
+  // Label takes up a its own row on mobile devices
+  display: block;
+
+  margin-bottom: legco-get-space(2);
+
+  font-weight: bold;
+
+  @include legco-media-query($from: tablet) {
+    // Starting from tablet, label and tags may stay in the same row.
+    display: inline-block;
+
+    // Add space between the tabel and the first tag
+    margin-right: legco-get-space(1);
+    margin-bottom: 0;
+  }
+}
+
+// A filter tag consists of a button and an optional prepositioned text. The text
+// may serve a divider between adjacent tags.
+.filter-tag {
+  $filter-tag-top-bottom-margin: legco-get-space(2);
+
+  display: inline-block;
+
+  // Add space between adjacent tags, and between stacked row of tags.
+  margin-right: legco-get-space(1);
+  margin-bottom: $filter-tag-top-bottom-margin;
+
+  // Tags that are not the first item in a list needs a separator
+  &:not(:first-child):not(:first-of-type) {
+    &:before {
+      display: inline-block;
+      content: "及";
+      // Add space between the separator and the following button
+      margin-right: legco-get-space(1);
+    }
+  }
+
+  &:last-child,
+  &:last-of-type {
+    margin-right: 0;
+  }
+}
+
+.filter-tag__cross-sign {
+  padding-right: legco-get-space(1);
+}
+
+// The filter tag buttons have different appearances based on the device
+// type. On mobile, the border is thick and background set to white,
+// while on tablet the border is thinner and background features a light
+// grey color.
+
+// On focus state, the combined width of border and box shadow should be
+// 3 pixels, regardless of the border width. Therefore, the box shadow
+// width is adjusted accordingly.
+.filter-tag__button {
+  padding: legco-get-space(2);
+
+  border: 2px solid currentColor;
+  border-radius: 5px;
+
+  background: legco-get-color("white");
+
+  cursor: pointer;
+
+  &:focus {
+    outline: $legco-focus-width solid $legco-focus-color;
+    box-shadow: inset 0 0 0 1px currentColor;
+  }
+
+  @include legco-media-query($from: tablet) {
+    border: 1px solid legco-get-color("dark-grey");
+    background: legco-get-color("light-grey");
+
+    &:focus {
+      // Align the border color with the box shadow color so that the border
+      // becomes visually thicker, presenting a "focused" state.
+      border-color: currentColor;
+      box-shadow: inset 0 0 0 2px currentColor;
+    }
+  }
+}

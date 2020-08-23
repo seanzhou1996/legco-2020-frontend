@@ -1,0 +1,143 @@
+@import 'styles/base';
+
+$expander-header-font-scale: 19;
+
+$expander-button-color: $legco-link-color;
+$expander-button-hover-color: legco-get-color("light-blue");
+
+$expander-icon-offset: legco-get-space(2);
+$expander-icon-size: 30px;
+
+// Wrapper
+.legco-expander {
+  padding-top: legco-get-space(2);
+  padding-bottom: legco-get-space(2);
+  border-top: 1px solid $legco-border-color;
+  &:last-child,
+  &:last-of-type {
+    border-bottom: 1px solid $legco-border-color;
+  }
+}
+
+// Header
+.legco-expander__header {
+  position: relative;
+  padding-top: legco-get-space(2);
+  padding-bottom: legco-get-space(2);
+  // 1. Offset for the icon
+  // 2. Space the icon takes up
+  // 3. Space between the icon and the title
+  padding-left: 
+    $expander-icon-offset + // 1.
+    $expander-icon-size + // 2.
+    legco-get-space(2); // 3.
+}
+
+// Button
+.legco-expander__button {
+  display: inline-block;
+  // Remove default button styles
+  margin: 0;
+  padding: 0;
+  border-width: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+
+  // Font size and line height
+  @include legco-responsive-typography($expander-header-font-scale);
+
+  color: $expander-button-color;
+  @include legco-media-query($media-type: print) {
+    color: $legco-print-text-color;
+  }
+
+  &:hover {
+    color: $expander-button-hover-color;
+    text-decoration: underline;
+  }
+
+  // For devices that can't hover (e.g. cell phones),
+  // remove hover state as it can get stuck in that state.
+  @media (hover: none) {
+    &:hover {
+      color: $expander-button-color;
+      text-decoration: none;
+    }
+  }
+
+  &:focus {
+    @include legco-focused-text;
+  }
+
+  &:hover:not(:focus) {
+    text-decoration: underline;
+  }
+
+  // Remove default button focus outline in Firefox
+  &::-moz-focus-inner {
+    padding: 0;
+    margin: 0;
+  }
+
+  // Extend the touch area of the button to span the entire header
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.legco-expander__header-label {
+  display: block;
+  margin-top: legco-get-space(2);
+
+  @include legco-responsive-typography(14);
+
+  color: $legco-text-color;
+}
+
+// Icon in the header
+.legco-expander__icon {
+  $expander-button-line-height: get-typography-property($expander-header-font-scale, "line-height", null);
+  position: absolute;
+  
+  top: legco-get-space(2) + ($expander-button-line-height - $expander-icon-size) / 2;
+
+  @include legco-media-query($from: tablet) {
+    $expander-button-line-height: get-typography-property($expander-header-font-scale, "line-height", tablet);
+    top: legco-get-space(2) + ($expander-button-line-height - $expander-icon-size) / 2;
+  }
+
+  height: $expander-icon-size;
+
+  width: $expander-icon-size;
+
+  // Apply the offset
+  left: $expander-icon-offset;
+
+  // Put icon under the button overlay
+  z-index: -1;
+}
+
+// When expander is open, reverse icon direction
+.legco-expander--expanded .legco-expander__icon {
+  transform: rotate(-180deg);
+}
+
+// Panel
+.legco-expander__panel {
+  // Hide panel by default
+  display: none;
+
+  padding-top: legco-get-space(2);
+  padding-bottom: legco-get-space(2);
+}
+
+// When expander is open, reveal content
+.legco-expander--expanded .legco-expander__panel {
+  display: block;
+}

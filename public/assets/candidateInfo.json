@@ -1,0 +1,122 @@
+[
+  {
+    "id": "hki_1",
+    "dob": "1982-12-25",
+    "dem_primary": false,
+    "fresh_face": true,
+    "independent": true,
+    "political_position": "dem"
+  },
+  {
+    "id": "hki_2",
+    "dob": "1976-02-08",
+    "dem_primary": true,
+    "fresh_face": false,
+    "independent": false,
+    "political_position": "dem"
+  },
+  {
+    "id": "hki_3",
+    "dob": "1950-08-24",
+    "dem_primary": false,
+    "fresh_face": false,
+    "independent": false,
+    "political_position": "est"
+  },
+  {
+    "id": "hki_4",
+    "dob": "1954-07-24",
+    "dem_primary": true,
+    "fresh_face": false,
+    "independent": false,
+    "political_position": "dem"
+  },
+  {
+    "id": "hki_5",
+    "dob": "1974-06-30",
+    "dem_primary": false,
+    "fresh_face": true,
+    "independent": false,
+    "political_position": "est"
+  },
+  {
+    "id": "hki_6",
+    "dob": "1946-09-24",
+    "dem_primary": false,
+    "fresh_face": true,
+    "independent": true,
+    "political_position": "est"
+  },
+  {
+    "id": "hki_7",
+    "dob": "1988-06-23",
+    "dem_primary": false,
+    "fresh_face": true,
+    "independent": false,
+    "political_position": "dem"
+  },
+  {
+    "id": "hki_8",
+    "dob": "1993-07-13",
+    "dem_primary": true,
+    "fresh_face": true,
+    "independent": false,
+    "political_position": "dem"
+  },
+  {
+    "id": "hki_9",
+    "dob": "1952",
+    "dem_primary": false,
+    "fresh_face": true,
+    "independent": true,
+    "political_position": "est"
+  },
+  {
+    "id": "hki_10",
+    "dob": "1961-12-13",
+    "dem_primary": false,
+    "fresh_face": true,
+    "independent": true,
+    "political_position": "est"
+  },
+  {
+    "id": "hki_11",
+    "dob": "1967",
+    "dem_primary": true,
+    "fresh_face": true,
+    "independent": true,
+    "political_position": "dem"
+  },
+  {
+    "id": "hki_12",
+    "dob": "1958-11-08",
+    "dem_primary": true,
+    "fresh_face": false,
+    "independent": false,
+    "political_position": "dem"
+  },
+  {
+    "id": "hki_13",
+    "dob": "1982-06-08",
+    "dem_primary": true,
+    "fresh_face": false,
+    "independent": false,
+    "political_position": "dem"
+  },
+  {
+    "id": "hki_14",
+    "dob": "1971-09-14",
+    "dem_primary": true,
+    "fresh_face": false,
+    "independent": false,
+    "political_position": "dem"
+  },
+  {
+    "id": "hki_15",
+    "dob": "1978-04-15",
+    "dem_primary": false,
+    "fresh_face": false,
+    "independent": false,
+    "political_position": "est"
+  }
+]
