@@ -12,6 +12,11 @@ import {
   checkedDefaults
 } from 'constants/defaults';
 
+import {
+  partialSelectSet,
+  checkboxSet
+} from 'constants/filters';
+
 import * as _ from 'constants/utilities';
 
 import './ActiveFilters.scss';
@@ -75,8 +80,10 @@ export default class ActiveFilters extends React.Component {
       constituencies
     } = this.context;
 
-    const selectSet = _.getSelectSet(constituencies);
-    const checkboxSet = _.getCheckboxSet();
+    const selectSet = _.getFullSelectSet(
+      partialSelectSet,
+      constituencies
+    );
 
     // Create tags for all select options currently chosen, given that
     // they aren't the initial value of the select group they belong

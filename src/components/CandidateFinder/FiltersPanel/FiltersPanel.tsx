@@ -27,6 +27,11 @@ import {
   selectedDefaults
 } from 'constants/defaults';
 
+import {
+  partialSelectSet,
+  checkboxSet
+} from 'constants/filters';
+
 import * as _ from 'constants/utilities';
 
 import './FiltersPanel.scss';
@@ -145,10 +150,10 @@ export default class FiltersPanel extends React.Component {
     const constituencyTypeMap = _.getConstituencyTypeMap(
       constituencies
     );
-    const selectSet = _.getSelectSet(
+    const selectSet = _.getFullSelectSet(
+      partialSelectSet,
       constituencies
     );
-    const checkboxSet = _.getCheckboxSet();
 
     const {
       constituency: allConsts,

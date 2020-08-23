@@ -4,7 +4,6 @@ import {
   CheckboxId,
   Filter,
   ConstituencyTypeMap,
-  CheckboxSet,
   SelectSet,
   Constituency
 } from 'constants/types';
@@ -84,66 +83,17 @@ export function getConstituencyTypeMap(
   return constituencyTypeMap;
 }
 
-export function getCheckboxSet() {
-  const checkboxSet: CheckboxSet = [
-    {
-      id: 'younger_than_36', 
-      name: '35嵗及以下候選人',
-      group: 'age'
-    },
-    {
-      id: 'dem_primary',
-      name: '參與民主派初選',
-      group: 'other_info'
-    },
-    {
-      id: 'fresh_face',
-      name: '首次參選立法會',
-      group: 'other_info'
-    },
-    {
-      id: 'independent',
-      name: '無政黨背景',
-      group: 'other_info'
-    }
-  ];
-
-  return checkboxSet;
-}
-
-export function getSelectSet(
+export function getFullSelectSet(
+  selectSet: SelectSet,
   constituencies: Constituency[]
-) {
-  const selectSet: SelectSet = {
-    constituency_type: [
-      {
-        id: 'gc',
-        name: '地方選區'
-      },
-      {
-        id: 'fc',
-        name: '功能組別選區'
-      }  
-    ],
-    constituency: constituencies.map(obj => ({
-      id: obj.id,
-      name: obj.name
-    })),
-    political_position: [
-      {
-        id: 'all',
-        name: '不限'
-      },
-      {
-        id: 'est',
-        name: '建制派'
-      },
-      {
-        id: 'dem',
-        name: '民主派'
+): SelectSet {
+  return {
+    ...selectSet,
+    constituency: constituencies.map(obj => {
+      return {
+        id: obj.id,
+        name: obj.name
       }
-    ]
+    })
   };
-
-  return selectSet;
 }
