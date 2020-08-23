@@ -1,0 +1,12 @@
+////
+/// @group settings/assets
+////
+
+/// Path to the assets folder, with trailing slash.
+///
+/// The assets directory stores images, fonts, and other static files.
+///
+/// @type String
+/// @access public
+
+$legco-assets-path: "/assets/" !default;

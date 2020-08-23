@@ -1,0 +1,41 @@
+////
+/// @group helpers/colors
+////
+
+/// Get color
+///
+/// @param {String} $color - Name of color from the color palette (`$legco-colors`)
+/// @return {Color} Representation of named color
+/// @throw if `$color` is not a color from the color palette
+/// @access public
+
+@function legco-get-color($color) {
+  $color: quote($color);
+  @if not map-has-key($legco-colors, $color) {
+    @error "Unknown color: `#{$color}`";
+  }
+
+  @return map-get($legco-colors, $color);
+}
+
+/// Make a color darker by mixing it with black
+///
+/// @param {Color} $color - color to shade
+/// @param {Number} $percentage - percentage of `$color` in returned color
+/// @return {Color}
+/// @access public
+
+@function legco-get-shade($color, $percentage) {
+  @return mix(#000000, $color, $percentage);
+}
+
+/// Make a color lighter by mixing it with white
+///
+/// @param {Color} $color - color to tint
+/// @param {Number} $percentage - percentage of `$color` in returned color
+/// @return {Color}
+/// @access public
+
+@function legco-get-tint($color, $percentage) {
+  @return mix(legco-get-color("white"), $color, $percentage);
+}

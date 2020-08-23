@@ -1,0 +1,143 @@
+////
+/// @group settings/colors
+////
+
+@import '../helpers/colors';
+
+// =================================================================
+// Generic
+// =================================================================
+
+/// Brand color
+///
+/// @type Color
+/// @access public
+
+$legco-brand-color: legco-get-color("blue") !default;
+
+/// Text color
+///
+/// @type Color
+/// @access public
+
+$legco-text-color: legco-get-color("black") !default;
+
+/// Secondary text color
+///
+/// @type Color
+/// @access public
+
+$legco-secondary-text-color: legco-get-color("dark-grey") !default;
+
+/// Body background color
+///
+/// @type Color
+/// @access public
+
+$legco-body-background-color: legco-get-color("white") !default;
+
+/// Canvas background color
+///
+/// Used by the footer component to give the illusion of a long
+/// footer.
+///
+/// @type Color
+/// @access public
+
+$legco-canvas-background-color: legco-get-color("light-grey") !default;
+
+/// Text color for print media
+///
+/// Use "true black" to avoid printers using color ink to print body text
+///
+/// @type Color
+/// @access public
+
+$legco-print-text-color: #000000 !default;
+
+/// Focus color
+///
+/// Used for outline (and background, where appropriate) when interactive
+/// elements (e.g. links and form controls) get focus
+///
+/// @type Color
+/// @access public
+
+$legco-focus-color: legco-get-color("yellow") !default;
+
+/// Focused text color
+///
+/// Ensure that text has sufficient contrast between itself and background
+///
+/// @type Color
+/// @access public
+
+$legco-focus-text-color: legco-get-color("black") !default;
+
+/// Error color
+///
+/// Used to highlight error messages and form controls in an error state
+///
+/// @type Color
+/// @access public
+
+$legco-error-color: legco-get-color("red") !default;
+
+/// Border color
+///
+/// Used for borders, separators, rules, keylines, etc.
+///
+/// @type Color
+/// @access public
+
+$legco-border-color: legco-get-color("mid-grey");
+
+/// Input border color
+///
+/// Used for form controls
+///
+/// @type Color
+/// @access public
+
+$legco-input-border-color: legco-get-color("black") !default;
+
+/// Input hover color
+///
+/// Used for hover states on form controls
+///
+/// @type Color
+/// @access public
+
+$legco-hover-color: legco-get-color("mid-grey") !default;
+
+// =================================================================
+// Links colors
+// =================================================================
+
+/// Link color
+///
+/// @type Color
+/// @access public
+
+$legco-link-color: legco-get-color("blue") !default;
+
+/// Visited link color
+///
+/// @type Color
+/// @access public
+
+$legco-link-visited-color: legco-get-color("purple") !default;
+
+/// Link hover color
+///
+/// @type Color
+/// @access public
+
+$legco-link-hover-color: legco-get-color("dark-blue") !default;
+
+/// Active link color
+///
+/// @type Color
+/// @access public
+
+$legco-link-active-color: legco-get-color("black") !default;

@@ -1,0 +1,98 @@
+$legco-button-background-color: legco-get-color("green");
+$legco-button-hover-color: legco-get-shade($legco-button-background-color, 20%);
+$legco-button-shadow-color: legco-get-shade($legco-button-background-color, 60%);
+$legco-button-text-color: legco-get-color("white");
+$legco-button-border-width: $legco-border-width-form-element;
+
+// Because shadow is visually part of the button, we need to reduce
+// the height of the button [1] and increase the bottom margin to
+// include it.
+$legco-button-shadow-size: $legco-border-width-form-element;
+
+.legco-button {
+  position: relative;
+  display: inline-block;
+
+  margin-bottom: $legco-button-shadow-size;
+  border: $legco-button-border-width solid transparent;
+  padding: (legco-get-space(2) - $legco-button-shadow-size / 2) legco-get-space(2);
+
+  width: 100%;
+  @include legco-media-query($from: tablet) {
+    width: auto;
+  }
+  @include legco-responsive-typography(19);
+  color: $legco-button-text-color;
+  background-color: $legco-button-background-color;
+
+  box-shadow: 0 $legco-button-shadow-size 0 $legco-button-shadow-color;
+
+  text-align: center;
+  vertical-align: top;
+  cursor: pointer;
+
+  -webkit-appearance: none;
+
+  // Override any global link styles
+  &:link,
+  &:visited,
+  &:active,
+  &:hover {
+    color: $legco-button-text-color;
+    text-decoration: none;
+  }
+
+  &:active {
+    // Bump the button down so it looks like it's being pressed in
+    top: $legco-button-shadow-size;
+  }
+
+  // Fix unwanted button padding in Firefox
+  &::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+  }
+
+  &:hover {
+    background-color: $legco-button-hover-color;
+  }
+
+  &:focus {
+    border-color: $legco-focus-color;
+    outline: $legco-focus-width solid transparent;
+
+    box-shadow: inset 0 0 0 1px $legco-focus-color;
+  }
+
+  // Expand interactive area to include the shadow.
+  //
+  // This does not work for `<input type="button">` as non-container
+  // elements cannot include pseudo elements (i.e. :before).
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    // If we used `top: 0`, we would be missing out the border.
+    top: - $legco-button-border-width;
+    right: - $legco-button-border-width;
+    bottom: - ($legco-button-shadow-size + $legco-button-border-width);
+    left: - $legco-button-border-width;
+    background: transparent;
+  }
+
+  // When the button is active, it is shifted down to denote a 
+  // "pressed" state. If the user happened to click at the
+  // very top of the button, their cursor is no longer over
+  // the button (because it has "moved beneath them") and so
+  // the click event is not fired.
+  //
+  // The following snippet corrects that by shifting the top
+  // of the pseudo element so that it continues to cover the
+  // area the user clicked, which means the click event is
+  // still fired. 🎉
+  &:active:before {
+    top: -($legco-button-border-width + $legco-button-shadow-size);
+  }
+}
+
+// TODO: add buttons with an accent

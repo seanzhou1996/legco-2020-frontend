@@ -1,0 +1,38 @@
+////
+/// @group helpers/typography
+////
+
+/// Line height conversion
+///
+/// Converts line heights specified in pixels into a relative value, unless
+/// they are already unit-less (and thus treated as relative values) or
+/// the units do not match the units used for the font size.
+///
+/// @param {Number} $line-height - Line height
+/// @param {Number} $font-size - Font size
+///
+/// @access private
+
+@function _legco-convert-line-height($line-height, $font-size) {
+  @if not unitless($line-height) and unit($line-height) == unit($font-size) {
+    @return $line-height / $font-size;
+  } @else {
+    @return $line-height;
+  }
+}
+
+@function get-typography-property($size, $property, $from) {
+  @if not map-has-key($legco-typography-scale, $size) {
+    @error "Unknown font size: `#{$size}`. Expected a point from the responsive typography scale.";
+  }
+
+  $responsive-font-map: map-get($legco-typography-scale, $size);
+
+  @if not map-has-key($responsive-font-map, $from) {
+    @error "Unknown breakpoint: #{$size}.";
+  }
+
+  $font-map: map-get($responsive-font-map, $from);
+
+  @return map-get($font-map, $property);
+}

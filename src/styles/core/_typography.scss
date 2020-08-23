@@ -1,0 +1,139 @@
+$heading-size-map: (
+  xl: (
+    font-scale: 48,
+    margin-scale: 8
+  ),
+  l: (
+    font-scale: 36,
+    margin-scale: 6
+  ),
+  m: (
+    font-scale: 24,
+    margin-scale: 4
+  ),
+  s: (
+    font-scale: 19,
+    margin-scale: 4
+  )
+);
+
+$caption-size-map: (
+  xl: (
+    font-scale: 27,
+    margin-scale: 1
+  ),
+  l: (
+    font-scale: 24,
+    margin-scale: 1
+  ),
+  m: (
+    font-scale: 19,
+    margin-scale: 0
+  )
+);
+
+$body-size-map: (
+  l: (
+    font-scale: 24,
+    margin-scale: 6
+  ),
+  m: (
+    font-scale: 19,
+    margin-scale: 4
+  ),
+  s: (
+    font-scale: 16,
+    margin-scale: 4
+  ),
+  xs: (
+    font-scale: 14,
+    margin-scale: 4
+  )
+);
+
+// Headings
+
+@each $size, $map in $heading-size-map {
+  %legco-heading-#{$size} {
+    display: block;
+    margin-top: 0;
+    @include legco-responsive-margin(map-get($map, "margin-scale"), "bottom");
+    @include legco-responsive-typography(map-get($map, "font-scale"));
+    font-weight: bold;
+    color: $legco-text-color;
+    @include legco-media-query($media-type: print) {
+      color: $legco-print-text-color;
+    }
+  }
+  .legco-heading-#{$size} {
+    @extend %legco-heading-#{$size};
+  }
+}
+
+// Captions to be used inside headings
+
+@each $size, $map in $caption-size-map {
+  %legco-caption-#{$size} {
+    display: block;
+    margin-bottom: legco-get-space(map-get($map, "margin-scale"));
+    @if $size == "l" {
+      @include legco-media-query($from: tablet) {
+        margin-bottom: 0;
+      }
+    }
+    @include legco-responsive-typography(map-get($map, "font-scale"));
+    color: $legco-secondary-text-color;
+  }
+  .legco-caption-#{$size} {
+    @extend %legco-caption-#{$size};
+  }
+}
+
+// Body (paragraphs)
+
+@each $size, $map in $body-size-map {
+  %legco-body-#{$size} {
+    margin-top: 0;
+    @include legco-responsive-margin(map-get($map, "margin-scale"), "bottom");
+    @include legco-responsive-typography(map-get($map, "font-scale"));
+    color: $legco-text-color;
+    @include legco-media-query($media-type: print) {
+      color: $legco-print-text-color;
+    }
+  }
+  .legco-body-#{$size} {
+    @extend %legco-body-#{$size};
+  }
+}
+
+.legco-body {
+  @extend .legco-body-m;
+}
+
+// Contextual adjustments
+// Adds top padding to headings that appear directly after paragraphs.
+
+%legco-body-l + %legco-heading-l {
+  padding-top: legco-get-space(1);
+  @include legco-media-query($from: tablet) {
+    padding-top: legco-get-space(2);
+  }
+}
+
+%legco-body-m + %legco-heading-l,
+%legco-body-s + %legco-heading-l,
+%legco-list + %legco-heading-l {
+  @include legco-responsive-padding(4, "top");
+}
+
+%legco-body-m + %legco-heading-m,
+%legco-body-s + %legco-heading-m,
+%legco-list + %legco-heading-m,
+%legco-body-m + %legco-heading-s,
+%legco-body-s + %legco-heading-s,
+%legco-list + %legco-heading-s {
+  padding-top: legco-get-space(1);
+  @include legco-media-query($from: tablet) {
+    padding-top: legco-get-space(2);
+  }
+}

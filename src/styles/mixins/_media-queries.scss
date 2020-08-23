@@ -1,0 +1,89 @@
+// =========================================================
+// sass-mq config overrides
+// =========================================================
+
+// Pass our breakpoints to sass-mq
+$mq-breakpoints: if(variable-exists(legco-breakpoints), $legco-breakpoints, ());
+
+@import '~sass-mq';
+
+$sass-mq-already-included: true;
+
+// =========================================================
+// Helpers
+// =========================================================
+
+/// Media query
+///
+/// A wrapper for sass-mq.
+///
+/// @param {String | Boolean} $from [false] - A breakpoint in `$legco-breakpoints`
+/// @param {String | Boolean} $until [false] - A breakpoint in `$legco-breakpoints`
+/// @param {String | Boolean} $and [false] - Additional media query parameters
+/// @param {String} $media-type [all] - Media type (e.g. `screen`, `print`, `all`)
+///
+/// @content styling rules
+///
+/// @example scss
+///   .element {
+///     @include legco-media-query($from: mobile) {
+///       color: red;
+///     }
+///     @include legco-media-query($until: tablet) {
+///       color: blue;
+///     }
+///     @include legco-media-query(mobile, tablet) {
+///       color: green;
+///     }
+///     @include legco-media-query($from: tablet, $and: '(orientation: landscape)') {
+///       color: teal;
+///     }
+///     @include legco-media-query(950px) {
+///       color: hotpink;
+///     }
+///     @include legco-media-query(tablet, $media-type: screen) {
+///       color: hotpink;
+///     }
+///   }
+///
+/// @access public
+
+@mixin legco-media-query($args...) {
+  @include mq($args...) {
+    @content;
+  }
+}
+
+/// Media query for devices with high pixel ratio
+///
+/// Primarily used for retina images.
+///
+/// @param {Number} $ratio [2] - Device pixel ratio
+/// @content Content to be outputted within the media query
+///
+/// @example Providing larger images for screens with high pixel ratio
+///   .element {
+///     background-image: legco-image-url("my-image.png");
+///
+///     @include legco-device-pixel-ratio {
+///       background-image: legco-image-url("my-image-2x.png");
+///     }
+///
+///     @include legco-device-pixel-ratio(3) {
+///       background-image: legco-image-url("my-image-3x.png");
+///     }
+///   }
+///
+/// @access public
+
+@mixin legco-device-pixel-ratio($ratio: 2) {
+  @media // we no longer need browser-specific syntax as autoprefixer will add them
+    // only screen and (-webkit-min-device-pixel-ratio: $ratio),
+    // only screen and (   min--moz-device-pixel-ratio: $ratio),
+    // only screen and (     -o-min-device-pixel-ratio: #{($ratio * 10)} / 10),
+    // only screen and (        min-device-pixel-ratio: $ratio),
+    only screen and (                min-resolution: #{($ratio * 96)}dpi), // IE9-11 don't support dppx
+    only screen and (                min-resolution: #{$ratio}dppx) { // Standardized
+      @content;
+    }
+}

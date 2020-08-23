@@ -1,0 +1,118 @@
+/// Responsive spacing
+///
+/// Adds responsive spacing (either padding or margin)
+/// by fetching a spacing map from the responsive spacing scale, which defines
+/// spacing values at different breakpoints.
+///
+/// Used in `legco-responsive-margin` or `legco-responsive-padding` mixins
+///
+/// @param {Number} $responsive-spacing-point - Point on the responsive spacing
+///   scale, corresponds to a map of breakpoints and spacing values
+/// @param {String} $property - Property to add spacing to (e.g. `margin`)
+/// @param {String} $direction [all] - Direction to add spacing to
+/// @param {Boolean} $important [false] - Whether to mark as `!important`
+/// @param {Number} $adjustment [false] - Offset to adjust spacing by
+///
+/// @access private
+
+@mixin _legco-responsive-spacing(
+  $responsive-spacing-point, 
+  $property, 
+  $direction: "all", 
+  $important: false, 
+  $adjustment: false) {
+
+  $actual-input-type: type-of($responsive-spacing-point);
+  @if $actual-input-type != "number" {
+    @error "Expected an integer, but got a #{$actual-input-type}.";
+  }
+
+  @if not map-has-key($legco-spacing-responsive-scale, $responsive-spacing-point) {
+    @error "Unknown spacing point: `#{$responsive-spacing-point}`. Make sure you are using a point from the "
+    + "responsive spacing scale.";
+  }
+
+  // Make sure the value `$responsive-spacing-point` corresponds to is a map
+  $scale-map: map-get($legco-spacing-responsive-scale, $responsive-spacing-point);
+  $actual-map-type: type-of($scale-map);
+  @if $actual-map-type != "map" {
+    @error "Expected a map, but got a #{$actual-map-type}. Make sure you are using a map to set the "
+    + "responsive spacing.";
+  }
+
+  // Loop through each breakpoint in the map
+  @each $breakpoint, $breakpoint-value in $scale-map {
+    @if ($adjustment) {
+      $breakpoint-value: $breakpoint-value + $adjustment;
+    }
+
+    // The `null` breakpoint is for mobile
+    @if $breakpoint == null {
+      @if $direction == all {
+        #{$property}: $breakpoint-value if($important, !important, null);
+      } @else {
+        #{$property}-#{$direction}: $breakpoint-value if($important, !important, null);
+      }
+    } @else {
+      @include legco-media-query($from: $breakpoint) {
+        @if $direction == all {
+          #{$property}: $breakpoint-value if($important, !important, null);
+        } @else {
+          #{$property}-#{$direction}: $breakpoint-value if($important, !important, null);
+        }
+      }
+    }
+  }
+}
+
+/// Responsive margin
+///
+/// Adds responsive margin by fetching a "spacing map" from the responsive
+/// spacing scale, which defines different spacing values at different
+/// breakpoints. Wrapper for the `_legco-responsive-spacing` mixin.
+///
+/// @see {mixin} _legco-responsive-spacing
+///
+/// @param {Number} $responsive-spacing-point - Point on the responsive spacing
+///   scale, corresponds to a map of breakpoints and spacing values
+/// @param {String} $direction [all] - Direction to add spacing to
+///   (`top`, `right`, `bottom`, `left`, `all`)
+/// @param {Boolean} $important [false] - Whether to mark as `!important`
+/// @param {Number} $adjustment [false] - Offset to adjust spacing by
+///
+/// @example scss
+///   .element {
+///     @include legco-responsive-margin(6, "left", $adjustment, 1px);
+///   }
+///
+/// @access public
+
+@mixin legco-responsive-margin($responsive-spacing-point, $direction: "all", $important: false, $adjustment: false) {
+  @include _legco-responsive-spacing($responsive-spacing-point, "margin", $direction, $important, $adjustment);
+}
+
+/// Responsive padding
+///
+/// Adds responsive adding by fetching a "spacing map" from the responsive
+/// spacing scale, which defines different spacing values at different
+/// breakpoints. Wrapper for the `_legco-responsive-spacing` mixin.
+///
+/// @see {mixin} _legco-responsive-spacing
+///
+/// @param {Number} $responsive-spacing-point - Point on the responsive spacing
+///   scale, corresponds to a map of breakpoints and spacing values
+/// @param {String} $direction [all] - Direction to add spacing to
+///   (`top`, `right`, `bottom`, `left`, `all`)
+/// @param {Boolean} $important [false] - Whether to mark as `!important`
+/// @param {Number} $adjustment [false] - Offset to adjust spacing by
+///
+/// @example scss
+///   .element {
+///     @include legco-responsive-padding(6, "left", $adjustment, 1px);
+///   }
+///
+/// @access public
+
+@mixin legco-responsive-padding($responsive-spacing-point, $direction: "all", $important: false, $adjustment: false) {
+  @include _legco-responsive-spacing($responsive-spacing-point, "padding", $direction, $important, $adjustment);
+}

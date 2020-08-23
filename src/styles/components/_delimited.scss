@@ -1,0 +1,9 @@
+$app-delimiter-default: "，";
+
+.app-delimited {
+  display: inline-block;
+}
+
+.app-delimited__item {
+  @include legco-delimited-text($app-delimiter-default);
+}

@@ -1,0 +1,215 @@
+////
+/// @group settings/typography
+////
+
+// =================================================================
+// Font families
+// =================================================================
+
+/// Font stack for screen media
+///
+/// @type List
+/// @access public
+
+$legco-font-family: 
+  -apple-system, 
+  BlinkMacSystemFont, 
+  'Segoe UI', 
+  Roboto, 
+  Oxygen, 
+  Ubuntu, 
+  Cantarell, 
+  'Open Sans', 
+  'Helvetica Neue', 
+  'Microsoft JhengHei', 
+  sans-serif !default;
+
+/// Font stack for print media
+///
+/// @type List
+/// @access public
+
+$legco-font-family-print: sans-serif !default;
+
+/// Whether or not to include the default @font-face declarations
+///
+/// @type Boolean
+/// @access public
+
+$legco-include-default-font-face: true !default;
+
+// =================================================================
+// Font weight
+// =================================================================
+
+/// Font weight for regular typography
+///
+/// @type Number
+/// @access public
+
+$legco-font-weight-regular: 400 !default;
+
+/// Font weight for bold typography
+///
+/// @type Number
+/// @access public
+
+$legco-font-weight-bold: 700 !default;
+
+// =================================================================
+// Font sizes
+// =================================================================
+
+/// Whether or not to define font sizes in rem, improving accessibility by
+/// allowing users to adjust the base font size. This is enabled by default.
+///
+/// @type Boolean
+/// @access public
+
+$legco-typography-use-rem: true !default;
+
+/// Root font size
+///
+/// @type Number
+/// @access public
+
+$legco-root-font-size: 16px !default;
+
+/// Responsive typography font map
+///
+/// This is used to generate responsive typography that adapts according to the
+/// media query breakpoints.
+///
+/// Font size and font weight can be defined for each breakpoint, and different types of
+/// devices (e.g. mobile, tablet) can have different behavior. The null breakpoint is for
+/// mobile.
+///
+/// Line-heights will be converted from pixel measurements to relative values automatically. For
+/// example, with a `font-size` of 16px and a `line-height` of 24px, the line height will become
+/// 1.5 in the output.
+///
+/// You can also specify a separate font size and line height for print media.
+///
+/// @type Map
+///
+/// @prop {Number} $point.$breakpoint.font-size - Font size for `$point` at `$breakpoint`
+/// @prop {Number} $point.$breakpoint.line-height - Line height for `$point` at `$breakpoint`
+/// @prop {Number} $point.print.font-size - Font size for `$point` when printing
+/// @prop {Number} $point.print.line-height - Line height for `$point` when printing
+///
+/// @access public
+
+$legco-typography-scale: (
+  80: (
+    null: (
+      font-size: 53px,
+      line-height: 55px
+    ),
+    tablet: (
+      font-size: 80px,
+      line-height: 80px
+    ),
+    print: (
+      font-size: 53pt,
+      line-height: 1.1
+    )
+  ),
+  48: (
+    null: (
+      font-size: 32px,
+      line-height: 35px
+    ),
+    tablet: (
+      font-size: 48px,
+      line-height: 50px
+    ),
+    print: (
+      font-size: 32pt,
+      line-height: 1.15
+    )
+  ),
+  36: (
+    null: (
+      font-size: 24px,
+      line-height: 25px
+    ),
+    tablet: (
+      font-size: 36px,
+      line-height: 40px
+    ),
+    print: (
+      font-size: 24pt,
+      line-height: 1.05
+    )
+  ),
+  27: (
+    null: (
+      font-size: 18px,
+      line-height: 20px
+    ),
+    tablet: (
+      font-size: 27px,
+      line-height: 30px
+    ),
+    print: (
+      font-size: 18pt,
+      line-height: 1.15
+    )
+  ),
+  24: (
+    null: (
+      font-size: 18px,
+      line-height: 20px
+    ),
+    tablet: (
+      font-size: 24px,
+      line-height: 30px
+    ),
+    print: (
+      font-size: 18pt,
+      line-height: 1.15
+    )
+  ),
+  19: (
+    null: (
+      font-size: 16px,
+      line-height: 20px
+    ),
+    tablet: (
+      font-size: 19px,
+      line-height: 25px
+    ),
+    print: (
+      font-size: 14pt,
+      line-height: 1.15
+    )
+  ),
+  16: (
+    null: (
+      font-size: 14px,
+      line-height: 16px
+    ),
+    tablet: (
+      font-size: 16px,
+      line-height: 20px
+    ),
+    print: (
+      font-size: 14pt,
+      line-height: 1.2
+    )
+  ),
+  14: (
+    null: (
+      font-size: 12px,
+      line-height: 15px
+    ),
+    tablet: (
+      font-size: 14px,
+      line-height: 20px
+    ),
+    print: (
+      font-size: 12pt,
+      line-height: 1.2
+    )
+  )
+) !default;

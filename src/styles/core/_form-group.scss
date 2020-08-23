@@ -1,0 +1,24 @@
+.legco-form-group {
+  @include legco-clearfix;
+  @include legco-responsive-margin(6, "bottom");
+
+  .legco-form-group:last-of-type {
+    margin-bottom: 0; // Remove margin from last item in nested groups
+  }
+
+  &:last-child,
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.legco-form-group--error {
+  padding-left: legco-get-space(3);
+  border-left: $legco-border-width-form-group-error solid $legco-error-color;
+
+  .legco-form-group {
+    // Reset error styles in nested form groups that might have error class
+    padding-left: 0;
+    border-left: 0;
+  }
+}
