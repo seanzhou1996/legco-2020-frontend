@@ -25,7 +25,8 @@ import {
   Selected,
   SelectType,
   CheckboxId,
-  Checked
+  Checked,
+  PersonalInfo
 } from 'constants/types';
 
 import * as _ from 'constants/utilities';
@@ -45,6 +46,7 @@ interface CandidateFinderState {
 class CandidateFinder extends Component<any, CandidateFinderState> {
   constituencies: Constituency[] = [];
   candidates: Candidate[] = [];
+  personalInfoList: PersonalInfo[] = [];
   filtered: Candidate[] = [];
   candidateInfoMap: CandidateInfoMap = {};
   constituencyTypeMap: ConstituencyTypeMap = {};
@@ -76,7 +78,8 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
     try {
       this.constituencies = await _.getConstituencies();
       this.candidates = await _.getCandidates();
-      this.candidateInfoMap = (await _.getCandidateInfoList())
+      this.personalInfoList = await _.getPersonalInfoList();
+      this.candidateInfoMap = this.personalInfoList
         .reduce((prev, current) => {
           const {
             id,
@@ -118,11 +121,11 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
           [type]: value
         }
       };
-      if (type === 'constituency_type') {
+      if (type === 'constituencyType') {
         // If constituency type is changed, reset constituency to its default [1].
         const currentConstType = value;
         const {
-          constituency_type: prevConstType,
+          constituencyType: prevConstType,
           constituency: prevConst
         } = prevState.selected;
         if (prevConstType !== currentConstType) {
@@ -160,22 +163,25 @@ class CandidateFinder extends Component<any, CandidateFinderState> {
 
     this.filtered = this.candidates.filter(obj => {
       const constituency = obj.constituencyId;
-      const constituency_type = this.constituencyTypeMap[constituency];
+      const constituencyType = this.constituencyTypeMap[constituency];
       const personalInfo = this.candidateInfoMap[obj.id];
       const dob = personalInfo?.dob;
+      const affiliation = personalInfo?.affiliation;
       // TODO: remove fallback when info list is ready.
       // Fallback: since candidate info map is incomplete, `personalInfo` can be
       // undefined, in which occasion `dob` is null and consequently, `age`
       // undefined. Therefore, we have to check `age` before comparing it with
       // 36.
       const age = dob ? _.calculateAge(dob) : undefined;
-      const younger_than_36 = age ? age < 36 : false;
+      const youngerThan36 = age ? age < 36 : false;
+      const independent = affiliation === null;
 
       const currentCandidate = {
         ...personalInfo,
-        constituency_type,
+        constituencyType,
         constituency,
-        younger_than_36
+        youngerThan36,
+        independent
       };
       // Loop over all filters. For each filter, we call type guard to confirm its
       // identity as filter [1]. Then, check if that filter is active [2]. If so, 

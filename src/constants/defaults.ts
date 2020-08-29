@@ -6,14 +6,14 @@ import {
 // We use "all" for political position because it's a real option in the
 // select set.
 export const selectedDefaults: Selected = {
-  constituency_type: '',
-  constituency: '',
-  political_position: 'all'
+  constituencyType: 'all',
+  constituency: 'all',
+  camp: 'all'
 }
 
 export const checkedDefaults: Checked = {
-  younger_than_36: false,
-  fresh_face: false,
+  youngerThan36: false,
+  freshFace: false,
   independent: false,
-  dem_primary: false
+  inPrimary: false
 }
