@@ -1,0 +1,1334 @@
+[
+  {
+    "id": "hki_1",
+    "name": "黃梓謙",
+    "dob": "1982-12-25",
+    "affiliation": "民主思路",
+    "camp": "ctr",
+    "freshFace": true,
+    "inPrimary": false
+  },
+  {
+    "id": "hki_2",
+    "name": "劉嘉鴻",
+    "dob": "1976-02-08",
+    "affiliation": "人民力量",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "hki_3",
+    "name": "葉劉淑儀",
+    "dob": "1950-08-24",
+    "affiliation": "新民黨",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "hki_4",
+    "name": "何秀蘭",
+    "dob": "1954-07-24",
+    "affiliation": "工黨",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "hki_5",
+    "name": "張國鈞",
+    "dob": "1974-06-30",
+    "affiliation": "民建聯",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "hki_6",
+    "name": "詹培忠",
+    "dob": "1946-09-24",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "hki_7",
+    "name": "鄭錦滿",
+    "dob": "1988-06-23",
+    "affiliation": "熱血公民",
+    "camp": "dem",
+    "freshFace": true,
+    "inPrimary": true
+  },
+  {
+    "id": "hki_8",
+    "name": "羅冠聰",
+    "dob": "1993-07-13",
+    "affiliation": "香港衆志",
+    "camp": "dem",
+    "freshFace": true,
+    "inPrimary": true
+  },
+  {
+    "id": "hki_9",
+    "name": "沈志超",
+    "dob": "1952",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "hki_10",
+    "name": "王維基",
+    "dob": "1961-12-13",
+    "affiliation": null,
+    "camp": "ctr",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "hki_11",
+    "name": "徐子見",
+    "dob": "1967",
+    "affiliation": "柴灣起動",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "hki_12",
+    "name": "司馬文",
+    "dob": "1958-11-08",
+    "affiliation": null,
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "hki_13",
+    "name": "許智峯",
+    "dob": "1982-06-08",
+    "affiliation": "民主黨",
+    "camp": "dem",
+    "freshFace": true,
+    "inPrimary": false
+  },
+  {
+    "id": "hki_14",
+    "name": "陳淑莊",
+    "dob": "1971-09-14",
+    "affiliation": "公民黨",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "hki_15",
+    "name": "郭偉强",
+    "dob": "1978-04-15",
+    "affiliation": "工聯會",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "klnw_1",
+    "name": "吳文遠",
+    "dob": "1976-12-27",
+    "affiliation": "社會民主連線",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "klnw_2",
+    "name": "何志光",
+    "dob": "1972",
+    "affiliation": "香港本土力量",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "klnw_3",
+    "name": "毛孟靜",
+    "dob": "1957-01-18",
+    "affiliation": "公民黨",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "klnw_4",
+    "name": "梁美芬",
+    "dob": "1960-11-17",
+    "affiliation": "經民聯",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "klnw_5",
+    "name": "譚國僑",
+    "dob": "1957-09-13",
+    "affiliation": "民協",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "klnw_6",
+    "name": "朱韶洪",
+    "dob": "1949-02-23",
+    "affiliation": "維園衝鋒",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "klnw_7",
+    "name": "黃毓民",
+    "dob": "1951-10-01",
+    "affiliation": "普羅政治學苑",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "klnw_8",
+    "name": "黃碧雲",
+    "dob": "1959-03-21",
+    "affiliation": "民主黨",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "klnw_9",
+    "name": "林依麗",
+    "dob": "1958-07-17",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "klnw_10",
+    "name": "蔣麗芸",
+    "dob": "1955-05-16",
+    "affiliation": "民建聯",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "klnw_11",
+    "name": "關新偉",
+    "dob": "1962-03-27",
+    "affiliation": "香港政研會",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "klnw_12",
+    "name": "劉小麗",
+    "dob": "1976-08-03",
+    "affiliation": "小麗民主教室",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "klnw_13",
+    "name": "游蕙禎",
+    "dob": "1991-05-06",
+    "affiliation": "青年新政",
+    "camp": "dem",
+    "freshFace": true,
+    "inPrimary": true
+  },
+  {
+    "id": "klnw_14",
+    "name": "李泳漢",
+    "dob": "1980-05-18",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": true,
+    "inPrimary": false
+  },
+  {
+    "id": "klnw_15",
+    "name": "狄志遠",
+    "dob": "1957-09-24",
+    "affiliation": "新思維",
+    "camp": "ctr",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "klne_1",
+    "name": "黃國健",
+    "dob": "1952-05-03",
+    "affiliation": "工聯會",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "klne_2",
+    "name": "胡穗珊",
+    "dob": "1980-11-05",
+    "affiliation": "社區前進",
+    "camp": "dem",
+    "freshFace": true,
+    "inPrimary": true
+  },
+  {
+    "id": "klne_3",
+    "name": "高達斌",
+    "dob": null,
+    "affiliation": "愛港之聲",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "klne_4",
+    "name": "譚香文",
+    "dob": "1957-06-08",
+    "affiliation": null,
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "klne_5",
+    "name": "謝偉俊",
+    "dob": "1959-01-21",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "klne_6",
+    "name": "柯創盛",
+    "dob": "1973-07-09",
+    "affiliation": "民建聯",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "klne_7",
+    "name": "呂永基",
+    "dob": "1978",
+    "affiliation": null,
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "klne_8",
+    "name": "胡志偉",
+    "dob": "1962-10-18",
+    "affiliation": "民主黨",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "klne_9",
+    "name": "譚文豪",
+    "dob": "1975-06-13",
+    "affiliation": "公民黨",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "klne_10",
+    "name": "黃洋達",
+    "dob": "1979-05-29",
+    "affiliation": "熱血公民",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "klne_11",
+    "name": "陳澤滔",
+    "dob": "1984",
+    "affiliation": "東九龍社區關注組",
+    "camp": "dem",
+    "freshFace": true,
+    "inPrimary": false
+  },
+  {
+    "id": "klne_12",
+    "name": "譚得志",
+    "dob": "1973-02-02",
+    "affiliation": "人民力量",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "ntw_1",
+    "name": "黃潤達",
+    "dob": "1980-06-18",
+    "affiliation": "街坊工友服務處",
+    "camp": "dem",
+    "freshFace": true,
+    "inPrimary": true
+  },
+  {
+    "id": "ntw_2",
+    "name": "尹兆堅",
+    "dob": "1969-06-07",
+    "affiliation": "民主黨",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "ntw_3",
+    "name": "高志輝",
+    "dob": "1960-01-02",
+    "affiliation": "香港政研會",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "ntw_4",
+    "name": "周永勤",
+    "dob": "1966-10-26",
+    "affiliation": "自由黨",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "ntw_5",
+    "name": "鄭松泰",
+    "dob": "1983-11-05",
+    "affiliation": "熱血公民",
+    "camp": "dem",
+    "freshFace": true,
+    "inPrimary": true
+  },
+  {
+    "id": "ntw_6",
+    "name": "鄺官穩",
+    "dob": "1978",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "ntw_7",
+    "name": "田北辰",
+    "dob": "1950-08-26",
+    "affiliation": "新民黨",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "ntw_8",
+    "name": "何君堯",
+    "dob": "1962-06-04",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "ntw_9",
+    "name": "梁志祥",
+    "dob": "1957-12-03",
+    "affiliation": "民建聯",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "ntw_10",
+    "name": "郭家麒",
+    "dob": "1961-07-20",
+    "affiliation": "公民黨",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "ntw_11",
+    "name": "黃浩銘",
+    "dob": "1988-10-24",
+    "affiliation": "社會民主連線",
+    "camp": "dem",
+    "freshFace": true,
+    "inPrimary": false
+  },
+  {
+    "id": "ntw_12",
+    "name": "李卓人",
+    "dob": "1957-02-12",
+    "affiliation": "工黨",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "ntw_13",
+    "name": "黃俊傑",
+    "dob": "1986-04-24",
+    "affiliation": "青年新政",
+    "camp": "dem",
+    "freshFace": true,
+    "inPrimary": false
+  },
+  {
+    "id": "ntw_14",
+    "name": "麥美娟",
+    "dob": "1971-11-01",
+    "affiliation": "工聯會",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "ntw_15",
+    "name": "馮檢基",
+    "dob": "1953-03-17",
+    "affiliation": "民協",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "ntw_16",
+    "name": "陳恒鑌",
+    "dob": "1973",
+    "affiliation": "民建聯",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "ntw_17",
+    "name": "張慧晶",
+    "dob": "1966-12-11",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "ntw_18",
+    "name": "呂智恆",
+    "dob": "1982",
+    "affiliation": null,
+    "camp": "dem",
+    "freshFace": true,
+    "inPrimary": true
+  },
+  {
+    "id": "ntw_19",
+    "name": "湯詠芝",
+    "dob": "1986",
+    "affiliation": null,
+    "camp": "dem",
+    "freshFace": true,
+    "inPrimary": true
+  },
+  {
+    "id": "ntw_20",
+    "name": "朱凱廸",
+    "dob": "1977-09-29",
+    "affiliation": null,
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "nte_1",
+    "name": "方國珊",
+    "dob": "1966-03-28",
+    "affiliation": null,
+    "camp": "ctr",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "nte_2",
+    "name": "林卓廷",
+    "dob": "1977-06-13",
+    "affiliation": "民主黨",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "nte_3",
+    "name": "廖添誠",
+    "dob": "1983",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": true,
+    "inPrimary": false
+  },
+  {
+    "id": "nte_4",
+    "name": "陳云根",
+    "dob": "1961-11-08",
+    "affiliation": "熱血公民",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "nte_5",
+    "name": "梁國雄",
+    "dob": "1956-03-27",
+    "affiliation": "社會民主連線",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "nte_6",
+    "name": "張超雄",
+    "dob": "1957-02-23",
+    "affiliation": "工黨",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "nte_7",
+    "name": "楊岳橋",
+    "dob": "1981-06-05",
+    "affiliation": "公民黨",
+    "camp": "dem",
+    "freshFace": true,
+    "inPrimary": false
+  },
+  {
+    "id": "nte_8",
+    "name": "麥嘉晉",
+    "dob": "1982-09-12",
+    "affiliation": "民主思路",
+    "camp": "ctr",
+    "freshFace": true,
+    "inPrimary": false
+  },
+  {
+    "id": "nte_9",
+    "name": "鄭家富",
+    "dob": "1960-04-28",
+    "affiliation": null,
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "nte_10",
+    "name": "葛珮帆",
+    "dob": "1966-12-23",
+    "affiliation": "民建聯",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "nte_11",
+    "name": "侯志強",
+    "dob": "1956",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "nte_12",
+    "name": "李梓敬",
+    "dob": "1984-01-22",
+    "affiliation": "自由黨",
+    "camp": "est",
+    "freshFace": true,
+    "inPrimary": false
+  },
+  {
+    "id": "nte_13",
+    "name": "鄧家彪",
+    "dob": "1979-10-29",
+    "affiliation": "工聯會",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "nte_14",
+    "name": "范國威",
+    "dob": "1966-10-30",
+    "affiliation": "新民主同盟",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "nte_15",
+    "name": "陳玉娥",
+    "dob": "1960",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "nte_16",
+    "name": "黃琛喻",
+    "dob": "1988",
+    "affiliation": null,
+    "camp": "dem",
+    "freshFace": true,
+    "inPrimary": true
+  },
+  {
+    "id": "nte_17",
+    "name": "李偲嫣",
+    "dob": "1964-08-17",
+    "affiliation": "正義聯盟",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "nte_18",
+    "name": "陳志全",
+    "dob": "1972-04-16",
+    "affiliation": "人民力量",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "nte_19",
+    "name": "梁頌恆",
+    "dob": "1986-08-07",
+    "affiliation": "青年新政",
+    "camp": "dem",
+    "freshFace": true,
+    "inPrimary": true
+  },
+  {
+    "id": "nte_20",
+    "name": "梁金成",
+    "dob": "1976",
+    "affiliation": null,
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "nte_21",
+    "name": "容海恩",
+    "dob": "1977-06-07",
+    "affiliation": "新民黨",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "nte_22",
+    "name": "陳克勤",
+    "dob": "1976-04-24",
+    "affiliation": "民建聯",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "hyk_1",
+    "name": "劉業強",
+    "dob": "1966",
+    "affiliation": "經民聯",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "af_afa",
+    "name": "何俊賢",
+    "dob": "1979-11-30",
+    "affiliation": "民建聯",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "af_afb",
+    "name": "黃容根",
+    "dob": "1951-08-10",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "insu_1",
+    "name": "陳健波",
+    "dob": "1954-05-10",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "tran_tra",
+    "name": "易志明",
+    "dob": "1953",
+    "affiliation": "自由黨",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "tran_trb",
+    "name": "丘應樺",
+    "dob": "1958",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "edu_a_1",
+    "name": "蔡若蓮",
+    "dob": "1966-09-29",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "edu_a_2",
+    "name": "葉建源",
+    "dob": "1961",
+    "affiliation": "教協",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "leg_b_1",
+    "name": "郭榮鏗",
+    "dob": "1978-04-15",
+    "affiliation": "公民黨",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "leg_b_2",
+    "name": "文理明",
+    "dob": "1973",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "acc_c_1",
+    "name": "梁繼昌",
+    "dob": "1962-10-17",
+    "affiliation": "公共專業聯盟",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "acc_c_2",
+    "name": "陳弘毅",
+    "dob": "1958",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "med_d_1",
+    "name": "陳沛然",
+    "dob": "1976",
+    "affiliation": null,
+    "camp": "ctr",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "med_d_2",
+    "name": "黃以謙",
+    "dob": "1965",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "hs_e_1",
+    "name": "李國麟",
+    "dob": "1959-08-14",
+    "affiliation": null,
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "hs_e_2",
+    "name": "蔡沛華",
+    "dob": "1957",
+    "affiliation": null,
+    "camp": null,
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "eng_f_1",
+    "name": "盧偉國",
+    "dob": "1953-12-25",
+    "affiliation": "經民聯",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "eng_f_2",
+    "name": "程明達",
+    "dob": "1962",
+    "affiliation": null,
+    "camp": null,
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "eng_f_3",
+    "name": "陸宏廣",
+    "dob": "1945",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "aspl_g_1",
+    "name": "謝偉銓",
+    "dob": "1954-10-27",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "aspl_g_2",
+    "name": "姚松炎",
+    "dob": "1964-07-19",
+    "affiliation": null,
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "aspl_g_3",
+    "name": "林雲峯",
+    "dob": "1957-09-03",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "labr_1",
+    "name": "潘兆平",
+    "dob": "1957",
+    "affiliation": "港九勞工社團聯會",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "labr_2",
+    "name": "何啟明",
+    "dob": "1985-01-06",
+    "affiliation": "工聯會",
+    "camp": "est",
+    "freshFace": true,
+    "inPrimary": false
+  },
+  {
+    "id": "labr_3",
+    "name": "陸頌雄",
+    "dob": "1978-09-21",
+    "affiliation": "工聯會",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "sw_k_1",
+    "name": "關鋭煊",
+    "dob": "1946",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "sw_k_2",
+    "name": "曾健超",
+    "dob": "1975-07-23",
+    "affiliation": null,
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "sw_k_3",
+    "name": "邵家臻",
+    "dob": "1969-06-03",
+    "affiliation": null,
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "sw_k_4",
+    "name": "葉建忠",
+    "dob": "1968",
+    "affiliation": null,
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "sw_k_5",
+    "name": "黃成智",
+    "dob": "1957-10-11",
+    "affiliation": null,
+    "camp": "ctr",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "rec_1",
+    "name": "石禮謙",
+    "dob": "1945-06-24",
+    "affiliation": "經民聯",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "tour_m_1",
+    "name": "林少麟",
+    "dob": "1960",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "tour_m_2",
+    "name": "姚思榮",
+    "dob": "1955",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "tour_m_3",
+    "name": "葉慶寧",
+    "dob": "1951",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "com1_n_1",
+    "name": "陳浩濂",
+    "dob": "1977-02-09",
+    "affiliation": "自由黨",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "com1_n_2",
+    "name": "林健鋒",
+    "dob": "1951-10-23",
+    "affiliation": "經民聯",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "com2_1",
+    "name": "廖長江",
+    "dob": "1957",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "ind1_1",
+    "name": "梁君彥",
+    "dob": "1951-02-24",
+    "affiliation": "經民聯",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "ind2_1",
+    "name": "吳永嘉",
+    "dob": "1969-06-17",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "fin_1",
+    "name": "陳振英",
+    "dob": "1961",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "fs_u_1",
+    "name": "張華峯",
+    "dob": "1952-05-02",
+    "affiliation": "經民聯",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "fs_u_2",
+    "name": "詹劍崙",
+    "dob": null,
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "fs_u_3",
+    "name": "徐聯安",
+    "dob": "1960",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "spcp_v_1",
+    "name": "周博賢",
+    "dob": "1970-02-27",
+    "affiliation": null,
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "spcp_v_2",
+    "name": "馬逢國",
+    "dob": "1955-07-02",
+    "affiliation": "新世紀論壇",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "ie_1",
+    "name": "黃定光",
+    "dob": "1949-09-12",
+    "affiliation": "民建聯",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "tg_x_1",
+    "name": "鍾國斌",
+    "dob": "1963-11-04",
+    "affiliation": "自由黨",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "tg_x_2",
+    "name": "楊詩傑",
+    "dob": "1970",
+    "affiliation": null,
+    "camp": null,
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "wr_y_1",
+    "name": "區諾軒",
+    "dob": "1987-06-18",
+    "affiliation": "民主黨",
+    "camp": "dem",
+    "freshFace": true,
+    "inPrimary": true
+  },
+  {
+    "id": "wr_y_2",
+    "name": "邵家輝",
+    "dob": "1970-04-22",
+    "affiliation": "自由黨",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "it_z_1",
+    "name": "莫乃光",
+    "dob": "1964-10-25",
+    "affiliation": "公共專業聯盟",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "it_z_2",
+    "name": "楊全盛",
+    "dob": "1977",
+    "affiliation": null,
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "cat_ca1",
+    "name": "張宇人",
+    "dob": "1949-09-30",
+    "affiliation": "自由黨",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "cat_ca2",
+    "name": "伍永德",
+    "dob": "1986",
+    "affiliation": null,
+    "camp": "dem",
+    "freshFace": true,
+    "inPrimary": true
+  },
+  {
+    "id": "dc_1",
+    "name": "劉國勳",
+    "dob": "1981-06-28",
+    "affiliation": "民建聯",
+    "camp": "est",
+    "freshFace": true,
+    "inPrimary": false
+  },
+  {
+    "id": "ds_801",
+    "name": "涂謹申",
+    "dob": "1963-03-11",
+    "affiliation": "民主黨",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "ds_802",
+    "name": "李慧琼",
+    "dob": "1974-03-13",
+    "affiliation": "民建聯",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "ds_803",
+    "name": "鄺俊宇",
+    "dob": "1983-02-09",
+    "affiliation": "民主黨",
+    "camp": "dem",
+    "freshFace": true,
+    "inPrimary": true
+  },
+  {
+    "id": "ds_804",
+    "name": "何啟明",
+    "dob": "1988-09-18",
+    "affiliation": "民協",
+    "camp": "dem",
+    "freshFace": true,
+    "inPrimary": true
+  },
+  {
+    "id": "ds_805",
+    "name": "陳琬琛",
+    "dob": "1958-03-23",
+    "affiliation": "公民黨",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "ds_806",
+    "name": "王國興",
+    "dob": "1949-03-29",
+    "affiliation": "工聯會",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  },
+  {
+    "id": "ds_807",
+    "name": "關永業",
+    "dob": "1976-03-19",
+    "affiliation": "新民主同盟",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "ds_808",
+    "name": "梁耀忠",
+    "dob": "1953-05-19",
+    "affiliation": "街坊工友服務處",
+    "camp": "dem",
+    "freshFace": false,
+    "inPrimary": true
+  },
+  {
+    "id": "ds_809",
+    "name": "周浩鼎",
+    "dob": "1979-06-07",
+    "affiliation": "民建聯",
+    "camp": "est",
+    "freshFace": false,
+    "inPrimary": false
+  }
+]
