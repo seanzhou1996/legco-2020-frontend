@@ -2,13 +2,13 @@ import axios from 'axios';
 import {
   Constituency,
   Candidate,
-  CandidateInfo,
+  PersonalInfo,
 } from 'constants/types';
 
 export default class Remote {
   static constituencies: Constituency[];
   static candidates: Candidate[];
-  static candidateInfoList: CandidateInfo[];
+  static personalInfoList: PersonalInfo[];
 
   static async setConstituencies() {
     const url = process.env.PUBLIC_URL + '/assets/constituencies.json';
@@ -40,14 +40,14 @@ export default class Remote {
     }
   }
 
-  static async setCandidateInfoList() {
-    const url = process.env.PUBLIC_URL + '/assets/candidateInfo.json';
+  static async setPersonalInfoList() {
+    const url = process.env.PUBLIC_URL + '/assets/personalInfo.json';
     try {
       const res = await axios.get(url);
       if ([200, 201].includes(res.status)) {
-        this.candidateInfoList = res.data;
+        this.personalInfoList = res.data;
       } else {
-        this.candidateInfoList = [];
+        this.personalInfoList = [];
         throw Error(res.statusText);
       }
     } catch (err) {
@@ -69,10 +69,10 @@ export default class Remote {
     return this.candidates;
   }
 
-  static async getCandidateInfoList() {
-    if (!this.candidateInfoList) {
-      await this.setCandidateInfoList();
+  static async getPersonalInfoList() {
+    if (!this.personalInfoList) {
+      await this.setPersonalInfoList();
     }
-    return this.candidateInfoList;
+    return this.personalInfoList;
   }
 }

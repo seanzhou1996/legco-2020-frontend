@@ -4,7 +4,7 @@ import {
 } from 'constants/types';
 
 export const partialSelectSet: SelectSet = {
-  constituency_type: [
+  constituencyType: [
     {
       id: 'gc',
       name: '地方選區'
@@ -15,7 +15,7 @@ export const partialSelectSet: SelectSet = {
     }  
   ],
   constituency: [],
-  political_position: [
+  camp: [
     {
       id: 'all',
       name: '不限'
@@ -27,23 +27,27 @@ export const partialSelectSet: SelectSet = {
     {
       id: 'dem',
       name: '民主派'
+    },
+    {
+      id: 'ctr',
+      name: '中間派'
     }
   ]
 };
 
-export   const checkboxSet: CheckboxSet = [
+export const checkboxSet: CheckboxSet = [
   {
-    id: 'younger_than_36', 
+    id: 'youngerThan36', 
     name: '35嵗及以下候選人',
     group: 'age'
   },
   {
-    id: 'dem_primary',
+    id: 'inPrimary',
     name: '參與民主派初選',
     group: 'other_info'
   },
   {
-    id: 'fresh_face',
+    id: 'freshFace',
     name: '首次參選立法會',
     group: 'other_info'
   },

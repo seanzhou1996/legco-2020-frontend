@@ -5,21 +5,22 @@ import {
   Filter,
   ConstituencyTypeMap,
   SelectSet,
-  Constituency
+  Constituency,
+  PersonalInfo
 } from 'constants/types';
 
 import Remote from 'Remote';
 
 const selectTypes = [
-  'constituency_type',
+  'constituencyType',
   'constituency',
-  'political_position'
+  'camp'
 ];
 
 const checkboxIds = [
-  'younger_than_36',
-  'dem_primary',
-  'fresh_face',
+  'youngerThan36',
+  'inPrimary',
+  'freshFace',
   'independent'  
 ];
 
@@ -35,6 +36,14 @@ const filters = [
  */
 export function notUndefined<T>(x: T | undefined): x is T {
   return x !== undefined;
+}
+
+export function isArray(x: any[] | any): x is any[] {
+  return Array.isArray(x);
+}
+
+export function isString(x: string | any): x is string {
+  return typeof x === 'string';
 }
 
 /**
@@ -67,7 +76,21 @@ export function calculateAge(dob: string): number {
 
 export const getConstituencies = () => Remote.getConstituencies();
 export const getCandidates = () => Remote.getCandidates();
-export const getCandidateInfoList = () => Remote.getCandidateInfoList();
+export const getPersonalInfoList = () => Remote.getPersonalInfoList();
+
+export function getCandidateInfoMap(
+  personalInfoList: PersonalInfo[]
+) {
+  const map: Record<string, PersonalInfo> = personalInfoList
+    .reduce((prev, current) => {
+      return {
+        ...prev,
+        [current.id]: current
+      };
+    }, {});
+  
+  return map;
+}
 
 export function getConstituencyTypeMap(
   constituencies: Constituency[]

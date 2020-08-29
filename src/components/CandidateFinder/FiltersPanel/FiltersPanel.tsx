@@ -105,7 +105,7 @@ export default class FiltersPanel extends React.Component {
    */
   handleConstTypeChange: ChangeEventHandler<HTMLSelectElement> = event => {
     const { value } = event.target;
-    this.context.updateSelectedState('constituency_type', value);
+    this.context.updateSelectedState('constituencyType', value);
   }
 
   /**
@@ -157,20 +157,20 @@ export default class FiltersPanel extends React.Component {
 
     const {
       constituency: allConsts,
-      constituency_type: allConstTypes,
-      political_position: allPolitiPos
+      constituencyType: allConstTypes,
+      camp: allPolitiPos
     } = selectSet;
 
     const {
       constituency: defaultConstId,
-      constituency_type: defaultConstTypeId,
-      political_position: defaultPolitiPosId
+      constituencyType: defaultConstTypeId,
+      camp: defaultPolitiPosId
     } = selectedDefaults;
 
     const {
       constituency: constId,
-      constituency_type: constTypeId,
-      political_position: politiPosId
+      constituencyType: constTypeId,
+      camp: politiPosId
     } = selected;
 
     const currentConst = allConsts.find(obj => obj.id === constId);
@@ -211,8 +211,8 @@ export default class FiltersPanel extends React.Component {
       .map(obj => {
         return this.createRadioSelect(
           obj,
-          selected.political_position === obj.id,
-          'political_position'
+          selected.camp === obj.id,
+          'camp'
         )
       });
 
@@ -257,12 +257,12 @@ export default class FiltersPanel extends React.Component {
             <div className="legco-form-group">
               <label 
                 className="candidate-filter__label legco-label" 
-                htmlFor="constituency_type"
+                htmlFor="constituencyType"
               >選區類別</label>
               <Listbox 
                 className="candidate-filter__options" 
-                id="constituency_type"
-                name="constituency_type"
+                id="constituencyType"
+                name="constituencyType"
                 value={ constTypeId }
                 onChange={ this.handleConstTypeChange }
               >

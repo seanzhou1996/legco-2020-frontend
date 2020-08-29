@@ -6,13 +6,13 @@ export type ConstituencyType = 'gc' | 'fc';
 export type ConstituencyTypeMap = Record<string, ConstituencyType>;
 
 export type SelectType = 
-  'constituency_type' | 
+  'constituencyType' | 
   'constituency' | 
-  'political_position';
+  'camp';
 export type CheckboxId = 
-  'younger_than_36' |
-  'dem_primary' |
-  'fresh_face' |
+  'youngerThan36' |
+  'inPrimary' |
+  'freshFace' |
   'independent';
 export type Filter = SelectType | CheckboxId;
 
@@ -25,8 +25,7 @@ export interface Constituency {
 export interface Candidate {
   id: string,
   label: string,
-  candidate?: string,
-  list?: string[],
+  names: string | string[],
   constituencyId: string
 }
 
@@ -45,12 +44,13 @@ export interface CheckboxOption {
 export type Checked = Record<CheckboxId, boolean>;
 export type CheckboxSet = CheckboxOption[];
 
-export interface CandidateInfo {
+export interface PersonalInfo {
   id: string,
+  name: string,
   dob: string,
-  dem_primary: boolean,
-  fresh_face: boolean,
-  independent: boolean,
-  political_position: string
+  inPrimary: boolean,
+  freshFace: boolean,
+  camp: 'dem' | 'est' | 'ctr',
+  affiliation: string | null
 }
-export type CandidateInfoMap = Record<string, CandidateInfo>;
+export type CandidateInfoMap = Record<string, PersonalInfo>;
