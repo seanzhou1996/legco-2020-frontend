@@ -1,15 +1,10 @@
 import React from 'react';
 import classnames from 'classnames';
-import { Props } from 'constants/types';
+import { ClassList } from 'constants/types';
 
 import ExpanderContext from './context';
 
-export interface ExpanderHeaderProps extends Props {
-}
-
-export interface ExpanderLabelProps extends Props {
-
-}
+type ExpanderLabelProps = ClassList;
 
 export default class ExpanderHeader extends React.Component {
   static contextType = ExpanderContext;
@@ -39,7 +34,7 @@ export class ExpanderButton extends React.Component {
 export class ExpanderLabel extends React.Component<ExpanderLabelProps> {
   render() {
     const labelClass = classnames(
-      ...(this.props.className || '').split(/\s+/g),
+      ...(this.props.classList || []),
       'legco-expander__header-label'
     )
     return (
