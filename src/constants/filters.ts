@@ -38,22 +38,18 @@ export const partialSelectSet: SelectSet = {
 export const checkboxSet: CheckboxSet = [
   {
     id: 'youngerThan36', 
-    name: '35嵗及以下候選人',
-    group: 'age'
+    name: '35嵗及以下候選人'
   },
   {
     id: 'inPrimary',
-    name: '參與民主派初選',
-    group: 'other_info'
+    name: '參與民主派初選'
   },
   {
     id: 'freshFace',
-    name: '首次參選立法會',
-    group: 'other_info'
+    name: '首次參選立法會'
   },
   {
     id: 'independent',
-    name: '無政黨背景',
-    group: 'other_info'
+    name: '無政黨背景'
   }
 ];
