@@ -6,7 +6,8 @@ import {
   ConstituencyTypeMap,
   SelectSet,
   Constituency,
-  PersonalInfo
+  PersonalInfo,
+  PersonalInfoMap
 } from 'constants/types';
 
 import Remote from 'Remote';
@@ -36,6 +37,10 @@ const filters = [
  */
 export function notUndefined<T>(x: T | undefined): x is T {
   return x !== undefined;
+}
+
+export function notNull<T>(x: T | null): x is T {
+  return x !== null;
 }
 
 export function isArray(x: any[] | any): x is any[] {
@@ -92,7 +97,7 @@ export function getCandidateInfoMap(
   return map;
 }
 
-export function getConstituencyTypeMap(
+export function createConstituencyTypeMap(
   constituencies: Constituency[]
 ) {
   const constituencyTypeMap: ConstituencyTypeMap = 
@@ -104,6 +109,20 @@ export function getConstituencyTypeMap(
     }, {});
 
   return constituencyTypeMap;
+}
+
+export function createPersonalInfoMap(
+  personalInfoList: PersonalInfo[]
+) {
+  const personalInfoMap: PersonalInfoMap = 
+    personalInfoList.reduce((prev, current) => {
+      return {
+        ...prev,
+        [current.id]: current
+      }
+    }, {});
+  
+  return personalInfoMap;
 }
 
 export function getFullSelectSet(
