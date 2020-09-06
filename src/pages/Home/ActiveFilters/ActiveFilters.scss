@@ -22,12 +22,14 @@
 
   font-weight: bold;
 
+  @include legco-responsive-typography(19);
+
   @include legco-media-query($from: tablet) {
     // Starting from tablet, label and tags may stay in the same row.
     display: inline-block;
 
     // Add space between the tabel and the first tag
-    margin-right: legco-get-space(1);
+    margin-right: legco-get-space(2);
     margin-bottom: 0;
   }
 }
@@ -40,18 +42,10 @@
   display: inline-block;
 
   // Add space between adjacent tags, and between stacked row of tags.
-  margin-right: legco-get-space(1);
+  margin-right: legco-get-space(2);
   margin-bottom: $filter-tag-top-bottom-margin;
 
-  // Tags that are not the first item in a list needs a separator
-  &:not(:first-child):not(:first-of-type) {
-    &:before {
-      display: inline-block;
-      content: "及";
-      // Add space between the separator and the following button
-      margin-right: legco-get-space(1);
-    }
-  }
+  @include legco-responsive-typography(19);
 
   &:last-child,
   &:last-of-type {
