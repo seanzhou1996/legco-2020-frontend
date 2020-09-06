@@ -1,0 +1,67 @@
+@import 'styles/base';
+
+// Styling for the text search
+//
+// We place the input widget under the label [1] to make
+// the label looks like a placeholder; when the input
+// widget gets focus, or when the user has enter a
+// search term, we lift the input widget up [2] so that
+// the label is hidden from the user; To ensure the
+// input is interactive, we lift the entire candidate
+// search component up [3]. 
+
+$search-input-font-scale: 36;
+$search-input-border-width: 1px;
+
+.search-box {
+  // Create a new stacking context
+  position: relative;
+  margin-bottom: legco-get-space(2);
+  z-index: 1;
+}
+
+.search-box__input {
+  // `z-index` only works on elements with relative,
+  // absolute, or fixed positioning
+  position: relative;
+  border: none;
+  border-bottom: $search-input-border-width solid $legco-border-color;
+  // Since default background is transparent we have
+  // to explicitly set one
+  background-color: legco-get-color("white");
+  z-index: -1; // [1]
+  @include legco-responsive-typography(
+    $search-input-font-scale
+  );
+
+  &:focus {
+    // Cancel default box shadow
+    box-shadow: none;
+  }
+}
+
+.search-box__input:focus,
+.search-box__input--filled {
+  z-index: 1; // [2]
+}
+
+.search-box .search-box__label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: $search-input-border-width;
+  left: 0;
+
+  // Remove default margin
+  margin: 0;
+  @include legco-responsive-padding(1, "top");
+  @include legco-responsive-padding(1, "bottom");
+
+  @include legco-responsive-typography(
+    $search-input-font-scale
+  );
+
+  color: $legco-secondary-text-color;
+
+  pointer-events: none;
+}
