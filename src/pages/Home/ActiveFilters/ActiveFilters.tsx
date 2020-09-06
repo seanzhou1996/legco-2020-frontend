@@ -1,10 +1,9 @@
 import React from 'react';
 
-import FinderContext from 'components/CandidateFinder/context';
-
 import {
   SelectType,
-  CheckboxId
+  CheckboxId,
+  ActiveFiltersProps
 } from 'constants/types';
 
 import {
@@ -21,9 +20,7 @@ import * as _ from 'constants/utilities';
 
 import './ActiveFilters.scss';
 
-export default class ActiveFilters extends React.Component {
-  static contextType = FinderContext;
-  context!: React.ContextType<typeof FinderContext>;
+export default class ActiveFilters extends React.Component<ActiveFiltersProps> {
 
   /**
    * Handler for click events on checkbox tags. Checkboxes are unchecked
@@ -32,7 +29,7 @@ export default class ActiveFilters extends React.Component {
    * @param id Identifier of the filter.
    */
   handleCheckboxTagClick = (id: CheckboxId) => {
-    this.context.updateCheckedState(id);
+    this.props.handleCheckboxChange(id);
   }
 
   /**
@@ -45,7 +42,7 @@ export default class ActiveFilters extends React.Component {
   handleSelectTagClick = (type: SelectType) => {
     const initialValue = selectedDefaults[type];
     // Resets the select group to its initial value
-    this.context.updateSelectedState(type, initialValue);
+    this.props.handleSelectChange(type, initialValue);
   }
 
   /**
@@ -78,7 +75,7 @@ export default class ActiveFilters extends React.Component {
       selected,
       checked,
       constituencies
-    } = this.context;
+    } = this.props;
 
     const selectSet = _.getFullSelectSet(
       partialSelectSet,
@@ -88,9 +85,11 @@ export default class ActiveFilters extends React.Component {
     // Create tags for all select options currently chosen, given that
     // they aren't the initial value of the select group they belong
     // to.
-    const selectFilterTags = Object.keys(selected)
+    const constituencyTags = Object.keys(selected)
       .filter(_.isSelectType)
       .filter(type => {
+        if (type === 'camp') return false;
+
         const selectedId = selected[type];
         return selectedId !== selectedDefaults[type];
       })
@@ -108,7 +107,7 @@ export default class ActiveFilters extends React.Component {
       });
 
     // Create tags for all checkboxes currently checked
-    const checkboxFilterTags = Object.keys(checked)
+    const personalInfoTags = Object.keys(checked)
       .filter(_.isCheckboxId)
       .filter(id => {
         return checked[id] !== checkedDefaults[id];
@@ -124,12 +123,39 @@ export default class ActiveFilters extends React.Component {
           id
         );
       });
+    
+    let campTag: JSX.Element | null;
+
+    if (selected.camp === selectedDefaults.camp) {
+      campTag = null;
+    } else {
+      const selectedID = selected.camp;
+      const selectedOption = selectSet.camp.find(opt => opt.id === selectedID);
+      if (!selectedOption) {
+        throw Error(`Couldn't find select option with ID ${selectedID}`);
+      }
+      campTag = this.createFilterTag(
+        () => { this.handleSelectTagClick('camp') },
+        selectedOption.name,
+        selectedID
+      );
+    }
 
     // [1] Filter out empty groups so they don't generate any markup
     // [2] Map each group to a list of tags with a leading label
     const filterTagGroups = [
-      { tags: selectFilterTags, label: '屬於' },
-      { tags: checkboxFilterTags, label: '同時是' }
+      {
+        tags: constituencyTags,
+        label: '所屬選區'
+      },
+      {
+        tags: campTag ? [campTag] : [],
+        label: '政治立場'
+      },
+      {
+        tags: personalInfoTags,
+        label: '個人資料'
+      }
     ]
     .filter(obj => obj.tags.length > 0) // [1]
     .map((obj, index) => { // [2]
