@@ -1,11 +1,13 @@
 import React from 'react';
 import classnames from 'classnames';
 
+import {
+  ClassList
+} from 'constants/types';
+
 import './Input.scss';
 
-import { Props } from 'constants/types';
-
-export interface InputProps extends Props {
+export interface InputProps extends ClassList {
   type?: 'text' | 'number',
   name?: string,
   id?: string,
@@ -17,9 +19,12 @@ export interface InputProps extends Props {
 export type InputRef = HTMLInputElement;
 
 export default React.forwardRef<InputRef, InputProps>((props = { type: 'text' }, ref) => {
-  const { className, children, ..._props } = props;
+  const {
+    classList,
+    ..._props
+  } = props;
   const inputClass = classnames(
-    ...(className || '').split(/\s+/g),
+    ...(classList || []),
     'legco-input'
   );
   return (
