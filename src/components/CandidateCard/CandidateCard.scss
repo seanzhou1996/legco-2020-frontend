@@ -6,22 +6,6 @@ $candidate-card-header-colors: "yellow", "red", "dark-grey", "green";
 $candidate-card-name-size: 24;
 $candidate-card-caption-size: 19;
 
-.candidate-list {
-  margin-top: 0;
-  margin-bottom: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.candidate-list__item {
-  margin-bottom: legco-get-space(6);
-
-  &:last-child,
-  &:last-of-type {
-    margin-bottom: 0;
-  }
-}
-
 .candidate-card__header {
   $candidate-card-color-bar-width: 2px;
 
@@ -30,7 +14,7 @@ $candidate-card-caption-size: 19;
   );
 
   position: relative;
-  margin-bottom: legco-get-space(3);
+  margin-bottom: legco-get-space(2);
   // Make way for the color bar and create space between it
   // and the text
   padding-left: $candidate-card-color-bar-width + legco-get-space(2);
@@ -83,6 +67,7 @@ $candidate-card-caption-size: 19;
   @include legco-responsive-typography(
     $candidate-card-name-size
   );
+  font-weight: normal;
 }
 
 .candidate-card__caption {

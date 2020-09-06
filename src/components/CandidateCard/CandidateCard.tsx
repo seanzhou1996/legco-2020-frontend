@@ -4,18 +4,9 @@ import classnames from 'classnames';
 import './CandidateCard.scss';
 
 import {
-  Props
+  Camp,
+  CandidateCardProps
 } from 'constants/types';
-
-type Camp = 'dem' | 'est' | 'ctr';
-
-export interface CandidateCardProps extends Props {
-  id: string,
-  firstCandidate: string,
-  list: string[] | null,
-  affiliation: string | null,
-  camp: Camp | null
-}
 
 export default class CandidateCard extends React.Component<CandidateCardProps> {
   colorMap = {
@@ -55,16 +46,12 @@ export default class CandidateCard extends React.Component<CandidateCardProps> {
 
     const href = `/candidate/${id}`;
 
-    const cardClass = classnames(
-      this.props.className?.split(/\s+/g),
-      'candidate-card'
-    );
     const headerClass = classnames(
       'candidate-card__header',
       `candidate-card__header--${this.getColorFromCampId(camp)}`
     );
     return (
-      <div className={ cardClass }>
+      <div className="candidate-card">
         <div className={ headerClass }>
           <span>
             { headerText }
