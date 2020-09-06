@@ -1,10 +1,8 @@
 import React from 'react';
-import classnames from 'classnames';
-import { Props } from 'constants/types';
 
 import './Listbox.scss';
 
-export interface ListboxProps extends Props {
+export interface ListboxProps {
     id: string, 
     name: string, 
     value: string, 
@@ -12,7 +10,7 @@ export interface ListboxProps extends Props {
     disabled?: boolean
 }
 
-export interface Option extends Props {
+export interface Option {
   value: string,
   label: string,
 }
@@ -22,13 +20,9 @@ export default class Listbox extends React.Component<ListboxProps> {
     return <option key={ value } value={ value } >{ label }</option>;
   }
   render() {
-    const { className, children, ...selectProps } = this.props;
-    const listboxClass = classnames(
-      ...(className || '').split(/\s+/g),
-      'legco-listbox'
-    );
+    const {children, ...selectProps } = this.props;
     return (
-      <div className={ listboxClass }>
+      <div className="legco-listbox">
         <select {...selectProps} className="legco-select">
           { children }
         </select>
