@@ -1,0 +1,14 @@
+@import 'styles/base';
+
+.filters-group {
+  margin-bottom: legco-get-space(6);
+
+  &:last-child,
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.filters-group__label {
+  font-weight: bold;
+}
