@@ -1,0 +1,256 @@
+@import 'styles/base';
+
+$app-title-font-scale: 36;
+$app-subtitle-font-scale: 24;
+
+$app-constituency-name-font-scale: 27;
+$app-constituency-type-font-scale: 19;
+
+$filters-panel-width: 375px;
+
+// Get height of the show results button, which consists of:
+// [1] Vertical paddings
+// [2] Line height
+$filters-panel-show-results-btn-height: (
+  legco-get-space(2) // [1]
+  + get-typography-property(19, "line-height", tablet) * 2 // [2]
+);
+$filters-panel-footer-top-margin: legco-get-space(2);
+$filters-panel-footer-vertical-padding: legco-get-space(3);
+$filters-panel-footer-height: (
+  $filters-panel-show-results-btn-height
+  + $filters-panel-footer-vertical-padding * 2
+);
+
+$search-input-font-scale: 27;
+
+%link-button {
+  display: inline-block;
+  // Remove default button styles
+  margin: 0;
+  padding: 0;
+  border-width: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+
+  // Font size and line height
+  @include legco-responsive-typography(19);
+
+  color: $legco-link-color;
+  @include legco-media-query($media-type: print) {
+    color: $legco-print-text-color;
+  }
+
+  &:hover {
+    color: $legco-link-hover-color;
+    text-decoration: underline;
+  }
+
+  // For devices that can't hover (e.g. cell phones),
+  // remove hover state as it can get stuck in that state.
+  @media (hover: none) {
+    &:hover {
+      color: $legco-link-color;
+      text-decoration: none;
+    }
+  }
+
+  &:focus {
+    @include legco-focused-text;
+  }
+
+  &:hover:not(:focus) {
+    text-decoration: underline;
+  }
+
+  // Remove default button focus outline in Firefox
+  &::-moz-focus-inner {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+// When filters panel is present, disable scrolling by setting a
+// fixed height and hidding overflowing content.
+.home-page--filters-panel-on {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.home-page__header {
+  @include legco-responsive-padding(3, "top");
+  @include legco-responsive-padding(3, "bottom");
+  border-bottom: $legco-border-width-wide solid legco-get-color("yellow");
+  background-color: legco-get-color("black");
+  color: legco-get-color("white");
+}
+
+.app-title {
+  margin: 0;
+  @include legco-responsive-typography(
+    $app-title-font-scale
+  );
+}
+
+.app-subtitle {
+  display: block;
+  margin-bottom: legco-get-space(1);
+  @include legco-responsive-typography(
+    $app-subtitle-font-scale
+  );
+}
+
+.candidates__section {
+  @include legco-responsive-margin(9, "bottom");
+}
+
+.candidates__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.candidates__item {
+  padding-right: $legco-gutter;
+  @include legco-responsive-margin(8, "bottom");
+
+  width: 50%;
+  @include legco-media-query($from: tablet) {
+    width: calc(100% / 3);
+  }
+}
+
+.candidates__header {
+  @include legco-responsive-margin(8, "bottom");
+}
+
+.candidates__constituency-name {
+  display: inline-block;
+  margin: 0;
+  @include legco-responsive-typography(
+    $app-constituency-name-font-scale
+  );
+}
+
+.candidates__constituency-type {
+  display: inline-block;
+  margin-left: legco-get-space(1);
+  @include legco-responsive-typography(
+    $app-constituency-type-font-scale
+  );
+}
+
+// Styling for the finder
+
+.candidate-finder {
+  @include legco-responsive-margin(5, "bottom");
+  @include legco-responsive-padding(8, "top");
+  @include legco-responsive-padding(6, "bottom");
+  background-color: $legco-brand-color;
+}
+
+.candidate-finder__show-filters-btn {
+  @extend %link-button;
+  // Color the text white for better contrast as the background is blue
+  color: legco-get-color("white");
+  text-decoration: underline;
+  &:hover:not(:focus) {
+    // Override hover color so the text remains white
+    color: legco-get-color("white");
+  }
+}
+
+.filters-panel {
+  display: none;
+  @extend %legco-facet-wrapper;
+  &.filters-panel--active {
+    display: block;
+  }
+
+  @include legco-media-query($from: tablet) {
+    // On larger screens, filters panel has a fixed width. We add
+    // paddings because the container spacing mechanism doesn't
+    // work here.
+    padding-left: $legco-gutter / 2;
+    padding-right: $legco-gutter / 2;
+    width: $filters-panel-width;
+
+    // Add a layer on top of main content so it appears the
+    // content is dimmed
+    &::before {
+      position: fixed;
+      content: "";
+      top: 0;
+      left: 0;
+      right: $filters-panel-width;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.6);
+      z-index: 1;
+    }
+
+    .filters-panel__show-results-btn {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 200px;
+    }  
+  }
+}
+
+.filters-panel__header {
+  @include legco-width-container;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding-top: legco-get-space(4);
+  padding-bottom: legco-get-space(6);
+}
+
+.filters-panel__title {
+  margin: 0;
+}
+
+.filters-panel__go-back-btn {
+  @extend %link-button;
+}
+
+.filters-panel__body {
+  @include legco-width-container;
+
+  padding-bottom: (
+    $filters-panel-footer-height
+    + $filters-panel-footer-top-margin
+  );
+
+  @include legco-media-query($from: tablet) {
+    $filters-panel-show-results-btn-height: (
+      legco-get-space(2)
+      + get-typography-property(19, "line-height", tablet) * 2
+    );
+    $filters-panel-footer-height: (
+      $filters-panel-show-results-btn-height
+      + $filters-panel-footer-vertical-padding * 2
+    );
+    padding-bottom: (
+      $filters-panel-footer-height
+      + $filters-panel-footer-top-margin
+    );
+  }
+}
+
+.filters-panel__footer {
+  @extend %legco-facet-footer;
+  padding-top: $filters-panel-footer-vertical-padding;
+  padding-bottom: $filters-panel-footer-vertical-padding;
+  @include legco-media-query($from: tablet) {
+    border-top: none;
+    width: $filters-panel-width;
+    box-shadow: none;
+  }
+}

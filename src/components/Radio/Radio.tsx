@@ -1,11 +1,10 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import { Props } from 'constants/types';
-
 import './Radio.scss';
 
-export interface RadioProps extends Props {
+export interface RadioProps {
+  size?: 'small',
   id: string,
   name: string,
   label: string,
@@ -19,17 +18,17 @@ class Radio extends React.Component<RadioProps> {
     // [2] is the label text, and
     // [3] is props for the input element.
     const {
-      className, // [1]
+      size, // [1]
       label, // [2]
       ...inputProps // [3]
     } = this.props;
 
-    const checkboxClass = classnames(
-      ...(className || '').split(/\s+/g),
-      'legco-radio'
+    const radioClass = classnames(
+      'legco-radio',
+      size === 'small' ? 'legco-radio--small' : null,
     );
     return (
-      <div className={ checkboxClass }>
+      <div className={ radioClass }>
         <input 
           className="legco-radio__input"
           type="radio" 

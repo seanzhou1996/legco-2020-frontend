@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import './Expander.scss';
 
-import { Props as ExpanderProps } from 'constants/types';
+import { ClassList as ExpanderProps } from 'constants/types';
 
 import ExpanderContext from './context';
 
@@ -28,11 +28,9 @@ export default class Expander extends React.Component<ExpanderProps, ExpanderSta
   }
   render() {
     const expanderClass = classNames(
-      ...(this.props.className || '').split(/\s+/g),
+      ...(this.props.classList || []),
       'legco-expander',
-      {
-        'legco-expander--expanded': this.state.expanded
-      }
+      { 'legco-expander--expanded': this.state.expanded }
     );
 
     return (

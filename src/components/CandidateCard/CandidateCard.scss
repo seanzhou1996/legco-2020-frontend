@@ -1,0 +1,78 @@
+@import 'styles/base';
+
+$candidate-card-header-size: 24;
+$candidate-card-header-colors: "yellow", "red", "dark-grey", "green";
+
+$candidate-card-name-size: 24;
+$candidate-card-caption-size: 19;
+
+.candidate-card__header {
+  $candidate-card-color-bar-width: 2px;
+
+  @include legco-responsive-typography(
+    $candidate-card-header-size
+  );
+
+  position: relative;
+  margin-bottom: legco-get-space(2);
+  // Make way for the color bar and create space between it
+  // and the text
+  padding-left: $candidate-card-color-bar-width + legco-get-space(2);
+
+  font-weight: bold;
+  &::before {
+    display: block;
+    position: absolute;
+    // Make the color bar span full header height
+    top: 0;
+    bottom: 0;
+    left: 0;
+    content: "";
+    width: $candidate-card-color-bar-width;
+  }
+
+  @include legco-media-query($from: tablet) {
+    $candidate-card-color-bar-width: 3px;
+    padding-left: $candidate-card-color-bar-width + legco-get-space(3);
+    &::before {
+      width: $candidate-card-color-bar-width;
+    }
+  }
+}
+
+@each $color in $candidate-card-header-colors {
+  // Color setting for each color bar
+  .candidate-card__header--#{$color}::before {
+    background-color: legco-get-color($color);
+  }
+}
+
+.candidate-card__link {
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: legco-get-space(1);
+  @include legco-media-query($media-type: print) {
+    $font-family: $legco-font-family-print;
+  }
+  @include legco-link-style-default;
+  &:focus {
+    @include legco-focused-text;
+  }
+}
+
+.candidate-card__name {
+  // Undo default margins on the heading
+  margin-top: 0;
+  margin-bottom: 0;
+  @include legco-responsive-typography(
+    $candidate-card-name-size
+  );
+  font-weight: normal;
+}
+
+.candidate-card__caption {
+  @include legco-responsive-typography(
+    $candidate-card-caption-size
+  );
+  color: $legco-secondary-text-color;
+}
