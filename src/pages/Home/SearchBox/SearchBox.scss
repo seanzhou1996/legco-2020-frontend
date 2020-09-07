@@ -10,22 +10,32 @@
 // input is interactive, we lift the entire candidate
 // search component up [3]. 
 
-$search-input-font-scale: 36;
+$search-input-font-scale: 24;
 $search-input-border-width: 1px;
+$search-input-height: 40px;
+$large-search-input-height: 50px;
+$search-icon-size: 20px;
+$large-search-icon-size: 24px;
 
 .search-box {
   // Create a new stacking context
   position: relative;
   margin-bottom: legco-get-space(2);
   z-index: 1;
+
+  @include legco-clearfix;
 }
 
 .search-box__input {
   // `z-index` only works on elements with relative,
   // absolute, or fixed positioning
   position: relative;
+  float: left;
+  display: block;
+  padding: legco-get-space(2) 0.5rem;
   border: none;
-  border-bottom: $search-input-border-width solid $legco-border-color;
+  width: calc(100% - #{$search-input-height});
+  height: $search-input-height;
   // Since default background is transparent we have
   // to explicitly set one
   background-color: legco-get-color("white");
@@ -33,6 +43,11 @@ $search-input-border-width: 1px;
   @include legco-responsive-typography(
     $search-input-font-scale
   );
+
+  @include legco-media-query($from: tablet) {
+    width: calc(100% - #{$large-search-input-height});
+    height: $large-search-input-height;
+  }
 
   &:focus {
     // Cancel default box shadow
@@ -48,14 +63,12 @@ $search-input-border-width: 1px;
 .search-box .search-box__label {
   position: absolute;
   top: 0;
-  right: 0;
-  bottom: $search-input-border-width;
   left: 0;
 
   // Remove default margin
   margin: 0;
-  @include legco-responsive-padding(1, "top");
-  @include legco-responsive-padding(1, "bottom");
+  padding-top: legco-get-space(2);
+  padding-left: 1em;
 
   @include legco-responsive-typography(
     $search-input-font-scale
@@ -63,5 +76,30 @@ $search-input-border-width: 1px;
 
   color: $legco-secondary-text-color;
 
+  user-select: none;
   pointer-events: none;
+}
+
+.search-box__button {
+  float: left;
+  display: block;
+  border: none;
+  border-radius: 0;
+  width: $search-input-height;
+  height: $search-input-height;
+  background-color: legco-get-color("black");
+  background-image: url("/assets/search.svg");
+  background-size: $search-icon-size;
+  background-position: center center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  &:focus {
+    outline: $legco-focus-width solid $legco-focus-color;
+    box-shadow: inset 0 0 0 1px $legco-focus-color;
+  }
+  @include legco-media-query($from: tablet) {
+    width: $large-search-input-height;
+    height: $large-search-input-height;
+    background-size: $large-search-icon-size;
+  }
 }

@@ -34,6 +34,7 @@ export default class SearchBox extends Component<SearchBoxProps> {
           name="name" 
           value={ keyword } 
           onChange={ handleKeywordChange } />
+        <button className="search-box__button" type="button"></button>
       </div>
     )
   }
