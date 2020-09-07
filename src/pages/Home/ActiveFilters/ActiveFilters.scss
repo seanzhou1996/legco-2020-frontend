@@ -9,8 +9,8 @@
   }
 }
 
-.selected-filters {
-  margin-top: legco-get-space(6);
+.selected-filters--active {
+  @include legco-responsive-margin(9, "bottom");
 }
 
 // Label in front of a group of tags

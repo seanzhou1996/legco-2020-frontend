@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 
 import {
   SelectType,
@@ -170,8 +171,13 @@ export default class ActiveFilters extends React.Component<ActiveFiltersProps> {
       );
     });
 
+    const activeFiltersClass = classnames(
+      'selected-filters',
+      filterTagGroups.length > 0 ? 'selected-filters--active' : null
+    )
+
     return (
-      <div className="selected-filters">
+      <div className={ activeFiltersClass }>
         { filterTagGroups }
       </div>
     );
